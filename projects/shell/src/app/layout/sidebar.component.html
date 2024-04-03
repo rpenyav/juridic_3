@@ -1,0 +1,31 @@
+<div
+  id="sidebar"
+  class="sidebar"
+  [ngClass]="{ active: sidebarService.isOpen$ | async }"
+  [style.width]="sidebarService.sidebarWidth$ | async"
+>
+  <div class="d-flex justify-content-end">
+    <button (click)="toggleSidebar()">Toggle</button>
+  </div>
+
+  <ul class="list-unstyled components">
+    <li>
+      <a href="#">
+        <i class="fas fa-home"></i>
+        <span class="link-text">Home</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="fas fa-paper-plane"></i>
+        <span class="link-text">about</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="fas fa-briefcase"></i>
+        <span class="link-text">contact</span>
+      </a>
+    </li>
+  </ul>
+</div>

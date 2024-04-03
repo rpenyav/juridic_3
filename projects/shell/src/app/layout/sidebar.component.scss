@@ -1,0 +1,78 @@
+/* Estilos básicos para el sidebar */
+.sidebar {
+  position: fixed;
+  top: 52px; /* Ajusta si tienes un header */
+  left: 0;
+  bottom: 0;
+  background: #7386d5; /* Color de fondo */
+  color: #fff; /* Color del texto */
+  z-index: 1050; /* Sobreponer sobre otros elementos */
+  transition: width 0.3s ease-in-out, transform 0.3s ease-in-out; /* Suaviza la transición del ancho y transformación */
+  transform: translateX(0); /* Inicia sin estar desplazado */
+  width: 60px; /* Ancho inicial del sidebar */
+}
+
+/* Estilos cuando el sidebar está activo */
+.sidebar.active {
+  width: 250px; /* Ancho expandido */
+}
+
+/* Estilos para botones y enlaces dentro del sidebar */
+.sidebar .btn,
+.sidebar ul li a {
+  color: #fff; /* Color de texto */
+  padding: 10px; /* Espaciado */
+  text-align: left; /* Alineación del texto */
+  display: block; /* Asegurar que ocupe toda la línea */
+  font-size: 1.1em; /* Tamaño del texto */
+}
+
+/* Cambios al pasar el mouse */
+.sidebar ul li a:hover {
+  color: #7386d5; /* Color de texto al pasar el mouse */
+  background: #fff; /* Fondo al pasar el mouse */
+}
+
+/* Estilos para ocultar/mostrar texto según el estado */
+.sidebar .btn span,
+.sidebar .components span,
+.sidebar ul li a span.text {
+  display: none; /* Oculta texto cuando el sidebar está "cerrado" */
+}
+
+.sidebar.active .btn span,
+.sidebar.active .components span,
+.sidebar.active ul li a span.text {
+  display: inline; /* Muestra texto cuando el sidebar está "abierto" */
+}
+
+.sidebar i {
+  margin-right: 10px; /* Espacio entre icono y texto */
+}
+
+/* Estilos para el contenido principal ajustando según el estado del sidebar */
+.content {
+  transition: margin-left 0.3s ease-in-out; /* Suaviza la transición del margen */
+}
+
+.sidebar.active ~ .content {
+  margin-left: 250px; /* Desplaza contenido cuando el sidebar está "abierto" */
+}
+
+.sidebar:not(.active) ~ .content {
+  margin-left: 60px; /* Margen cuando el sidebar está "cerrado" */
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px; /* Ancho en dispositivos pequeños */
+  }
+
+  .sidebar.active {
+    width: 250px; /* Ancho al estar activo en dispositivos pequeños */
+  }
+
+  .content {
+    margin-left: 0; /* El contenido no se desplaza en dispositivos pequeños */
+  }
+}

@@ -1,0 +1,12 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div *ngFor="let field of config">
+    <label>{{ field.label }}</label>
+    <input
+      *ngIf="!field.type || field.type === 'text'"
+      type="text"
+      [formControlName]="field.key"
+      [maxlength]="field.maxlength"
+    />
+  </div>
+  <button type="submit">Submit</button>
+</form>

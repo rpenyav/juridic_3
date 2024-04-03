@@ -1,0 +1,10 @@
+<div class="input-group mb-3">
+  <input
+    [(ngModel)]="filterValue"
+    style="width: 300px"
+    type="search"
+    class="form-control"
+    placeholder="{{ placeholder }}"
+    (input)="onFilterChange()"
+  />
+</div>

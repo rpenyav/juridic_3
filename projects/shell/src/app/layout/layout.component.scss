@@ -1,0 +1,14 @@
+/* Estilos para el contenido principal */
+.content .main-content {
+  transition: margin-left 0.3s ease-in-out; /* Añade una transición suave para margin-left */
+}
+
+/* Cuando el sidebar está oculto */
+.content:not(.sidebar-active) .main-content {
+  margin-left: 50px; /* Sin margen cuando el sidebar está oculto */
+}
+
+/* Cuando el sidebar está activo, se desplaza hacia adentro */
+.content.sidebar-active .main-content {
+  margin-left: 250px; /* Ajusta según el ancho de tu sidebar, con transición suavizada */
+}

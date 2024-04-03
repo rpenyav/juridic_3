@@ -1,0 +1,13 @@
+<div class="editable-container form-group me-3">
+  <label *ngIf="label" class="form-label mb-2" [attr.for]="field">{{
+    label
+  }}</label>
+  <input
+    [id]="field"
+    class="form-control"
+    [(ngModel)]="value"
+    (ngModelChange)="onChange($event)"
+    [readonly]="!isEditing"
+    [disabled]="!isEditing"
+  />
+</div>

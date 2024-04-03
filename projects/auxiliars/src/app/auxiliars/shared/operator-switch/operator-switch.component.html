@@ -1,0 +1,6 @@
+<button mat-icon-button (click)="switchOperator()" class="btn mini-button">
+  <div *ngIf="operators[currentOperatorIndex]?.icon" class="me-2">
+    <mat-icon>{{ operators[currentOperatorIndex]?.icon || ""}}</mat-icon>
+  </div>
+  {{ operators[currentOperatorIndex]?.label || "" }}
+</button>

@@ -1,0 +1,23 @@
+.search-container {
+  position: relative;
+
+  .dropdown {
+    position: absolute;
+    border: 1px solid #cccccc;
+    width: 400px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    div {
+      padding: 10px;
+      cursor: pointer;
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
+  }
+}
+
+.min-w-input {
+  min-width: 220px;
+}

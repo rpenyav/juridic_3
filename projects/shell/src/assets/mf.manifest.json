@@ -1,0 +1,5 @@
+{
+	"juridic": "http://localhost:4202/remoteEntry.js",
+	"authentication": "http://localhost:3002/remoteEntry.js",
+	"auxiliars": "http://localhost:4203/remoteEntry.js"
+}

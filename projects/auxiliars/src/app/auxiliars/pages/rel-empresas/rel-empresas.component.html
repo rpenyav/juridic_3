@@ -1,0 +1,15 @@
+<app-layout
+  ><div>{{ "RELEMPTITLE.TITLE" | translate }}</div>
+
+  <div *ngIf="relEmpresasTypes.length > 0">
+    <h2>RelEmpresas</h2>
+    <ul>
+      <li *ngFor="let relEmpresasType of relEmpresasTypes">
+        {{ relEmpresasType.name }}
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="relEmpresasTypes.length === 0">
+    <p>No se encontraron relEmpresas.</p>
+  </div>
+</app-layout>

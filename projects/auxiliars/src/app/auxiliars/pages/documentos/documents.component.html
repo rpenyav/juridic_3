@@ -1,0 +1,15 @@
+<app-layout
+  ><div>{{ "DOCUMENTSTITLE.TITLE" | translate }}</div>
+
+  <div *ngIf="documentsTypes.length > 0">
+    <h2>Documents</h2>
+    <ul>
+      <li *ngFor="let documentsType of documentsTypes">
+        {{ documentsType.name }}
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="documentsTypes.length === 0">
+    <p>No se encontraron documents.</p>
+  </div>
+</app-layout>

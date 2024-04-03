@@ -1,0 +1,201 @@
+{
+    "HOME": {
+        "TITLE": "Inicio",
+        "SUBTITLE": "Tu traducción para el subtítulo va aquí"
+    },
+    "ADDRESSTYPE": {
+        "TITLE": "Tipos de Direcciones",
+        "SUBTITLE": "Tu traducción para el subtítulo va aquí"
+    },
+    "BANKSTITLE": {
+        "TITLE": "Bancs",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "CARPETASTITLE": {
+        "TITLE": "Carpetas",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "DOMAINSTITLE": {
+        "TITLE": "Dominios",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "CNAETITLE": {
+        "TITLE": "CNAE",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "DOCUMENTSTITLE": {
+        "TITLE": "Documents",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "DOCUMENTTYPESTITLE": {
+        "TITLE": "Tipos de Documentos",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "PARAMSTITLE": {
+        "TITLE": "Parámetres",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "PROECOTITLE": {
+        "TITLE": "Procedimientos Económicos",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "PAYMEHTODSTITLE": {
+        "TITLE": "Métodos de pago",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "RELEMPTITLE": {
+        "TITLE": "Relación con empresas",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "REPLEGALTITLE": {
+        "TITLE": "Representaciones Legales",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "PROVINCESTITLE": {
+        "TITLE": "Provincias",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "AUTONOMIESTITLE": {
+        "TITLE": "Comunidades Autónomas",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "COUNTRIESTITLE": {
+        "TITLE": "Países",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "COMARCSTITLE": {
+        "TITLE": "Comarcas",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "COMM_PURPOSES": {
+        "TITLE": "Communication Purposes",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "COMM_MODES": {
+        "TITLE": "Communication Modes",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "COMM_TYPES": {
+        "TITLE": "Communication Types",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "COMM_PURPOSES_PROFILE": {
+        "TITLE": "Communication Purposes Profiles",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "VISIT_ROOMS": {
+        "TITLE": "Visit Romms",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "SUBSCRIPTION_TAGS": {
+        "TITLE": "Etiquetas de subscripción",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "COMPANY_RELATIONS": {
+        "TITLE": "Relaciones Empresariales",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "EXPFOLDERSTATE": {
+        "TITLE": "Carpetas Estados",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "EXPFOLDERTYPE": {
+        "TITLE": "Carpetas Tipos",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "EXPPROVINANCE": {
+        "TITLE": "Procedencia",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "MENU": {
+        "DOCUMENTS": "Documentos",
+        "DOCUMENTS-TYPE": "Tipos de Documentos",
+        "DOMINIS": "Dominios",
+        "BANCS": "Bancos",
+        "LOCALIT": "Localizaciones",
+        "CNAE": "CNAE",
+        "COMUNICACIONS": "Comunicaciones",
+        "ESTATCIVIL": "Estados Civiles",
+        "EMPRESES": "Relación con Empresas",
+        "PROCEDIMENTS": "Procedimientos Económicos",
+        "FOLDERS": "Carpetas",
+        "REPLEGALS": "Representaciones Legales",
+        "PARAMETRES": "Parámetros",
+        "METODESPAY": "Métodos de Pago",
+        "PERSONES": "Personal",
+        "LOPD": "LOPD",
+        "VISIT_ROOMS": "Salas de visita",
+        "SUBSCRIPTION_TAGS": "Etiquetas de subscripción",
+        "EXPEDIENTS": "Expedientes"
+    },
+    "SUBMENU": {
+        "COUNTRIES": "Países",
+        "PROVINCES": "Provincias",
+        "COMMUNITIES": "Comunidades Autónomas",
+        "TOWNS": "Municipios",
+        "COMARCS": "Comarcas",
+        "POSTAL_CODES": "Códigos Postales",
+        "POBLATION": "Poblaciones",
+        "MODESCOM": "Modos de Comunicación",
+        "COMMUNICATIONS": "Comunicaciones",
+        "GENERES": "Géneros",
+        "TIPUSPERSON": "Tipos de Personas",
+        "TIPUSPHONE": "Tipos de Teléfono",
+        "ORILOPD": "Orígenes LOPD",
+        "REGLOPD": "Regulaciones LOPD",
+        "ADDRESSTYPE": "Tipos de Direcciones",
+        "MODESCOM_PURPOSE": "Purpose",
+        "MODESCOM_PURPOSE_PROFILES": "Purpose Profiles",
+        "MODESCOM_MODES": "Modes",
+        "MODESCOM_TYPES": "Types",
+        "EXPEDIENT_FOLDER_STATES": "Carpetas Estado",
+        "EXPEDIENT_FOLDER_SUBJECTS": "Carpetas Subject",
+        "EXPEDIENT_FOLDER_TYPES": "Carpetas Tipos",
+        "EXPEDIENT_PROVENANCES": "Procedencia"
+    },
+    "TXT": {
+        "HOME": "Inici",
+        "noshantrobat": "No se han hallado",
+        "nombre": "Nombre",
+        "codigo": "Código",
+        "escribaelnombre": "Escriba el nombre de el/la",
+        "filtrar": "Filtrar",
+        "provincia_sing": "provincia",
+        "bank_sing": "banco",
+        "actions": "Acciones",
+        "new_registre": "Nuevo registro",
+        "settings": "Configuración",
+        "logout": "Logout",
+        "swift": "Swift"
+    },
+    "FORM": {
+        "name": "Nombre",
+        "code": "Código",
+        "capacity": "Capacidad",
+        "deskId": "Desk Id",
+        "swift": "Swift",
+        "added": "Añadir",
+        "campo_obligatorio": "Es un campo obligatorio",
+        "close": "Cerrar",
+        "modify": "Modificar",
+        "ok": "Ok",
+        "cancel": "Cancelar",
+        "title_swa": "Esta acción borrará ",
+        "text_swa": "¡No podrás revertir esto!",
+        "yes_delete": "Sí, bórralo!",
+        "delete_done": "Registro eliminado",
+        "reg_deleted": "El registro ha sido eliminado",
+        "error": "Error",
+        "there_are_problem": "Ha habido un problme eliminando el registro",
+        "edit_success_title": "Modificar registro",
+        "edit_success_message": "El registro ha sido modificado",
+        "edit_error_title": "Error de modificación",
+        "edit_error_message": "ha habido un error modificando el registro",
+        "create_success_title": "Añadir nuevo registro",
+        "create_success_message": "El registro se ha creado",
+        "create_error_title": "Error añadiendo el registro",
+        "create_error_message": "Ha habido un error creando el registro",
+        "desea_eliminar": "Se dipone a borrar ",
+        "capacity": "Capacidad"
+    }
+}

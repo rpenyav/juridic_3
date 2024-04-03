@@ -1,0 +1,32 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#333333",
+        "activityBar.activeBorder": "#4A4A4A",
+        "activityBar.background": "#333333",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#4A4A4A",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "statusBar.background": "#2C2C2C",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#333333",
+        "titleBar.activeBackground": "#2C2C2C",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#2C2C2C99",
+        "titleBar.inactiveForeground": "#e7e7e799",
+        "sash.hoverBorder": "#333333",
+        "statusBarItem.remoteBackground": "#2C2C2C",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "commandCenter.border": "#e7e7e799"
+    },
+    "peacock.color": "#2C2C2C",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true
+    },
+    "hide-files.files": []
+}
