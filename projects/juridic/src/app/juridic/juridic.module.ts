@@ -5,7 +5,16 @@ import { RouterModule } from '@angular/router';
 import { JURIDIC_ROUTES } from './juridic.routes';
 
 import { SharedLibModule } from 'shared-lib';
-import { ExpedientsComponent } from './expedients/expedients.component';
+import {
+  ExpedientsComponent,
+  CarpetesComponent,
+  DocumentacioComponent,
+  CasosRelacionatsComponent,
+} from './expedients';
+import { HeaderComponent, FooterComponent, LayoutComponent } from './layout';
+import { TabsComponent } from './shared/tabs/tabs.component';
+import { CercadorGlobalComponent } from './shared/cercador-global/cercador-global.component';
+import { CercaTabsComponent } from './shared/cerca-tabs/cerca-tabs.component';
 
 @NgModule({
   imports: [
@@ -13,6 +22,19 @@ import { ExpedientsComponent } from './expedients/expedients.component';
     SharedLibModule,
     RouterModule.forChild(JURIDIC_ROUTES),
   ],
-  declarations: [JuridicComponent, ExpedientsComponent],
+  declarations: [
+    JuridicComponent,
+    CarpetesComponent,
+    DocumentacioComponent,
+    CasosRelacionatsComponent,
+    ExpedientsComponent,
+    LayoutComponent,
+    HeaderComponent,
+    FooterComponent,
+    TabsComponent,
+    CercadorGlobalComponent,
+    CercaTabsComponent,
+  ],
+  exports: [LayoutComponent],
 })
 export class JuridicModule {}
