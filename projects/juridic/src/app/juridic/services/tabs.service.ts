@@ -34,7 +34,7 @@ export class TabsService {
     this.tabsSubject.next(tabs);
     this.saveTabsToLocalStorage();
 
-    // Eliminar el ID de la pestaña seleccionada de localStorage si la pestaña cerrada era la actualmente seleccionada
+    // Eliminar el ID de la pestaña seleccionada de sessionStorage si la pestaña cerrada era la actualmente seleccionada
     const selectedTabId = this.loadSelectedTabIdFromLocalStorage();
     if (tabId === selectedTabId) {
       this.removeSelectedTabIdFromLocalStorage();
@@ -59,24 +59,24 @@ export class TabsService {
   }
 
   private saveTabsToLocalStorage() {
-    localStorage.setItem('tabs', JSON.stringify(this.tabsSubject.value));
+    sessionStorage.setItem('tabs', JSON.stringify(this.tabsSubject.value));
   }
 
   private loadTabsFromLocalStorage() {
-    const tabs: Tab[] = JSON.parse(localStorage.getItem('tabs') || '[]');
+    const tabs: Tab[] = JSON.parse(sessionStorage.getItem('tabs') || '[]');
     this.tabsSubject.next(tabs);
   }
 
   private saveSelectedTabIdToLocalStorage(tabId: string) {
-    localStorage.setItem('selectedTabId', tabId);
+    sessionStorage.setItem('selectedTabId', tabId);
   }
 
   public loadSelectedTabIdFromLocalStorage(): string | null {
-    return localStorage.getItem('selectedTabId');
+    return sessionStorage.getItem('selectedTabId');
   }
 
   private removeSelectedTabIdFromLocalStorage() {
-    localStorage.removeItem('selectedTabId');
+    sessionStorage.removeItem('selectedTabId');
   }
 
   getTabById(tabId: string): Tab | undefined {
