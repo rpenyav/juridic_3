@@ -33,20 +33,23 @@
   }
 </style>
 
-<div id="container">
-  <div>
-    <img src="../../../assets/angular.png" width="50" />
-  </div>
-  <h1>juridic</h1>
-  <p>{{ translations["hello"] }}</p>
-  <div>
-    <input type="text" placeholder="From" />
-  </div>
-  <div>
-    <input type="text" placeholder="To" />
-  </div>
-  <div></div>
-  <div>
-    <ng-container #vc></ng-container>
-  </div>
-</div>
+<app-layout
+  ><div id="container">
+    <div>
+      <img src="../../../assets/angular.png" width="50" />
+    </div>
+    <h1>juridic</h1>
+    <p>{{ translations["hello"] }}</p>
+    <div>
+      <input type="text" placeholder="From" />
+    </div>
+    <div>
+      <input type="text" placeholder="To" />
+    </div>
+    <div></div>
+    <div>
+      <!-- src/app/juridic/juridic.component.html -->
+
+      <ng-container #vc></ng-container>
+    </div></div
+></app-layout>

@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthenticationService } from 'projects/authentication/src/app/authentication.service';
-import { I18nService } from 'shared-lib'; // Asegúrate de que la ruta de importación sea correcta
+import { I18nService } from 'shared-lib';
+import { TabsService } from '../services/tabs.service';
+import { Tab } from '../interfaces/tabs';
 
 @Component({
   selector: 'app-juridic',

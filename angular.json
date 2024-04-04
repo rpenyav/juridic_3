@@ -28,7 +28,8 @@
 						],
 						"styles": [
 							"projects/shell/src/styles.css",
-							"projects/shell/src/styles.scss"
+							"projects/shell/src/styles.scss",
+							"node_modules/bootstrap/dist/css/bootstrap.min.css"
 						],
 						"scripts": [],
 						"extraWebpackConfig": "projects/shell/webpack.config.js",
@@ -167,7 +168,9 @@
 							"projects/juridic/src/assets"
 						],
 						"styles": [
-							"projects/juridic/src/styles.css"
+							"projects/juridic/src/styles.css",
+							"projects/juridic/src/styles.scss",
+							"node_modules/bootstrap/dist/css/bootstrap.min.css"
 						],
 						"scripts": [],
 						"extraWebpackConfig": "projects/juridic/webpack.config.js",
@@ -275,7 +278,9 @@
 							"projects/authentication/src/assets"
 						],
 						"styles": [
-							"projects/authentication/src/styles.css"
+							"projects/authentication/src/styles.css",
+							"projects/authentication/src/styles.scss",
+							"node_modules/bootstrap/dist/css/bootstrap.min.css"
 						],
 						"scripts": [],
 						"extraWebpackConfig": "projects/authentication/webpack.config.js",
@@ -384,7 +389,8 @@
 						],
 						"styles": [
 							"projects/auxiliars/src/styles.scss",
-							"projects/auxiliars/src/styles.css"
+							"projects/auxiliars/src/styles.css",
+							"node_modules/bootstrap/dist/css/bootstrap.min.css"
 						],
 						"scripts": [],
 						"extraWebpackConfig": "projects/auxiliars/webpack.config.js",
