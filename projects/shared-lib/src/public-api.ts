@@ -8,3 +8,4 @@ export * from './lib/shared-lib.module';
 export * from './lib/other/other.component';
 export * from './lib/i18n.service';
 export * from './lib/translate.pipe';
+export * from './lib/images.service';

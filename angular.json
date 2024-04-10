@@ -24,12 +24,20 @@
 						"tsConfig": "projects/shell/tsconfig.app.json",
 						"assets": [
 							"projects/shell/src/favicon.ico",
-							"projects/shell/src/assets"
+							"projects/shell/src/assets",
+							{
+								"glob": "**/*",
+								"input": "projects/shared-lib/src/lib/assets/images/",
+								"output": "./assets/images/"
+							}
 						],
 						"styles": [
 							"projects/shell/src/styles.css",
 							"projects/shell/src/styles.scss",
-							"node_modules/bootstrap/dist/css/bootstrap.min.css"
+							"node_modules/bootstrap/dist/css/bootstrap.min.css",
+							"projects/shared-lib/src/lib/styles/variables.scss",
+							"projects/shared-lib/src/lib/styles/global.scss",
+							"projects/shared-lib/src/lib/styles/mixins.scss"
 						],
 						"scripts": [],
 						"extraWebpackConfig": "projects/shell/webpack.config.js",
@@ -106,7 +114,10 @@
 							"projects/shell/src/assets"
 						],
 						"styles": [
-							"projects/shell/src/styles.css"
+							"projects/shell/src/styles.css",
+							"projects/shared-lib/src/lib/styles/variables.scss",
+							"projects/shared-lib/src/lib/styles/global.scss",
+							"projects/shared-lib/src/lib/styles/mixins.scss"
 						],
 						"scripts": []
 					}
@@ -165,12 +176,20 @@
 						"tsConfig": "projects/juridic/tsconfig.app.json",
 						"assets": [
 							"projects/juridic/src/favicon.ico",
-							"projects/juridic/src/assets"
+							"projects/juridic/src/assets",
+							{
+								"glob": "**/*",
+								"input": "projects/shared-lib/src/lib/assets/images/",
+								"output": "./assets/images/"
+							}
 						],
 						"styles": [
 							"projects/juridic/src/styles.css",
 							"projects/juridic/src/styles.scss",
-							"node_modules/bootstrap/dist/css/bootstrap.min.css"
+							"node_modules/bootstrap/dist/css/bootstrap.min.css",
+							"projects/shared-lib/src/lib/styles/variables.scss",
+							"projects/shared-lib/src/lib/styles/global.scss",
+							"projects/shared-lib/src/lib/styles/mixins.scss"
 						],
 						"scripts": [],
 						"extraWebpackConfig": "projects/juridic/webpack.config.js",
@@ -275,12 +294,20 @@
 						"tsConfig": "projects/authentication/tsconfig.app.json",
 						"assets": [
 							"projects/authentication/src/favicon.ico",
-							"projects/authentication/src/assets"
+							"projects/authentication/src/assets",
+							{
+								"glob": "**/*",
+								"input": "projects/shared-lib/src/lib/assets/images/",
+								"output": "./assets/images/"
+							}
 						],
 						"styles": [
 							"projects/authentication/src/styles.css",
 							"projects/authentication/src/styles.scss",
-							"node_modules/bootstrap/dist/css/bootstrap.min.css"
+							"node_modules/bootstrap/dist/css/bootstrap.min.css",
+							"projects/shared-lib/src/lib/styles/variables.scss",
+							"projects/shared-lib/src/lib/styles/global.scss",
+							"projects/shared-lib/src/lib/styles/mixins.scss"
 						],
 						"scripts": [],
 						"extraWebpackConfig": "projects/authentication/webpack.config.js",
@@ -358,116 +385,6 @@
 						],
 						"styles": [
 							"projects/authentication/src/styles.css"
-						],
-						"scripts": []
-					}
-				}
-			}
-		},
-		"auxiliars": {
-			"projectType": "application",
-			"schematics": {
-				"@schematics/angular:application": {
-					"strict": true
-				}
-			},
-			"root": "projects/auxiliars",
-			"sourceRoot": "projects/auxiliars/src",
-			"prefix": "app",
-			"architect": {
-				"build": {
-					"builder": "ngx-build-plus:browser",
-					"options": {
-						"outputPath": "dist/auxiliars",
-						"index": "projects/auxiliars/src/index.html",
-						"main": "projects/auxiliars/src/main.ts",
-						"polyfills": "projects/auxiliars/src/polyfills.ts",
-						"tsConfig": "projects/auxiliars/tsconfig.app.json",
-						"assets": [
-							"projects/auxiliars/src/favicon.ico",
-							"projects/auxiliars/src/assets"
-						],
-						"styles": [
-							"projects/auxiliars/src/styles.scss",
-							"projects/auxiliars/src/styles.css",
-							"node_modules/bootstrap/dist/css/bootstrap.min.css"
-						],
-						"scripts": [],
-						"extraWebpackConfig": "projects/auxiliars/webpack.config.js",
-						"commonChunk": false
-					},
-					"configurations": {
-						"production": {
-							"budgets": [
-								{
-									"type": "initial",
-									"maximumWarning": "500kb",
-									"maximumError": "1mb"
-								},
-								{
-									"type": "anyComponentStyle",
-									"maximumWarning": "2kb",
-									"maximumError": "4kb"
-								}
-							],
-							"fileReplacements": [
-								{
-									"replace": "projects/auxiliars/src/environments/environment.ts",
-									"with": "projects/auxiliars/src/environments/environment.prod.ts"
-								}
-							],
-							"outputHashing": "all",
-							"extraWebpackConfig": "projects/auxiliars/webpack.prod.config.js"
-						},
-						"development": {
-							"buildOptimizer": false,
-							"optimization": false,
-							"vendorChunk": true,
-							"extractLicenses": false,
-							"sourceMap": true,
-							"namedChunks": true
-						}
-					},
-					"defaultConfiguration": "production"
-				},
-				"serve": {
-					"builder": "ngx-build-plus:dev-server",
-					"configurations": {
-						"production": {
-							"browserTarget": "auxiliars:build:production",
-							"extraWebpackConfig": "projects/auxiliars/webpack.prod.config.js"
-						},
-						"development": {
-							"browserTarget": "auxiliars:build:development"
-						}
-					},
-					"defaultConfiguration": "development",
-					"options": {
-						"publicHost": "http://localhost:4203",
-						"port": 4203,
-						"extraWebpackConfig": "projects/auxiliars/webpack.config.js"
-					}
-				},
-				"extract-i18n": {
-					"builder": "ngx-build-plus:extract-i18n",
-					"options": {
-						"browserTarget": "auxiliars:build",
-						"extraWebpackConfig": "projects/auxiliars/webpack.config.js"
-					}
-				},
-				"test": {
-					"builder": "@angular-devkit/build-angular:karma",
-					"options": {
-						"main": "projects/auxiliars/src/test.ts",
-						"polyfills": "projects/auxiliars/src/polyfills.ts",
-						"tsConfig": "projects/auxiliars/tsconfig.spec.json",
-						"karmaConfig": "projects/auxiliars/karma.conf.js",
-						"assets": [
-							"projects/auxiliars/src/favicon.ico",
-							"projects/auxiliars/src/assets"
-						],
-						"styles": [
-							"projects/auxiliars/src/styles.css"
 						],
 						"scripts": []
 					}

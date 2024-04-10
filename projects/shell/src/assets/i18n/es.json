@@ -1,4 +1,8 @@
 {
     "hello": "Hola",
-    "welcome": "Welcome to our application!"
+    "welcome": "Welcome to our application!",
+    "Expedients": "Expedientes",
+    "Clients": "Clientes",
+    "TITLE.searcher": "Buscador",
+    "SECTION.expedient": "Expedientes"
 }

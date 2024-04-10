@@ -5,7 +5,7 @@ const {
 
 module.exports = withModuleFederationPlugin({
   remotes: {
-    auxiliar: "auxiliar@http://localhost:4201/remoteEntry.js",
+    // auxiliar: "auxiliar@http://localhost:4201/remoteEntry.js",
     juridic: "juridic@http://localhost:4202/remoteEntry.js",
   },
   shared: shareAll({

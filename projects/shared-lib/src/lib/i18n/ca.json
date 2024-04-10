@@ -1,4 +1,9 @@
 {
     "hello": "Bones",
-    "welcome": "Welcome to our application!"
+    "welcome": "Welcome to our application!",
+    "Expedients": "Expedients",
+    "Clients": "Clients",
+    "TITLE.searcher": "Cercador",
+    "TITLE.list": "Llista",
+    "SECTION.expedient": "Expedients"
 }

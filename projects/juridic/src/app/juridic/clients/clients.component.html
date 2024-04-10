@@ -1,0 +1,84 @@
+<app-layout>
+  <div class="d-flex mb-3">
+    <button class="btn btn-primary" (click)="agregarTab()">Clientes</button>
+  </div>
+  <div class="pestanyes__estil">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a
+          routerLink="/juridic/clientes/buscador"
+          routerLinkActive="active"
+          class="nav-link"
+        >
+          <div class="d-flex justify-content-between">
+            <div>Buscador</div>
+            <div>
+              <i
+                [style.color]="
+                  mostrarBuscador && buscadorSeleccionado
+                    ? '#59B41B'
+                    : '#B85A12'
+                "
+                [style.backgroundColor]="
+                  mostrarBuscador && buscadorSeleccionado
+                    ? '#59B41B'
+                    : '#B85A12'
+                "
+                class="iconoactivo"
+                >●</i
+              >
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li class="nav-item" *ngFor="let tab of clienteTabs">
+        <a
+          class="nav-link"
+          [routerLink]="['/juridic/clientes', tab.id]"
+          routerLinkActive="active"
+        >
+          <div class="d-flex justify-content-between">
+            <div>{{ tab.title }}</div>
+            <div>
+              <i
+                [style.color]="tab.isSelected ? '#59B41B' : '#B85A12'"
+                [style.backgroundColor]="tab.isSelected ? '#59B41B' : '#B85A12'"
+                class="iconoactivo"
+                >●</i
+              >
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div
+        *ngIf="mostrarBuscador && buscadorSeleccionado"
+        class="tab-pane fade show active"
+      >
+        <div class="line-tab">
+          Aquí va el contenido de la pestaña del buscador.
+        </div>
+      </div>
+
+      <div
+        *ngFor="let tab of clienteTabs"
+        class="tab-pane fade"
+        [ngClass]="{ 'show active': tab.isSelected && !buscadorSeleccionado }"
+      >
+        <div class="line-tab">
+          {{ tab.content }}
+          <button
+            class="btn btn-danger"
+            (click)="cerrarTab(tab.id)"
+            style="margin-top: 20px"
+          >
+            Cerrar Pestaña
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-layout>

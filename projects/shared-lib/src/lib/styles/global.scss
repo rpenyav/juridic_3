@@ -1,0 +1,93 @@
+.red-juridic-background-color {
+  background-color: #9b081e;
+}
+
+.grey-juridic-background-color {
+  background: linear-gradient(to bottom, #a3a3a3, #cacaca);
+}
+
+.navbar {
+  background-color: transparent !important;
+}
+
+.navbar-nav {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.navbar-nav .nav-link {
+  color: #000;
+}
+
+.navbar-nav .nav-link-active {
+  color: #9b081e;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #9b081e;
+  cursor: pointer;
+}
+
+.nav-item {
+  margin-right: 20px;
+}
+
+.pestanyes__estil {
+  .line-tab {
+    border: 2px solid #367f62;
+  }
+  .nav-tabs {
+    border: none; /* Sin borde */
+
+    .nav-item .nav-link {
+      text-transform: uppercase;
+      border: none; /* Sin borde */
+      background-color: #7eaa99; /* Fondo verde solo para la pestaña */
+      color: #fff; /* Color de texto blanco */
+      border-radius: 0; /* Sin redondeados */
+      min-width: 260px; /* Ancho mínimo de 150px para cada pestaña */
+
+      &.active {
+        background-color: #367f62; /* Color de fondo verde más oscuro para pestaña activa */
+      }
+    }
+  }
+
+  /* Estilos para el contenido de las pestañas */
+  .tab-content {
+    border: none; /* Sin borde */
+
+    .tab-pane {
+      border: none; /* Sin borde */
+      color: #000; /* Color de texto blanco */
+
+      &.fade.show.active {
+        background-color: #ffffff; /* Color de fondo verde más oscuro para pestaña activa */
+      }
+    }
+  }
+
+  .iconoactivo {
+    font-size: 24px;
+
+    border-radius: 50%;
+
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    line-height: 24px;
+  }
+}
+
+.searcher {
+  .label-width {
+    min-width: 130px;
+    max-width: 200px; /* Puedes ajustar este valor según tus necesidades */
+    overflow: hidden;
+    text-align: right;
+    padding-right: 14px;
+    text-overflow: ellipsis; /* Opcional: agrega puntos suspensivos si el contenido es demasiado largo */
+    white-space: nowrap; /* Evita que las etiquetas salten de línea */
+  }
+}

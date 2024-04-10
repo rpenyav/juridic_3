@@ -1,17 +1,17 @@
 <div class="row bg-fosc">
   <div class="col-9">
     <ul>
-      <li><a routerLink="/">Home</a></li>
-      <li><a routerLink="/juridic/juridic">Juridic</a></li>
-      <li><a routerLink="/auxiliars/auxiliars">Auxiliars</a></li>
+      <li><a class="p-0 m-0 ms-3" routerLink="/">Home</a></li>
+      <li>
+        <a class="p-0 m-0 ms-3" routerLink="/juridic/juridic">Juridic</a>
+      </li>
+      <li>
+        <a class="p-0 m-0 ms-3" routerLink="/auxiliars/auxiliars">Auxiliars</a>
+      </li>
     </ul>
   </div>
-  <div class="col-3">
-    <select
-      class="form-select"
-      #langSelect
-      (change)="changeLanguage(langSelect.value)"
-    >
+  <div class="col-3 d-flex justify-content-end">
+    <select #langSelect (change)="changeLanguage(langSelect.value)">
       <option value="ca">Catalán</option>
       <option value="es">Español</option>
       <option value="en">Inglés</option>
