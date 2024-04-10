@@ -7,3 +7,12 @@ export interface Tab {
   selected?: boolean;
   component?: Type<any>;
 }
+
+export interface TabsModel {
+  id: string;
+  title: string;
+  component?: Type<any>;
+  content?: string;
+  //content: { component: Type<any>; data?: any };
+  isSelected: boolean;
+}

@@ -5,7 +5,9 @@
   [style.width]="sidebarService.sidebarWidth$ | async"
 >
   <div class="d-flex justify-content-end">
-    <button (click)="toggleSidebar()">Toggle</button>
+    <button class="btn" (click)="toggleSidebar()">
+      <i style="font-style: normal">&#9776;</i>
+    </button>
   </div>
 
   <ul class="list-unstyled components">

@@ -1,11 +1,11 @@
 /* Estilos básicos para el sidebar */
 .sidebar {
   position: fixed;
-  top: 52px; /* Ajusta si tienes un header */
+  top: 25px; /* Ajusta si tienes un header */
   left: 0;
   bottom: 0;
-  background: #7386d5; /* Color de fondo */
-  color: #fff; /* Color del texto */
+  background: #cccccc; /* Color de fondo */
+  color: #6e6e6e; /* Color del texto */
   z-index: 1050; /* Sobreponer sobre otros elementos */
   transition: width 0.3s ease-in-out, transform 0.3s ease-in-out; /* Suaviza la transición del ancho y transformación */
   transform: translateX(0); /* Inicia sin estar desplazado */

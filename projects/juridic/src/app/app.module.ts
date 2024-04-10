@@ -2,18 +2,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-
 import { JuridicModule } from './juridic/juridic.module';
 import { APP_ROUTES } from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
-import { SharedLibModule } from 'shared-lib';
 import { I18nService } from 'shared-lib';
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpClientModule,
-
     JuridicModule,
     RouterModule.forRoot(APP_ROUTES),
   ],
