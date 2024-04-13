@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Type, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
+import { ExpedienteModel } from '../interfaces/expedientes';
+import { ClienteModel } from '../interfaces/clientes';
 
 interface Tab {
   id: string;
@@ -92,27 +94,68 @@ export function seleccionarTab({
   navigate(`${buscadorRoute}/${tabId}`);
 }
 
-export function verifyAndRender(
-  route: ActivatedRoute,
-  dynamicContentRef: ViewContainerRef,
-  componenteARenderizar: Type<any>
-) {
-  route.url.subscribe((urlSegments) => {
-    const isBuscadorRoute = urlSegments.some(
-      (segment) => segment.path === 'buscador'
-    );
-    if (isBuscadorRoute && dynamicContentRef) {
-      renderComponent(dynamicContentRef, componenteARenderizar);
-    }
-  });
-}
+// export function verifyAndRender(
+//   route: ActivatedRoute,
+//   dynamicContentRef: ViewContainerRef,
+//   componenteARenderizar: Type<any>,
+//   params?: { [key: string]: any }
+// ) {
+//   route.url.subscribe((urlSegments) => {
+//     const isBuscadorRoute = urlSegments.some(
+//       (segment) => segment.path === 'buscador'
+//     );
+//     if (isBuscadorRoute && dynamicContentRef) {
+//       renderComponent(dynamicContentRef, componenteARenderizar, params);
+//     }
+//   });
+// }
 
-function renderComponent(
-  dynamicContentRef: ViewContainerRef,
-  component: Type<any>
-) {
-  if (dynamicContentRef) {
-    dynamicContentRef.clear();
-    dynamicContentRef.createComponent(component);
+// function renderComponent(
+//   dynamicContentRef: ViewContainerRef,
+//   component: Type<any>,
+//   params?: { [key: string]: any }
+// ) {
+//   dynamicContentRef.clear();
+//   const componentRef = dynamicContentRef.createComponent(component);
+//   if (params) {
+//     Object.assign(componentRef.instance, params);
+//   }
+// }
+
+export type Column<T> = {
+  field: keyof T;
+  title: string;
+};
+
+/**
+ * DEFINIMOS EL MODELO Y LAS COLUMNAS DE LA TABLA SEGÚN el parámetro "type"
+ * field: nombre del campo tal y como figura en el modelo y tal y como llega desde el endpoint
+ * title: label del campo traducida
+ * @param type
+ * @returns
+ */
+export function setupColumns<T extends ExpedienteModel | ClienteModel>(
+  type: string
+): Column<T>[] {
+  switch (type) {
+    case 'expedientes':
+      return [
+        { field: 'Referència', title: 'Referència' },
+        { field: 'Num. Expedient', title: 'Num. Expedient' },
+        { field: 'Client', title: 'Client' },
+        { field: 'Contrato', title: 'Contrato' },
+        { field: 'Tutor', title: 'Tutor' },
+        { field: 'Estat', title: 'Estat' },
+        { field: 'Num. Autos', title: 'Num. Autos' },
+      ] as Column<T>[];
+    case 'clientes':
+      return [
+        { field: 'Referencia', title: 'Referència' },
+        { field: 'NumExpedient', title: 'Num. Expedient' },
+        { field: 'Client', title: 'Client' },
+        { field: 'NumAutos', title: 'Num. Autos' },
+      ] as Column<T>[];
+    default:
+      return [];
   }
 }

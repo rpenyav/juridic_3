@@ -1,0 +1,16 @@
+<table class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr>
+      <th *ngFor="let col of columns">{{ col.title }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let item of data"
+      (click)="handleReferenciaClick(item)"
+      style="cursor: pointer"
+    >
+      <td *ngFor="let col of columns">{{ item[col.field] }}</td>
+    </tr>
+  </tbody>
+</table>

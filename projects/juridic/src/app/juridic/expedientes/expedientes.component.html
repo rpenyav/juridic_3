@@ -1,8 +1,5 @@
 <app-layout>
-  <div class="d-flex mb-3">
-    <button class="btn btn-primary" (click)="agregarTab()">Clientes</button>
-  </div>
-  <div class="pestanyes__estil">
+  <div class="pestanyes__estil mt-5">
     <ul class="nav nav-tabs">
       <li class="nav-item">
         <a
@@ -16,25 +13,11 @@
               {{ translations[sectionTitle] | translate }}
             </div>
             <div>
-              <i
-                [style.color]="
-                  mostrarBuscador && buscadorSeleccionado
-                    ? '#59B41B'
-                    : '#B85A12'
-                "
-                [style.backgroundColor]="
-                  mostrarBuscador && buscadorSeleccionado
-                    ? '#59B41B'
-                    : '#B85A12'
-                "
-                class="iconoactivo"
-                >●</i
-              >
+              <i class="iconoredondeobuscador">●</i>
             </div>
           </div>
         </a>
       </li>
-
       <li class="nav-item" *ngFor="let tab of thisTabs">
         <a
           class="nav-link"
@@ -44,32 +27,7 @@
           <div class="d-flex justify-content-between">
             <div>{{ tab.title }}</div>
             <div (click)="cerrarTab(tab.id)">
-              <div
-                (mouseenter)="hovered = true"
-                (mouseleave)="hovered = false"
-                style="position: relative"
-              >
-                <i
-                  [style.color]="
-                    hovered ? '#FFFFFF' : tab.isSelected ? '#59B41B' : '#B85A12'
-                  "
-                  [style.backgroundColor]="
-                    tab.isSelected ? '#59B41B' : '#B85A12'
-                  "
-                  class="iconoactivo"
-                  [ngStyle]="{
-                    cursor: 'pointer',
-                    fontSize: hovered ? '14px' : '',
-                    fontStyle: hovered ? 'normal' : 'italic',
-                    paddingTop: hovered ? '1px' : '',
-                    paddingBottom: hovered ? '6px' : '',
-                    marginBottom: hovered ? '4px' : ''
-                  }"
-                >
-                  <ng-container *ngIf="!hovered; else xIcon">●</ng-container>
-                  <ng-template #xIcon>X</ng-template>
-                </i>
-              </div>
+              <i class="iconoredondeo">●</i>
             </div>
           </div>
         </a>
@@ -77,9 +35,11 @@
     </ul>
 
     <div class="tab-content">
-      <div class="tab-pane fade show active">
+      <div *ngIf="buscadorSeleccionado" class="tab-pane fade show active">
         <div class="line-tab">
-          <ng-template #dynamicContent></ng-template>
+          <app-exp-cercador
+            (referenciaSelected)="handleReferenciaClickFromCercador($event)"
+          ></app-exp-cercador>
         </div>
       </div>
 
@@ -89,7 +49,10 @@
         [ngClass]="{ 'show active': tab.isSelected && !buscadorSeleccionado }"
       >
         <div class="line-tab">
-          {{ tab.content }}
+          <app-exp-by-id
+            *ngIf="tab.isSelected && !buscadorSeleccionado"
+            [tabId]="tab.id"
+          ></app-exp-by-id>
         </div>
       </div>
     </div>

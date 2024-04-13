@@ -29,7 +29,8 @@
 }
 
 .nav-item {
-  margin-right: 20px;
+  margin-right: 5px;
+  margin-top: 5px;
 }
 
 .pestanyes__estil {
@@ -41,14 +42,51 @@
 
     .nav-item .nav-link {
       text-transform: uppercase;
-      border: none; /* Sin borde */
-      background-color: #7eaa99; /* Fondo verde solo para la pestaña */
-      color: #fff; /* Color de texto blanco */
-      border-radius: 0; /* Sin redondeados */
-      min-width: 260px; /* Ancho mínimo de 150px para cada pestaña */
-
+      border: none;
+      background-color: #7eaa99;
+      color: #fff;
+      border-radius: 0;
+      min-width: 260px;
+      position: relative; /* Necesario para posicionar correctamente el pseudo-elemento */
+      height: 42px;
       &.active {
-        background-color: #367f62; /* Color de fondo verde más oscuro para pestaña activa */
+        background-color: #367f62; /* Más oscuro para la pestaña activa */
+
+        .iconoredondeo {
+          color: #59b41b;
+        }
+
+        .iconoredondeobuscador {
+          color: #59b41b;
+        }
+
+        .iconoredondeo:hover::after {
+          content: "X";
+          position: absolute;
+          font-style: normal;
+          right: 26px;
+          top: 13px;
+          font-size: 10px;
+          color: #ffffff;
+        }
+      }
+
+      .iconoredondeobuscador {
+        color: #b85a12;
+      }
+
+      .iconoredondeo {
+        color: #b85a12;
+      }
+
+      .iconoredondeo:hover::after {
+        content: "X";
+        position: absolute;
+        font-style: normal;
+        right: 26px;
+        top: 13px;
+        font-size: 10px;
+        color: #ffffff;
       }
     }
   }
@@ -67,16 +105,19 @@
     }
   }
 
-  .iconoactivo {
-    font-size: 24px;
-
+  .iconoredondeobuscador {
+    font-size: 44px;
     border-radius: 50%;
-
     display: inline-block;
-    width: 24px;
-    height: 24px;
     text-align: center;
-    line-height: 24px;
+    line-height: 14px;
+  }
+  .iconoredondeo {
+    font-size: 44px;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    line-height: 14px;
   }
 }
 
