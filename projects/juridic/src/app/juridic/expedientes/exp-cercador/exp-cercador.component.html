@@ -1,102 +1,88 @@
 <div class="container-fluid p-5 searcher">
-  <div class="row">
-    <div class="col-md-2 d-flex align-items-center">
-      <label for="input1" class="mr-2 label-width">Referència</label>
-      <input
-        type="text"
-        class="form-control"
-        id="input1"
-        placeholder="Enter value"
-      />
-    </div>
-    <div class="col-md-3 d-flex align-items-center">
-      <label for="input2" class="mr-2 label-width">Num. Expedient</label>
-      <input
-        type="text"
-        class="form-control"
-        id="input2"
-        placeholder="Enter value"
-      />
-    </div>
-    <div class="col-md-4 d-flex align-items-center">
-      <label for="input3" class="mr-2 label-width">Client</label>
-      <div class="input-group">
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-2 d-flex align-items-center">
+        <label for="referencia" class="mr-2 label-width">Referència</label>
         <input
           type="text"
           class="form-control"
-          id="input3"
+          formControlName="referencia"
+          id="referencia"
           placeholder="Enter value"
         />
-        <div class="input-group-append">
-          <button class="ms-2 btn btn-outline-secondary" type="button">
-            O
-          </button>
-          <button class="ms-1 btn btn-outline-secondary" type="button">
-            I
-          </button>
-        </div>
       </div>
-    </div>
-    <div class="col-md-3 d-flex align-items-center">
-      <label for="input3" class="mr-2 label-width">Contrar</label>
-      <div class="input-group">
+      <div class="col-md-3 d-flex align-items-center">
+        <label for="numExpedient" class="mr-2 label-width"
+          >Num. Expedient</label
+        >
         <input
           type="text"
           class="form-control"
-          id="input3"
+          formControlName="numExpedient"
+          id="numExpedient"
           placeholder="Enter value"
         />
-        <div class="input-group-append">
-          <button class="ms-2 btn btn-outline-secondary" type="button">
-            O
-          </button>
-          <button class="ms-1 btn btn-outline-secondary" type="button">
-            I
-          </button>
-        </div>
       </div>
-    </div>
-  </div>
-
-  <div class="row mt-3">
-    <div class="col-md-3 d-flex align-items-center">
-      <label for="input1" class="mr-2 label-width">Tutor</label>
-      <select class="form-select" id="input1">
-        <option>Seleccione Tutor</option>
-      </select>
-    </div>
-    <div class="col-md-3 d-flex align-items-center">
-      <label for="input2" class="mr-2 label-width">Estat</label>
-      <select class="form-select" id="input2">
-        <option>Seleccione Estat</option>
-      </select>
-    </div>
-    <div class="col-md-3 d-flex align-items-center">
-      <label for="input3" class="mr-2 label-width">Num. Autos</label>
-      <div class="input-group">
+      <div class="col-md-4 d-flex align-items-center">
+        <label for="client" class="mr-2 label-width">Client</label>
         <input
           type="text"
           class="form-control"
-          id="input3"
+          formControlName="client"
+          id="client"
+          placeholder="Enter value"
+        />
+      </div>
+      <div class="col-md-3 d-flex align-items-center">
+        <label for="contrato" class="mr-2 label-width">Contrato</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="contrato"
+          id="contrato"
+          placeholder="Enter value"
+        />
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-3 d-flex align-items-center">
+        <label for="tutor" class="mr-2 label-width">Tutor</label>
+        <select class="form-select" formControlName="tutor" id="tutor">
+          <option value="">Seleccione Tutor</option>
+          <!-- Añadir opciones aquí -->
+        </select>
+      </div>
+      <div class="col-md-3 d-flex align-items-center">
+        <label for="estat" class="mr-2 label-width">Estat</label>
+        <select class="form-select" formControlName="estat" id="estat">
+          <option value="">Seleccione Estat</option>
+          <!-- Añadir opciones aquí -->
+        </select>
+      </div>
+      <div class="col-md-3 d-flex align-items-center">
+        <label for="numAutos" class="mr-2 label-width">Num. Autos</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="numAutos"
+          id="numAutos"
           placeholder="Num. Autos"
         />
-        <div class="input-group-append">
-          <button class="ms-1 btn btn-outline-secondary" type="button">
-            I
-          </button>
-        </div>
       </div>
-    </div>
-    <div class="col-md-2 d-flex align-items-center justify-content-end">
-      <div>
-        <button class="ms-1 btn btn-outline-secondary" type="button">
+      <div class="col-md-2 d-flex align-items-center justify-content-end">
+        <button class="ms-1 btn btn-outline-secondary" type="submit">
           Buscar
         </button>
       </div>
     </div>
-  </div>
-
+  </form>
   <div class="row mt-5">
-    <div class="col-12"><app-exp-table></app-exp-table></div>
+    <div class="col-12">
+      <app-table
+        type="expedientes"
+        [data]="results"
+        (onReferenciaClick)="handleReferenciaSelected($event)"
+      ></app-table>
+    </div>
   </div>
 </div>

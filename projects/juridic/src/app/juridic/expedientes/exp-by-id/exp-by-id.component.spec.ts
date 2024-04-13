@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { ExpByIdComponent } from './exp-by-id.component';
 
 describe('ExpByIdComponent', () => {
@@ -8,7 +8,8 @@ describe('ExpByIdComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ExpByIdComponent]
+      declarations: [ExpByIdComponent],
+      imports: [RouterTestingModule],
     });
     fixture = TestBed.createComponent(ExpByIdComponent);
     component = fixture.componentInstance;
