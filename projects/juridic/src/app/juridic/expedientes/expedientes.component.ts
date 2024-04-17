@@ -1,7 +1,7 @@
-import { v4 as uuidv4 } from 'uuid';
 import {
   ChangeDetectorRef,
   Component,
+  HostListener,
   OnInit,
   Type,
   ViewChild,
@@ -16,36 +16,39 @@ import {
   cerrarTab,
   seleccionarBuscador,
   seleccionarTab as seleccionarTabHelper,
-  // verifyAndRender,
 } from '../utils/functions';
 import { ExpCercadorComponent } from './exp-cercador/exp-cercador.component';
 import { TabsModel } from '../interfaces/tabs';
-import { ExpByIdComponent } from './exp-by-id/exp-by-id.component';
+import { ExpedienteModel } from '../interfaces/expedientes';
 
 @Component({
   selector: 'app-expedientes',
   templateUrl: './expedientes.component.html',
-  styleUrls: ['./expedientes.component.css'],
 })
 export class ExpedientesComponent implements OnInit {
-  sectionTitle = 'SECTION.expedient';
+  endpoint = 'expedientes';
+  typeofbus = 'expedientes';
   sessionStorageKey = 'expedient-search';
   sessionStorageKeyTabs = 'exp-tabs';
   buscadorRoute = '/juridic/expedientes/buscador';
   tabsRoutePrefix = '/juridic/expedientes';
   tabIdPrefix = 'exp';
-  defaultTabTitle = 'Expediente';
+  translations: Record<string, any> = {};
+
+  public translationsSubscription: Subscription;
+  registros: ExpedienteModel[] = [];
+  componenteARenderizar: Type<any> = ExpCercadorComponent;
   //--------------------------------------------------------
   @ViewChild('dynamicContent', { read: ViewContainerRef })
   dynamicContentRef: ViewContainerRef;
-  translations: Record<string, string> = {};
-  public translationsSubscription: Subscription;
   mostrarBuscador = false;
   buscadorSeleccionado = false;
   private urlSub: Subscription;
-  componenteARenderizar: Type<any> = ExpCercadorComponent;
   activeTabId: string | null = null;
   thisTabs: TabsModel[] = [];
+  pageNumber: number = 0;
+  pageSize: number = 10;
+  totalElements: number = 0;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -69,9 +72,11 @@ export class ExpedientesComponent implements OnInit {
     });
 
     this.translationsSubscription = this.i18nService.translations$.subscribe(
-      (translations: Record<string, string>) => {
+      (translations: Record<string, any>) => {
         this.translations = translations;
-      }
+        this.cdr.detectChanges();
+      },
+      (error) => console.error('Error loading translations', error)
     );
   }
 
@@ -98,13 +103,17 @@ export class ExpedientesComponent implements OnInit {
   }
 
   handleReferenciaClickFromCercador(itemId: any) {
+    if (itemId && typeof itemId === 'object') {
+      if (itemId._id) {
+        itemId.id = itemId._id;
+      }
+    }
     this.agregarTab(itemId);
   }
-
-  agregarTab(id: number) {
+  agregarTab(itemId: any) {
     const newTab: TabsModel = {
-      id: `${this.tabIdPrefix}-${id}`,
-      title: `${this.defaultTabTitle} ${id}`,
+      id: `${itemId.id}`,
+      title: `${this.translations.SECTION.expedientes} ${itemId.numexpedient}`,
       content: '',
       isSelected: true,
     };
@@ -131,6 +140,21 @@ export class ExpedientesComponent implements OnInit {
     actualizarSessionStorage(this.sessionStorageKeyTabs, this.thisTabs);
   }
 
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.altKey && !isNaN(+event.key)) {
+      const tabIndex = parseInt(event.key, 10) - 1;
+      if (tabIndex >= 0 && tabIndex < this.thisTabs.length) {
+        this.seleccionarTabPorIndice(tabIndex);
+      }
+    }
+  }
+
+  seleccionarTabPorIndice(indice: number) {
+    const tabId = this.thisTabs[indice].id;
+    this.seleccionarTab(tabId);
+  }
+
   seleccionarTab(tabId: string) {
     seleccionarTabHelper({
       tabId: tabId,
@@ -138,6 +162,7 @@ export class ExpedientesComponent implements OnInit {
         this.buscadorSeleccionado = value;
       },
       tabs: this.thisTabs,
+      tabsRoutePrefix: this.tabsRoutePrefix,
       actualizarSessionStorage: this.actualizarSessionStorage.bind(this),
       navigate: this.router.navigate.bind(this.router),
       buscadorRoute: this.buscadorRoute,

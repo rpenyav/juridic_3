@@ -1,0 +1,70 @@
+<div class="row subpestanyes mb-4">
+  <div class="col">
+    <ul class="nav nav-tabs">
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link rounded-top"
+          [class.active]="activeTabId === 'carpetas-tab'"
+          (click)="setActiveTab('carpetas-tab')"
+          id="carpetas-tab"
+          aria-controls="carpetas"
+          aria-selected="activeTabId === 'carpetas-tab'"
+        >
+          Carpetas
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link rounded-top"
+          [class.active]="activeTabId === 'documentacion-tab'"
+          (click)="setActiveTab('documentacion-tab')"
+          id="documentacion-tab"
+          aria-controls="documentacion"
+          aria-selected="activeTabId === 'documentacion-tab'"
+        >
+          Documentación
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link rounded-top"
+          [class.active]="activeTabId === 'casos-tab'"
+          (click)="setActiveTab('casos-tab')"
+          id="casos-tab"
+          aria-controls="casos"
+          aria-selected="activeTabId === 'casos-tab'"
+        >
+          Casos Relacionados
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+      <div
+        class="tab-pane fade"
+        [ngClass]="{ 'show active': activeTabId === 'carpetas-tab' }"
+        id="carpetas"
+        role="tabpanel"
+      >
+        Contenido de la pestaña "Carpetas"...
+        <p>Identificador: {{ identificador }}</p>
+      </div>
+      <div
+        class="tab-pane fade"
+        [ngClass]="{ 'show active': activeTabId === 'documentacion-tab' }"
+        id="documentacion"
+        role="tabpanel"
+      >
+        Contenido de la pestaña "Documentación"...
+      </div>
+      <div
+        class="tab-pane fade"
+        [ngClass]="{ 'show active': activeTabId === 'casos-tab' }"
+        id="casos"
+        role="tabpanel"
+      >
+        Contenido de la pestaña "Casos Relacionados"...
+      </div>
+    </div>
+  </div>
+</div>
