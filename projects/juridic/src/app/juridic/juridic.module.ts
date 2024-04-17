@@ -11,9 +11,10 @@ import { ExpCercadorComponent } from './expedientes/exp-cercador/exp-cercador.co
 import { ClientsComponent } from './clients/clients.component';
 import { CliCercadorComponent } from './clients/cli-cercador/cli-cercador.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { ExpByIdComponent } from './expedientes/exp-by-id/exp-by-id.component';
 import { TableComponent } from './shared/table/table.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DetailComponent } from './shared/detail/detail.component';
+import { SubTabsComponent } from './shared/sub-tabs/sub-tabs.component';
 
 @NgModule({
   imports: [
@@ -32,8 +33,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     ClientsComponent,
     CliCercadorComponent,
     NotFoundComponent,
-    ExpByIdComponent,
     TableComponent,
+    DetailComponent,
+    SubTabsComponent,
   ],
   exports: [LayoutComponent],
 })

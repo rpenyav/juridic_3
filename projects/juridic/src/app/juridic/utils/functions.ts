@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Type, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
-import { v4 as uuidv4 } from 'uuid';
+import { Subscription } from 'rxjs';
+import { I18nService } from 'shared-lib';
 import { ExpedienteModel } from '../interfaces/expedientes';
 import { ClienteModel } from '../interfaces/clientes';
 
@@ -81,6 +82,7 @@ export function seleccionarTab({
   tabs,
   actualizarSessionStorage,
   navigate,
+  tabsRoutePrefix,
   buscadorRoute,
   sessionStorageKeyTabs,
 }) {
@@ -91,7 +93,8 @@ export function seleccionarTab({
   }));
 
   actualizarSessionStorage(sessionStorageKeyTabs, newTabs);
-  navigate(`${buscadorRoute}/${tabId}`);
+
+  navigate([`${tabsRoutePrefix}/${tabId}`]);
 }
 
 // export function verifyAndRender(
@@ -140,22 +143,42 @@ export function setupColumns<T extends ExpedienteModel | ClienteModel>(
   switch (type) {
     case 'expedientes':
       return [
-        { field: 'Referència', title: 'Referència' },
-        { field: 'Num. Expedient', title: 'Num. Expedient' },
-        { field: 'Client', title: 'Client' },
-        { field: 'Contrato', title: 'Contrato' },
-        { field: 'Tutor', title: 'Tutor' },
-        { field: 'Estat', title: 'Estat' },
-        { field: 'Num. Autos', title: 'Num. Autos' },
+        { field: 'referencia', title: 'referencia' },
+        { field: 'numexpedient', title: 'numexpedient' },
+        { field: 'client', title: 'client' },
+        { field: 'contrari', title: 'contrari' },
+        { field: 'tutor', title: 'tutor' },
+        { field: 'estat', title: 'estat' },
+        { field: 'numautos', title: 'numautos' },
       ] as Column<T>[];
     case 'clientes':
       return [
-        { field: 'Referencia', title: 'Referència' },
-        { field: 'NumExpedient', title: 'Num. Expedient' },
-        { field: 'Client', title: 'Client' },
-        { field: 'NumAutos', title: 'Num. Autos' },
+        { field: 'referencia', title: 'referencia' },
+        { field: 'numexpedient', title: 'numexpedient' },
+        { field: 'client', title: 'client' },
+        { field: 'numautos', title: 'numautos' },
       ] as Column<T>[];
     default:
       return [];
   }
+}
+
+export function subscribeToTranslations(
+  i18nService: I18nService,
+  cdr: ChangeDetectorRef,
+  setTranslations: (translations: any) => void,
+  handleError?: (error: any) => void
+): Subscription {
+  return i18nService.translations$.subscribe(
+    (translations: Record<string, any>) => {
+      setTranslations(translations);
+      cdr.detectChanges();
+    },
+    (error) => {
+      console.error('Error loading translations', error);
+      if (handleError) {
+        handleError(error);
+      }
+    }
+  );
 }

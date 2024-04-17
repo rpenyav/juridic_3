@@ -1,5 +1,8 @@
 <app-layout>
   <div class="pestanyes__estil mt-5">
+    <p>
+      <small>Para cambiar de pestaña puede usar Alt+ número de pestaña</small>
+    </p>
     <ul class="nav nav-tabs">
       <li class="nav-item">
         <a
@@ -9,8 +12,8 @@
         >
           <div class="d-flex justify-content-between">
             <div>
-              {{ translations["TITLE.list"] }}
-              {{ translations[sectionTitle] | translate }}
+              {{ translations["TITLES"].list }}
+              {{ translations["SECTION"].expedient }}
             </div>
             <div>
               <i class="iconoredondeobuscador">●</i>
@@ -49,10 +52,12 @@
         [ngClass]="{ 'show active': tab.isSelected && !buscadorSeleccionado }"
       >
         <div class="line-tab">
-          <app-exp-by-id
+          <app-detail
+            [type]="typeofbus"
+            [endpoint]="endpoint"
             *ngIf="tab.isSelected && !buscadorSeleccionado"
             [tabId]="tab.id"
-          ></app-exp-by-id>
+          ></app-detail>
         </div>
       </div>
     </div>

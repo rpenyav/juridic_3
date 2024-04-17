@@ -8,7 +8,7 @@ import { I18nService } from 'shared-lib';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  translations: Record<string, string> = {};
+  translations: Record<string, any> = {};
   private translationsSubscription: Subscription;
   logoImageUrl: string;
   constructor(private i18nService: I18nService) {}

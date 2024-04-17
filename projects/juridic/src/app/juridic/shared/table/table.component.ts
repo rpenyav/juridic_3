@@ -17,6 +17,7 @@ export class TableComponent<T extends ExpedienteModel | ClienteModel> {
   @Input() data: T[] = [];
   @Output() onReferenciaClick = new EventEmitter<any>();
   @Input() type: string = '';
+  openedWindows: Record<string, Window | null> = {};
 
   columns: Column<T>[] = [];
 
@@ -24,9 +25,12 @@ export class TableComponent<T extends ExpedienteModel | ClienteModel> {
     this.columns = setupColumns<T>(this.type);
   }
 
-  handleReferenciaClick(item: T, field: keyof T) {
-    if (item[field]) {
-      this.onReferenciaClick.emit(item[field]);
+  handleReferenciaClick(item: T, field: keyof T): void {
+    if (!this.openedWindows[item.id] || this.openedWindows[item.id]?.closed) {
+      this.onReferenciaClick.emit(item);
+      this.openedWindows[item.id] = window;
+    } else {
+      this.openedWindows[item.id].focus();
     }
   }
 }

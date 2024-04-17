@@ -64,7 +64,7 @@ describe('ExpedientesComponent', () => {
   }));
 
   it('should navigate to new tab when adding a tab', () => {
-    let id = 123;
+    let id = '123';
     component.agregarTab(id);
     expect(router.navigate).toHaveBeenCalledWith([
       component.tabsRoutePrefix,

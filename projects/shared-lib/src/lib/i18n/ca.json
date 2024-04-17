@@ -1,9 +1,39 @@
 {
-    "hello": "Bones",
-    "welcome": "Welcome to our application!",
-    "Expedients": "Expedients",
-    "Clients": "Clients",
-    "TITLE.searcher": "Cercador",
-    "TITLE.list": "Llista",
-    "SECTION.expedient": "Expedients"
+    "HELLO": "Bones",
+    "WELCOME": "Welcome to our application!",
+    "TITLES": {
+        "searcher": "Cercador",
+        "list": "Llista"
+    },
+    "SECTION": {
+        "expedientes": "Expedients"
+    },
+    "MENU": {
+        "Expedients": "Expedients",
+        "Clients": "Clients"
+    },
+    "LABEL": {
+        "referencia": "Referència",
+        "numexpedient": "Num. Expedient",
+        "client": "Client",
+        "contrario": "Contrari",
+        "tutor": "Tutor",
+        "estat": "Estat",
+        "numautos": "Num. Autos"
+    },
+    "PLACEHOLDER": {
+        "referencia": "Introduïu la referència",
+        "numexpedient": "Introduïu el número d'expedient",
+        "client": "Introduïu el client",
+        "contrario": "Introduïu el contrari",
+        "numautos": "Introduïu el número d'autos"
+    },
+    "SELECTOR": {
+        "tutor": "Seleccioneu un tutor",
+        "estat": "Seleccioneu un estat"
+    },
+    "BUTTON": {
+        "buscar": "Buscar",
+        "clean": "Netejar"
+    }
 }

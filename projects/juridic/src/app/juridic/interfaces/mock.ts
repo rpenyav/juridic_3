@@ -1,9 +1,10 @@
 export class MockModel {
+  id: string = ';';
   referencia: string = '';
-  numExpedient: string = '';
+  numexpedient: string = '';
   client: string = '';
-  contrato: string = '';
+  contrari: string = '';
   tutor: string = '';
   estat: string = '';
-  numAutos: string = '';
+  numautos: string = '';
 }

@@ -1,46 +1,100 @@
 import {
   Component,
   OnInit,
-  ChangeDetectorRef,
   EventEmitter,
   Output,
+  ChangeDetectorRef,
+  OnDestroy,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { mockData } from '../../mock/mockdata';
+import { PaginatedResponse } from '../../interfaces/paginated-response';
+import { ExpedienteModel } from '../../interfaces/expedientes';
+import { GeneralService } from '../../services/general.service';
+import { Subscription } from 'rxjs';
+import { I18nService } from 'shared-lib';
+import { subscribeToTranslations } from '../../utils/functions';
 
 @Component({
   selector: 'app-exp-cercador',
   templateUrl: './exp-cercador.component.html',
-  styleUrls: ['./exp-cercador.component.css'],
 })
-export class ExpCercadorComponent implements OnInit {
+export class ExpCercadorComponent implements OnInit, OnDestroy {
   searchForm: FormGroup;
-  results: any[] = [];
-  @Output() referenciaSelected = new EventEmitter<any>();
+  endpoint = 'expedientes/search';
+  results: ExpedienteModel[] = [];
+  pageNumber: number = 0;
+  pageSize: number = 10;
+  totalElements: number = 0;
+  errorMessage: string | null = null;
+  translations: Record<string, any>;
+  public translationsSubscription: Subscription;
 
-  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {}
+  @Output() referenciaSelected = new EventEmitter<ExpedienteModel>();
+
+  constructor(
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef,
+    private dataService: GeneralService<ExpedienteModel>,
+    private i18nService: I18nService
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
     this.restoreSearchState();
+    this.translationsSubscription = subscribeToTranslations(
+      this.i18nService,
+      this.cdr,
+      (translations) => (this.translations = translations)
+    );
+  }
+
+  ngOnDestroy(): void {
+    if (this.translationsSubscription) {
+      this.translationsSubscription.unsubscribe();
+    }
   }
 
   initForm(): void {
     this.searchForm = this.fb.group({
       referencia: [''],
-      numExpedient: [''],
+      numexpedient: [''],
       client: [''],
-      contrato: [''],
+      contrari: [''],
       tutor: [''],
       estat: [''],
-      numAutos: [''],
+      numautos: [''],
     });
   }
 
   onSubmit(): void {
     if (this.searchForm.valid) {
-      this.results = this.search(mockData, this.searchForm.value);
-      this.saveSearchState(); // Guardar estado después de la búsqueda
+      this.dataService
+        .getPaginatedData(
+          this.endpoint,
+          this.pageNumber,
+          this.pageSize,
+          this.searchForm.value
+        )
+        .subscribe({
+          next: (response: PaginatedResponse<ExpedienteModel>) => {
+            this.results = response.list;
+            this.totalElements = response.totalElements;
+            this.errorMessage = null; // Resetear el mensaje de error
+            this.saveSearchState();
+          },
+          error: (error) => {
+            console.error('Error fetching data: ', error);
+            this.results = [];
+            this.totalElements = 0;
+            if (error.status === 400) {
+              this.errorMessage =
+                'No se encontraron resultados con los criterios proporcionados.';
+            } else {
+              this.errorMessage =
+                'Error en la búsqueda. Por favor, intente de nuevo.';
+            }
+          },
+        });
     }
   }
 
@@ -60,42 +114,31 @@ export class ExpCercadorComponent implements OnInit {
       this.results = JSON.parse(results);
     }
     if (criteria) {
-      const criteriaObj = JSON.parse(criteria);
-      this.searchForm.setValue(criteriaObj);
-      this.onSubmit(); // Realizar búsqueda basada en los criterios restaurados
+      this.searchForm.setValue(JSON.parse(criteria));
+      this.onSubmit();
     }
   }
 
-  search(data: any[], criteria: any): any[] {
-    return data.filter((item) => {
-      return (
-        (!criteria.referencia ||
-          item.Referència.toLowerCase().includes(
-            criteria.referencia.toLowerCase()
-          )) &&
-        (!criteria.numExpedient ||
-          item['Num. Expedient']
-            .toLowerCase()
-            .includes(criteria.numExpedient.toLowerCase())) &&
-        (!criteria.client ||
-          item.Client.toLowerCase().includes(criteria.client.toLowerCase())) &&
-        (!criteria.contrato ||
-          item.Contrato.toLowerCase().includes(
-            criteria.contrato.toLowerCase()
-          )) &&
-        (!criteria.tutor ||
-          item.Tutor.toLowerCase().includes(criteria.tutor.toLowerCase())) &&
-        (!criteria.estat ||
-          item.Estat.toLowerCase().includes(criteria.estat.toLowerCase())) &&
-        (!criteria.numAutos ||
-          item['Num. Autos']
-            .toLowerCase()
-            .includes(criteria.numAutos.toLowerCase()))
-      );
-    });
+  handleReferenciaSelected(item: ExpedienteModel) {
+    console.log('em', item);
+    this.referenciaSelected.emit(item);
   }
 
-  handleReferenciaSelected(item: any) {
-    this.referenciaSelected.emit(item);
+  closeAlert(): void {
+    this.errorMessage = null;
+  }
+
+  // En exp-cercador.component.ts
+  clearSearch(): void {
+    // Resetear el formulario
+    this.searchForm.reset();
+
+    // Limpiar el sessionStorage
+    sessionStorage.removeItem('searchResults');
+    sessionStorage.removeItem('searchCriteria');
+
+    // Limpiar los resultados actuales
+    this.results = [];
+    this.totalElements = 0;
   }
 }
