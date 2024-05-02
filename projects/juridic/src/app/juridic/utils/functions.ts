@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
 import { I18nService } from 'shared-lib';
 import { ExpedienteModel } from '../interfaces/expedientes';
-import { ClienteModel } from '../interfaces/clientes';
+import { ClientModel } from '../interfaces/clients';
 
 interface Tab {
   id: string;
@@ -137,7 +137,7 @@ export type Column<T> = {
  * @param type
  * @returns
  */
-export function setupColumns<T extends ExpedienteModel | ClienteModel>(
+export function setupColumns<T extends ExpedienteModel | ClientModel>(
   type: string
 ): Column<T>[] {
   switch (type) {
@@ -151,12 +151,11 @@ export function setupColumns<T extends ExpedienteModel | ClienteModel>(
         { field: 'estat', title: 'estat' },
         { field: 'numautos', title: 'numautos' },
       ] as Column<T>[];
-    case 'clientes':
+    case 'clients':
       return [
-        { field: 'referencia', title: 'referencia' },
-        { field: 'numexpedient', title: 'numexpedient' },
-        { field: 'client', title: 'client' },
-        { field: 'numautos', title: 'numautos' },
+        { field: 'documentNumber', title: 'documentNumber' },
+        { field: 'clientName', title: 'clientName' },
+        { field: 'clientSurname', title: 'clientSurname' },
       ] as Column<T>[];
     default:
       return [];

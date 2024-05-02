@@ -1,0 +1,4 @@
+<div *ngIf="client$ | async as client">
+  <p>Nombre del cliente: {{ client.clientName }}</p>
+  <p>Apellido del cliente: {{ client.clientSurname }}</p>
+</div>

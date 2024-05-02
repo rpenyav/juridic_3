@@ -11,7 +11,6 @@ export class GeneralService<T> {
   private baseUrl = 'http://localhost:3000'; // URL base del backend
 
   constructor(private http: HttpClient) {}
-
   getPaginatedData(
     endpoint: string,
     pageNumber: number,

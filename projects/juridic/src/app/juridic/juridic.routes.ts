@@ -13,9 +13,9 @@ export const JURIDIC_ROUTES: Routes = [
   { path: 'expedientes/buscador', component: ExpedientesComponent },
   { path: 'expedientes/:tabId', component: ExpedientesComponent },
 
-  { path: 'clientes', redirectTo: '/not-found', pathMatch: 'full' },
-  { path: 'clientes/buscador', component: ClientsComponent },
-  { path: 'clientes/:tabId', component: ClientsComponent },
+  { path: 'clients', redirectTo: '/not-found', pathMatch: 'full' },
+  { path: 'clients/buscador', component: ClientsComponent },
+  { path: 'clients/:tabId', component: ClientsComponent },
   { path: 'not-found', component: NotFoundComponent },
 
   { path: '**', redirectTo: '/not-found' },
