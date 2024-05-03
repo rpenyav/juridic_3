@@ -34,3 +34,11 @@ export interface ClientModel {
   clientProvince: string;
   clientCity: string;
 }
+
+export interface ClientState {
+  client: ClientModel | null;
+}
+
+export const initialClientState: ClientState = {
+  client: null,
+};

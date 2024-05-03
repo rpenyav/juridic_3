@@ -27,8 +27,6 @@ import { CliComunicacionsComponent } from './clients/cli-comunicacions/cli-comun
 import { CliHistoricAbonamentsComponent } from './clients/cli-historic-abonaments/cli-historic-abonaments.component';
 import { CliLopdComponent } from './clients/cli-lopd/cli-lopd.component';
 import { CliDadesJuridiquesComponent } from './clients/cli-dades-juridiques/cli-dades-juridiques.component';
-import { StoreModule } from '@ngrx/store';
-import { metaReducers, reducers } from './state/reducers';
 
 @NgModule({
   imports: [
@@ -36,7 +34,6 @@ import { metaReducers, reducers } from './state/reducers';
     SharedLibModule,
     ReactiveFormsModule,
     RouterModule.forChild(JURIDIC_ROUTES),
-    StoreModule.forRoot(reducers, { metaReducers }),
   ],
   declarations: [
     JuridicComponent,

@@ -1,10 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { AppState } from '../../state/reducers';
 import { Observable } from 'rxjs';
 import { ClientModel } from '../../interfaces/clients';
-import { selectClientByDocumentNumber } from '../../state/selectors/clients.selectors';
-import { getClientByDocumentNumber } from '../../state/actions/client.actions';
+import { ClientsService } from '../../services/clients.service'; // Asegúrate de que la ruta es correcta
 
 @Component({
   selector: 'app-cli-dades-generals',
@@ -13,22 +10,16 @@ import { getClientByDocumentNumber } from '../../state/actions/client.actions';
 })
 export class CliDadesGeneralsComponent implements OnInit {
   @Input() documentNumber: string;
-  client$: Observable<ClientModel | undefined>;
+  client$: Observable<ClientModel | null>; // Observable puede ser null si la llamada falla
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private clientsService: ClientsService) {} // Inyecta ClientsService
 
   ngOnInit(): void {
-    this.client$ = this.store.pipe(
-      select(selectClientByDocumentNumber, {
-        documentNumber: this.documentNumber,
-      })
-    );
-    this.store.dispatch(
-      getClientByDocumentNumber({ documentNumber: this.documentNumber })
-    );
-
-    this.client$.subscribe((client) => {
-      console.log('Cliente cargado:', client);
-    });
+    if (this.documentNumber) {
+      this.client$ = this.clientsService.getClientByDocumentNumber(
+        this.documentNumber
+      );
+      // El cliente se suscribe a los datos directamente en la plantilla HTML
+    }
   }
 }
