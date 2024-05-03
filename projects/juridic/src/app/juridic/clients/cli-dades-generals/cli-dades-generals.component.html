@@ -1,0 +1,9 @@
+<!-- cli-dades-generals.component.html -->
+<div *ngIf="client$ | async as client; else loading">
+  <p>Nombre: {{ client.clientName }}</p>
+  <p>Documento: {{ client.documentNumber }}</p>
+  <!-- Añade más campos según el modelo de datos -->
+</div>
+<ng-template #loading>
+  <p>Cargando datos del cliente...</p>
+</ng-template>

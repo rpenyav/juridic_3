@@ -1,0 +1,263 @@
+<div class="row subpestanyes-mini mb-4">
+  <div class="col">
+    <ul class="nav nav-tabs">
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link rounded-top"
+          [class.active]="activeTabId === 'generals-tab'"
+          (click)="setActiveTab('generals-tab')"
+          id="generals-tab"
+          aria-controls="generals"
+          aria-selected="activeTabId === 'generals-tab'"
+        >
+          Dades generals
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link rounded-top"
+          [class.active]="activeTabId === 'juridiques-tab'"
+          (click)="setActiveTab('juridiques-tab')"
+          id="juridiques-tab"
+          aria-controls="juridiques"
+          aria-selected="activeTabId === 'juridiques-tab'"
+        >
+          Dades jurídiques
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link rounded-top"
+          [class.active]="activeTabId === 'bancaries-tab'"
+          (click)="setActiveTab('bancaries-tab')"
+          id="bancaries-tab"
+          aria-controls="bancaries"
+          aria-selected="activeTabId === 'bancaries-tab'"
+        >
+          Dades bancàries
+        </button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link rounded-top"
+          [class.active]="activeTabId === 'facturacio-tab'"
+          (click)="setActiveTab('facturacio-tab')"
+          id="facturacio-tab"
+          aria-controls="facturacio"
+          aria-selected="activeTabId === 'facturacio-tab'"
+        >
+          Facturació
+        </button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link rounded-top"
+          [class.active]="activeTabId === 'expedients-tab'"
+          (click)="setActiveTab('expedients-tab')"
+          id="expedients-tab"
+          aria-controls="expedients"
+          aria-selected="activeTabId === 'expedients-tab'"
+        >
+          Expedients
+        </button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link rounded-top"
+          [class.active]="activeTabId === 'documents-tab'"
+          (click)="setActiveTab('documents-tab')"
+          id="documents-tab"
+          aria-controls="documents"
+          aria-selected="activeTabId === 'documents-tab'"
+        >
+          Documents
+        </button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link rounded-top"
+          [class.active]="activeTabId === 'relacio-tab'"
+          (click)="setActiveTab('relacio-tab')"
+          id="relacio-tab"
+          aria-controls="relacio"
+          aria-selected="activeTabId === 'relacio-tab'"
+        >
+          Relació clients
+        </button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link rounded-top"
+          [class.active]="activeTabId === 'incidencies-tab'"
+          (click)="setActiveTab('incidencies-tab')"
+          id="incidencies-tab"
+          aria-controls="incidencies"
+          aria-selected="activeTabId === 'incidencies-tab'"
+        >
+          Incidències
+        </button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link rounded-top"
+          [class.active]="activeTabId === 'comunicacions-tab'"
+          (click)="setActiveTab('comunicacions-tab')"
+          id="comunicacions-tab"
+          aria-controls="comunicacions"
+          aria-selected="activeTabId === 'comunicacions-tab'"
+        >
+          Comunicacions
+        </button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link rounded-top"
+          [class.active]="activeTabId === 'historicabonaments-tab'"
+          (click)="setActiveTab('historicabonaments-tab')"
+          id="historicabonaments-tab"
+          aria-controls="historicabonaments"
+          aria-selected="activeTabId === 'historicabonaments-tab'"
+        >
+          Històric abonaments
+        </button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link rounded-top"
+          [class.active]="activeTabId === 'lopd-tab'"
+          (click)="setActiveTab('lopd-tab')"
+          id="lopd-tab"
+          aria-controls="lopd"
+          aria-selected="activeTabId === 'lopd-tab'"
+        >
+          LOPD
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+      <div
+        class="tab-pane fade"
+        [ngClass]="{ 'show active': activeTabId === 'generals-tab' }"
+        id="generals"
+        role="tabpanel"
+      >
+        <app-cli-dades-generals
+          [documentNumber]="identificador"
+        ></app-cli-dades-generals>
+      </div>
+      <div
+        class="tab-pane fade"
+        [ngClass]="{ 'show active': activeTabId === 'juridiques-tab' }"
+        id="juridiques"
+        role="tabpanel"
+      >
+        <app-cli-dades-juridiques
+          [documentNumber]="identificador"
+        ></app-cli-dades-juridiques>
+      </div>
+      <div
+        class="tab-pane fade"
+        [ngClass]="{ 'show active': activeTabId === 'bancaries-tab' }"
+        id="bancaries"
+        role="tabpanel"
+      >
+        <app-cli-dades-bancaries
+          [documentNumber]="identificador"
+        ></app-cli-dades-bancaries>
+      </div>
+
+      <div
+        class="tab-pane fade"
+        [ngClass]="{ 'show active': activeTabId === 'facturacio-tab' }"
+        id="facturacio"
+        role="tabpanel"
+      >
+        <app-cli-facturacio
+          [documentNumber]="identificador"
+        ></app-cli-facturacio>
+      </div>
+
+      <div
+        class="tab-pane fade"
+        [ngClass]="{ 'show active': activeTabId === 'expedients-tab' }"
+        id="expedients"
+        role="tabpanel"
+      >
+        <app-cli-expedients
+          [documentNumber]="identificador"
+        ></app-cli-expedients>
+      </div>
+
+      <div
+        class="tab-pane fade"
+        [ngClass]="{ 'show active': activeTabId === 'documents-tab' }"
+        id="documents"
+        role="tabpanel"
+      >
+        <app-cli-documents [documentNumber]="identificador"></app-cli-documents>
+      </div>
+
+      <div
+        class="tab-pane fade"
+        [ngClass]="{ 'show active': activeTabId === 'relacio-tab' }"
+        id="relacio"
+        role="tabpanel"
+      >
+        <app-cli-relacio-clients
+          [documentNumber]="identificador"
+        ></app-cli-relacio-clients>
+      </div>
+
+      <div
+        class="tab-pane fade"
+        [ngClass]="{ 'show active': activeTabId === 'incidencies-tab' }"
+        id="incidencies"
+        role="tabpanel"
+      >
+        <app-cli-incidencies
+          [documentNumber]="identificador"
+        ></app-cli-incidencies>
+      </div>
+
+      <div
+        class="tab-pane fade"
+        [ngClass]="{ 'show active': activeTabId === 'comunicacions-tab' }"
+        id="comunicacions"
+        role="tabpanel"
+      >
+        <app-cli-comunicacions
+          [documentNumber]="identificador"
+        ></app-cli-comunicacions>
+      </div>
+
+      <div
+        class="tab-pane fade"
+        [ngClass]="{ 'show active': activeTabId === 'historicabonaments-tab' }"
+        id="historicabonaments"
+        role="tabpanel"
+      >
+        <app-cli-historic-abonaments
+          [documentNumber]="identificador"
+        ></app-cli-historic-abonaments>
+      </div>
+
+      <div
+        class="tab-pane fade"
+        [ngClass]="{ 'show active': activeTabId === 'lopd-tab' }"
+        id="lopd"
+        role="tabpanel"
+      >
+        <app-cli-lopd [documentNumber]="identificador"></app-cli-lopd>
+      </div>
+    </div>
+  </div>
+</div>

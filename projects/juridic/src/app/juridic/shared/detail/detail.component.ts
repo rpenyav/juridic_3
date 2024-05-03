@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ExpedienteModel } from '../../interfaces/expedientes';
-import { ClienteModel } from '../../interfaces/clientes';
+import { ClientModel } from '../../interfaces/clients';
 import { GeneralService } from '../../services/general.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { GeneralService } from '../../services/general.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class DetailComponent<T extends ExpedienteModel | ClienteModel>
+export class DetailComponent<T extends ExpedienteModel | ClientModel>
   implements OnInit
 {
   tabId: string;

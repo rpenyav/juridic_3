@@ -1,52 +1,36 @@
 <app-layout>
-  <div class="d-flex mb-3">
-    <button class="btn btn-primary" (click)="agregarTab()">Clientes</button>
-  </div>
-  <div class="pestanyes__estil">
+  <div class="pestanyes__estil mt-5">
+    <p>
+      <small>Para cambiar de pestaña puede usar Alt+ número de pestaña</small>
+    </p>
     <ul class="nav nav-tabs">
       <li class="nav-item">
         <a
-          routerLink="/juridic/clientes/buscador"
+          [routerLink]="[buscadorRoute]"
           routerLinkActive="active"
           class="nav-link"
         >
           <div class="d-flex justify-content-between">
-            <div>Buscador</div>
             <div>
-              <i
-                [style.color]="
-                  mostrarBuscador && buscadorSeleccionado
-                    ? '#59B41B'
-                    : '#B85A12'
-                "
-                [style.backgroundColor]="
-                  mostrarBuscador && buscadorSeleccionado
-                    ? '#59B41B'
-                    : '#B85A12'
-                "
-                class="iconoactivo"
-                >●</i
-              >
+              {{ translations["TITLES"].list }}
+              {{ translations["SECTION"].clients }}
+            </div>
+            <div>
+              <i class="iconoredondeobuscador">●</i>
             </div>
           </div>
         </a>
       </li>
-
-      <li class="nav-item" *ngFor="let tab of clienteTabs">
+      <li class="nav-item" *ngFor="let tab of thisTabs">
         <a
           class="nav-link"
-          [routerLink]="['/juridic/clientes', tab.id]"
+          [routerLink]="[tabsRoutePrefix, tab.id]"
           routerLinkActive="active"
         >
           <div class="d-flex justify-content-between">
             <div>{{ tab.title }}</div>
-            <div>
-              <i
-                [style.color]="tab.isSelected ? '#59B41B' : '#B85A12'"
-                [style.backgroundColor]="tab.isSelected ? '#59B41B' : '#B85A12'"
-                class="iconoactivo"
-                >●</i
-              >
+            <div (click)="cerrarTab(tab.id)">
+              <i class="iconoredondeo">●</i>
             </div>
           </div>
         </a>
@@ -54,29 +38,26 @@
     </ul>
 
     <div class="tab-content">
-      <div
-        *ngIf="mostrarBuscador && buscadorSeleccionado"
-        class="tab-pane fade show active"
-      >
+      <div *ngIf="buscadorSeleccionado" class="tab-pane fade show active">
         <div class="line-tab">
-          Aquí va el contenido de la pestaña del buscador.
+          <app-cli-cercador
+            (referenciaSelected)="handleReferenciaClickFromCercador($event)"
+          ></app-cli-cercador>
         </div>
       </div>
 
       <div
-        *ngFor="let tab of clienteTabs"
+        *ngFor="let tab of thisTabs"
         class="tab-pane fade"
         [ngClass]="{ 'show active': tab.isSelected && !buscadorSeleccionado }"
       >
         <div class="line-tab">
-          {{ tab.content }}
-          <button
-            class="btn btn-danger"
-            (click)="cerrarTab(tab.id)"
-            style="margin-top: 20px"
-          >
-            Cerrar Pestaña
-          </button>
+          <app-detail
+            [type]="typeofbus"
+            [endpoint]="endpoint"
+            *ngIf="tab.isSelected && !buscadorSeleccionado"
+            [tabId]="tab.id"
+          ></app-detail>
         </div>
       </div>
     </div>

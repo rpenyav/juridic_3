@@ -6,7 +6,8 @@
         "list": "List"
     },
     "SECTION": {
-        "expedientes": "Expedients"
+        "expedientes": "Expedients",
+        "clients": "Clients"
     },
     "MENU": {
         "Expedients": "Expedients",
@@ -19,14 +20,20 @@
         "contrario": "Opponent",
         "tutor": "Tutor",
         "estat": "Status",
-        "numautos": "Num. Autos"
+        "numautos": "Num. Autos",
+        "documentnumber": "Número identificació",
+        "clientname": "Nom client",
+        "clientsurname": "Cognoms client"
     },
     "PLACEHOLDER": {
         "referencia": "Insert reference",
         "numexpedient": "Insert el número d'expedient",
         "client": "Introduïu el client",
         "contrario": "Introduïu el contrari",
-        "numautos": "Introduïu el número d'autos"
+        "numautos": "Introduïu el número d'autos",
+        "documentnumber": "Número identificació",
+        "clientname": "Nom client",
+        "clientsurname": "Cognoms client"
     },
     "SELECTOR": {
         "tutor": "Seleccioneu un tutor",

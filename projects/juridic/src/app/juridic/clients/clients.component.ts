@@ -1,32 +1,60 @@
-import { v4 as uuidv4 } from 'uuid';
-
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  OnInit,
+  Type,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
-
-interface ClienteTab {
-  id: string;
-  title: string;
-  content: string;
-  isSelected: boolean;
-}
+import { I18nService } from 'shared-lib';
+import {
+  actualizarSessionStorage,
+  cargarTabsDesdeSessionStorage,
+  cerrarTab,
+  seleccionarBuscador,
+  seleccionarTab as seleccionarTabHelper,
+} from '../utils/functions';
+import { CliCercadorComponent } from './cli-cercador/cli-cercador.component';
+import { TabsModel } from '../interfaces/tabs';
+import { ClientModel } from '../interfaces/clients';
 
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.css'],
 })
 export class ClientsComponent implements OnInit {
+  endpoint = 'clients';
+  typeofbus = 'clients';
+  sessionStorageKey = 'client-search';
+  sessionStorageKeyTabs = 'cli-tabs';
+  buscadorRoute = '/juridic/clients/buscador';
+  tabsRoutePrefix = '/juridic/clients';
+  tabIdPrefix = 'cli';
+  translations: Record<string, any> = {};
+
+  public translationsSubscription: Subscription;
+  registros: ClientModel[] = [];
+  componenteARenderizar: Type<any> = CliCercadorComponent;
+  //--------------------------------------------------------
+  @ViewChild('dynamicContent', { read: ViewContainerRef })
+  dynamicContentRef: ViewContainerRef;
   mostrarBuscador = false;
   buscadorSeleccionado = false;
   private urlSub: Subscription;
-  clienteTabs: ClienteTab[] = [];
+  activeTabId: string | null = null;
+  thisTabs: TabsModel[] = [];
+  pageNumber: number = 0;
+  pageSize: number = 10;
+  totalElements: number = 0;
 
   constructor(
     private cdr: ChangeDetectorRef,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private i18nService: I18nService
   ) {}
 
   ngOnInit() {
@@ -38,12 +66,18 @@ export class ClientsComponent implements OnInit {
       this.buscadorSeleccionado = isBuscadorRoute;
       this.cargarTabsDesdeSessionStorage();
 
-      // Si estamos en la ruta del buscador, asegúrate de que el contenido del buscador sea visible.
       if (isBuscadorRoute) {
-        // Asegura que las pestañas y el contenido del buscador estén configurados para mostrarse.
-        sessionStorage.setItem('client-search', 'true'); // Opcional, dependiendo de tu lógica de visualización.
+        sessionStorage.setItem(this.sessionStorageKey, 'true');
       }
     });
+
+    this.translationsSubscription = this.i18nService.translations$.subscribe(
+      (translations: Record<string, any>) => {
+        this.translations = translations;
+        this.cdr.detectChanges();
+      },
+      (error) => console.error('Error loading translations', error)
+    );
   }
 
   ngOnDestroy() {
@@ -52,110 +86,88 @@ export class ClientsComponent implements OnInit {
     }
   }
 
-  abrirBuscador() {
-    // Verifica si el buscador ya está abierto para evitar acciones innecesarias
-    if (!this.mostrarBuscador || !this.buscadorSeleccionado) {
-      this.mostrarBuscador = true;
-      this.buscadorSeleccionado = true;
-      // Asegúrate de que todas las otras pestañas estén deseleccionadas
-      this.clienteTabs.forEach((tab) => (tab.isSelected = false));
-      sessionStorage.setItem('client-search', 'true');
-      this.actualizarSessionStorage();
-
-      this.router.navigate(['/juridic/clientes/buscador']);
-    }
-  }
-
   seleccionarBuscador() {
-    // Marcar solo la pestaña del buscador como seleccionada
-    this.buscadorSeleccionado = true;
-
-    // Desmarcar todas las otras pestañas
-    this.clienteTabs.forEach((tab) => (tab.isSelected = false));
-
-    // Actualiza el estado y la UI según sea necesario
-    this.actualizarSessionStorage();
-    this.cdr.detectChanges();
-
-    // Asegúrate de navegar a la ruta del buscador si aún no estás allí
-    this.router.navigate(['/juridic/clientes/buscador']);
+    seleccionarBuscador(
+      this.buscadorRoute,
+      this.thisTabs,
+      this.actualizarSessionStorage.bind(this),
+      this.cdr,
+      this.router
+    );
   }
-
-  //---------------------------------------------------------------------------
-  //----
-  //---- métodos tabs clientes
-  //----
-  //---------------------------------------------------------------------------
 
   cargarTabsDesdeSessionStorage() {
-    const storedTabs = sessionStorage.getItem('cli-tabs');
-    if (storedTabs) {
-      this.clienteTabs = JSON.parse(storedTabs);
-      // Restaurar la pestaña seleccionada en la URL si es necesario
-    }
+    cargarTabsDesdeSessionStorage(this.sessionStorageKeyTabs, (tabs) => {
+      this.thisTabs = tabs;
+    });
   }
 
-  agregarTab() {
-    const newTab: ClienteTab = {
-      id: `cli-${uuidv4()}`, // Genera un ID único
-      title: 'Nuevo Cliente',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
-      isSelected: true, // Asegúrate de que la nueva pestaña esté seleccionada
+  handleReferenciaClickFromCercador(itemId: any) {
+    if (itemId && typeof itemId === 'object') {
+      if (itemId._id) {
+        itemId.id = itemId._id;
+      }
+    }
+    this.agregarTab(itemId);
+  }
+  agregarTab(itemId: any) {
+    const newTab: TabsModel = {
+      id: `${itemId.id}`,
+      title: `${this.translations.SECTION.clients} ${itemId.documentNumber}`,
+      content: '',
+      isSelected: true,
     };
-
-    // Marcar todas las otras pestañas como no seleccionadas
-    this.clienteTabs.forEach((tab) => (tab.isSelected = false));
-
-    this.clienteTabs.push(newTab);
+    console.log('newTab', newTab);
+    this.thisTabs.forEach((tab) => (tab.isSelected = false));
+    this.thisTabs.push(newTab);
     this.actualizarSessionStorage();
-    this.router.navigate(['/juridic/clientes', newTab.id]);
+    this.router.navigate([this.tabsRoutePrefix, newTab.id]);
   }
 
   cerrarTab(tabId: string) {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, ciérralo!',
-      cancelButtonText: 'No, mantener',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Filtrar la pestaña que se va a cerrar
-        this.clienteTabs = this.clienteTabs.filter((tab) => tab.id !== tabId);
-
-        // Si cerramos la pestaña que está actualmente seleccionada, seleccionamos otra o el buscador
-        if (
-          tabId === this.clienteTabs.find((tab) => tab.isSelected)?.id ||
-          !this.clienteTabs.some((tab) => tab.isSelected)
-        ) {
-          if (this.clienteTabs.length > 0) {
-            // Selecciona automáticamente la primera pestaña disponible
-            this.clienteTabs[0].isSelected = true;
-            this.router.navigate(['/juridic/clientes', this.clienteTabs[0].id]);
-          } else {
-            // Si no hay más pestañas, selecciona el buscador
-            this.seleccionarBuscador();
-          }
-        }
-
-        this.actualizarSessionStorage();
-      }
-    });
+    cerrarTab(
+      tabId,
+      this.thisTabs,
+      (newTabs) => (this.thisTabs = newTabs),
+      (route) => this.router.navigate([route]),
+      () => this.actualizarSessionStorage(),
+      () => this.seleccionarBuscador(),
+      this.tabsRoutePrefix
+    );
   }
 
   actualizarSessionStorage() {
-    sessionStorage.setItem('cli-tabs', JSON.stringify(this.clienteTabs));
+    actualizarSessionStorage(this.sessionStorageKeyTabs, this.thisTabs);
   }
-  testNavigation() {
-    this.router.navigate(['/clientes', 'test-id']);
-  }
-  seleccionarTab(tabId: string) {
-    this.buscadorSeleccionado = false;
-    this.clienteTabs.forEach((tab) => {
-      tab.isSelected = tab.id === tabId;
-    });
 
-    this.actualizarSessionStorage();
-    this.router.navigate(['/clientes', tabId]);
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.altKey && !isNaN(+event.key)) {
+      const tabIndex = parseInt(event.key, 10) - 1;
+      if (tabIndex >= 0 && tabIndex < this.thisTabs.length) {
+        this.seleccionarTabPorIndice(tabIndex);
+      }
+    }
+  }
+
+  seleccionarTabPorIndice(indice: number) {
+    const tabId = this.thisTabs[indice].id;
+    this.seleccionarTab(tabId);
+  }
+
+  seleccionarTab(tabId: string) {
+    seleccionarTabHelper({
+      tabId: tabId,
+      setBuscadorSeleccionado: (value: boolean) => {
+        this.buscadorSeleccionado = value;
+      },
+      tabs: this.thisTabs,
+      tabsRoutePrefix: this.tabsRoutePrefix,
+      actualizarSessionStorage: this.actualizarSessionStorage.bind(this),
+      navigate: this.router.navigate.bind(this.router),
+      buscadorRoute: this.buscadorRoute,
+      sessionStorageKeyTabs: this.sessionStorageKeyTabs,
+    });
+    this.cdr.detectChanges();
   }
 }

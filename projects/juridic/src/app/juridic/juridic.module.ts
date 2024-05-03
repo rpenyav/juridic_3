@@ -15,6 +15,18 @@ import { TableComponent } from './shared/table/table.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DetailComponent } from './shared/detail/detail.component';
 import { SubTabsComponent } from './shared/sub-tabs/sub-tabs.component';
+import { SubTabsCliComponent } from './shared/sub-tabs-cli/sub-tabs-cli.component';
+import { CliDadesGeneralsComponent } from './clients/cli-dades-generals/cli-dades-generals.component';
+import { CliDadesBancariesComponent } from './clients/cli-dades-bancaries/cli-dades-bancaries.component';
+import { CliFacturacioComponent } from './clients/cli-facturacio/cli-facturacio.component';
+import { CliExpedientsComponent } from './clients/cli-expedients/cli-expedients.component';
+import { CliDocumentsComponent } from './clients/cli-documents/cli-documents.component';
+import { CliRelacioClientsComponent } from './clients/cli-relacio-clients/cli-relacio-clients.component';
+import { CliIncidenciesComponent } from './clients/cli-incidencies/cli-incidencies.component';
+import { CliComunicacionsComponent } from './clients/cli-comunicacions/cli-comunicacions.component';
+import { CliHistoricAbonamentsComponent } from './clients/cli-historic-abonaments/cli-historic-abonaments.component';
+import { CliLopdComponent } from './clients/cli-lopd/cli-lopd.component';
+import { CliDadesJuridiquesComponent } from './clients/cli-dades-juridiques/cli-dades-juridiques.component';
 
 @NgModule({
   imports: [
@@ -36,6 +48,18 @@ import { SubTabsComponent } from './shared/sub-tabs/sub-tabs.component';
     TableComponent,
     DetailComponent,
     SubTabsComponent,
+    SubTabsCliComponent,
+    CliDadesGeneralsComponent,
+    CliDadesBancariesComponent,
+    CliFacturacioComponent,
+    CliExpedientsComponent,
+    CliDocumentsComponent,
+    CliRelacioClientsComponent,
+    CliIncidenciesComponent,
+    CliComunicacionsComponent,
+    CliHistoricAbonamentsComponent,
+    CliLopdComponent,
+    CliDadesJuridiquesComponent,
   ],
   exports: [LayoutComponent],
 })

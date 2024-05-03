@@ -22,7 +22,7 @@ export class ExpCercadorComponent implements OnInit, OnDestroy {
   searchForm: FormGroup;
   endpoint = 'expedientes/search';
   results: ExpedienteModel[] = [];
-  pageNumber: number = 0;
+  pageNumber: number = 1;
   pageSize: number = 10;
   totalElements: number = 0;
   errorMessage: string | null = null;
@@ -114,7 +114,7 @@ export class ExpCercadorComponent implements OnInit, OnDestroy {
       this.results = JSON.parse(results);
     }
     if (criteria) {
-      this.searchForm.setValue(JSON.parse(criteria));
+      this.searchForm.patchValue(JSON.parse(criteria));
       this.onSubmit();
     }
   }

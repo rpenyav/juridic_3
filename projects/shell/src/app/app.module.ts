@@ -14,6 +14,7 @@ import { SharedLibModule } from 'projects/shared-lib/src/public-api';
 import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header.component';
 import { SidebarComponent } from './layout/sidebar.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { SidebarComponent } from './layout/sidebar.component';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(APP_ROUTES),
+    StoreModule.forRoot({}, {}),
   ],
   declarations: [
     AppComponent,

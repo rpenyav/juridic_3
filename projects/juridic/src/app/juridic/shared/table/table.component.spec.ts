@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TableComponent } from './table.component';
 import { ExpedienteModel } from '../../interfaces/expedientes';
-import { ClienteModel } from '../../interfaces/clientes';
+import { ClienteModel } from '../../interfaces/clients';
 
 describe('TableComponent', () => {
   let component: TableComponent<any>;

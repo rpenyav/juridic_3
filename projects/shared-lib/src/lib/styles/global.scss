@@ -125,6 +125,97 @@
   }
 }
 
+.subpestanyes-mini {
+  // .line-tab {
+  //   border: 2px solid #6b6b6b;
+  // }
+  .nav-tabs {
+    border: none; /* Sin borde */
+
+    .nav-item .nav-link {
+      text-transform: capitalize;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      background-color: #b1b1b1;
+      color: #fff;
+      border-radius: 0;
+      min-width: auto;
+      position: relative; /* Necesario para posicionar correctamente el pseudo-elemento */
+      height: 42px;
+      &.active {
+        background-color: #777777; /* Más oscuro para la pestaña activa */
+
+        .iconoredondeo {
+          color: #59b41b;
+        }
+
+        .iconoredondeobuscador {
+          color: #59b41b;
+        }
+
+        .iconoredondeo:hover::after {
+          content: "X";
+          position: absolute;
+          font-style: normal;
+          right: 26px;
+          top: 13px;
+          font-size: 10px;
+          color: #ffffff;
+        }
+      }
+
+      .iconoredondeobuscador {
+        color: #b85a12;
+      }
+
+      .iconoredondeo {
+        color: #b85a12;
+      }
+
+      .iconoredondeo:hover::after {
+        content: "X";
+        position: absolute;
+        font-style: normal;
+        right: 26px;
+        top: 13px;
+        font-size: 10px;
+        color: #ffffff;
+      }
+    }
+  }
+
+  /* Estilos para el contenido de las pestañas */
+  .tab-content {
+    border: none; /* Sin borde */
+
+    .tab-pane {
+      border: none; /* Sin borde */
+      color: #000; /* Color de texto blanco */
+      padding: 14px;
+      &.fade.show.active {
+        border: 1px solid #777777; /* Sin borde */
+        background-color: #ffffff; /* Color de fondo verde más oscuro para pestaña activa */
+      }
+    }
+  }
+
+  .iconoredondeobuscador {
+    font-size: 44px;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    line-height: 14px;
+  }
+  .iconoredondeo {
+    font-size: 44px;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    line-height: 14px;
+  }
+}
+
 .subpestanyes {
   // .line-tab {
   //   border: 2px solid #6b6b6b;

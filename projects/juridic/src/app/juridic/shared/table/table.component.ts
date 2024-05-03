@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { ExpedienteModel } from '../../interfaces/expedientes';
-import { ClienteModel } from '../../interfaces/clientes';
+import { ClientModel } from '../../interfaces/clients';
 import { setupColumns } from '../../utils/functions';
 
 type Column<T> = {
@@ -13,7 +13,7 @@ type Column<T> = {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
 })
-export class TableComponent<T extends ExpedienteModel | ClienteModel> {
+export class TableComponent<T extends ExpedienteModel | ClientModel> {
   @Input() data: T[] = [];
   @Output() onReferenciaClick = new EventEmitter<any>();
   @Input() type: string = '';

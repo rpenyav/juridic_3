@@ -236,12 +236,27 @@
       //
       //
         -->
-    <div *ngSwitchCase="'clientes'">
-      <h3>Detalles del Cliente</h3>
-      <div><strong>Cliente:</strong> <strong>Contrato:</strong></div>
-    </div>
-    <div *ngSwitchDefault>
-      <p>Tipo no reconocido: {{ type }}</p>
+    <div *ngSwitchCase="'clients'">
+      <div class="d-flex justify-content-between m-4">
+        <div>
+          Cliente:
+          <strong>{{ data.clientName }} {{ data.clientSurname }}</strong>
+        </div>
+        <div>
+          NIF/NIE/DOC: <strong>{{ data.documentNumber }}</strong>
+        </div>
+        <div>
+          <strong>{{ data.entityType }}</strong>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <app-sub-tabs-cli
+            [identificador]="data.documentNumber"
+          ></app-sub-tabs-cli>
+        </div>
+      </div>
     </div>
   </div>
 </div>
