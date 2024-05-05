@@ -1,1 +1,33 @@
-<p>cli-dades-juridiques works!</p>
+<div *ngIf="client$ | async as client; else loading">
+  <div class="row">
+    <div class="col-md-6">
+      <app-custom-input
+        [control]="clientForm.get('documentNumber')"
+        placeholder="Sistema de administración"
+        label="Sistema de administración"
+        controlId="documentNumber"
+        type="text"
+      >
+      </app-custom-input>
+    </div>
+    <div class="col-md-3">
+      <app-custom-input
+        [control]="clientForm.get('documentNumber')"
+        placeholder="Data de constitució"
+        label="Data de constitució"
+        controlId="documentNumber"
+        type="date"
+      >
+      </app-custom-input>
+    </div>
+    <div class="col-md-3"><button>+</button></div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <app-table type="dadesjuridiques" [data]="client"></app-table>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <p>Cargando datos del cliente...</p>
+</ng-template>

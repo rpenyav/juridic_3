@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./sub-tabs-cli.component.css'],
 })
 export class SubTabsCliComponent {
-  @Input() identificador: string;
+  @Input() identificador: number;
 
   activeTabId: string = 'generals-tab';
 

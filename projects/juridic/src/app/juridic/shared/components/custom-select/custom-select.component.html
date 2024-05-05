@@ -1,0 +1,12 @@
+<label [for]="controlId">{{ label }}</label>
+<select
+  [id]="controlId"
+  [formControl]="control"
+  class="custom-select"
+  [attr.name]="controlId"
+>
+  <option value="">{{ placeholder }}</option>
+  <option *ngFor="let option of options$ | async" [value]="option[valueField]">
+    {{ option[displayField] }}
+  </option>
+</select>

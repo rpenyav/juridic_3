@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { ClientModel } from '../../interfaces/clients';
-import { ClientsService } from '../../services/clients.service'; // Asegúrate de que la ruta es correcta
+import { ClientsService } from '../../services/clients.service';
+import { FormClientService } from '../../services/form-client.service';
 
 @Component({
   selector: 'app-cli-dades-generals',
@@ -9,17 +12,29 @@ import { ClientsService } from '../../services/clients.service'; // Asegúrate d
   styleUrls: ['./cli-dades-generals.component.css'],
 })
 export class CliDadesGeneralsComponent implements OnInit {
-  @Input() documentNumber: string;
-  client$: Observable<ClientModel | null>; // Observable puede ser null si la llamada falla
+  @Input() clientId: number;
+  client$: Observable<ClientModel | null>;
+  clientForm: FormGroup;
 
-  constructor(private clientsService: ClientsService) {} // Inyecta ClientsService
+  constructor(
+    private clientsService: ClientsService,
+    private formService: FormClientService
+  ) {}
 
   ngOnInit(): void {
-    if (this.documentNumber) {
-      this.client$ = this.clientsService.getClientByDocumentNumber(
-        this.documentNumber
+    this.clientForm = this.formService.initClientForm(); // Inicializa siempre primero.
+
+    if (this.clientId) {
+      this.client$ = this.clientsService.getClientById(this.clientId).pipe(
+        tap((client) => {
+          console.log('client', client.personTypeId);
+          this.clientForm.patchValue(client); // Asegúrate de que el formulario está listo antes de patchear los valores.
+        })
       );
-      // El cliente se suscribe a los datos directamente en la plantilla HTML
     }
+  }
+
+  onSubmit() {
+    console.log(this.clientForm.value);
   }
 }

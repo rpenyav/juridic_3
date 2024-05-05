@@ -154,9 +154,19 @@ export function setupColumns<T extends ExpedienteModel | ClientModel>(
     case 'clients':
       return [
         { field: 'documentNumber', title: 'documentNumber' },
-        { field: 'clientName', title: 'clientName' },
-        { field: 'clientSurname', title: 'clientSurname' },
+        { field: 'name', title: 'name' },
+        { field: 'surname', title: 'surname' },
       ] as Column<T>[];
+
+    case 'dadesjuridiques':
+      return [
+        { field: 'documentNumber', title: 'DNI/NIF' },
+        { field: 'name', title: 'Administrador' },
+        { field: 'surname', title: 'Des de' },
+        { field: 'surname', title: 'Fins' },
+        { field: 'surname', title: 'Càrrec' },
+      ] as Column<T>[];
+
     default:
       return [];
   }
