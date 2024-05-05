@@ -1,1 +1,89 @@
-<p>cli-dades-bancaries works!</p>
+<div *ngIf="client$ | async as client; else loading">
+  <div class="row">
+    <div class="col-12">
+      <app-custom-input
+        [control]="clientForm.get('documentNumber')"
+        placeholder="Titular del compte"
+        label="Titular del compte"
+        controlId="documentNumber"
+        type="text"
+      >
+      </app-custom-input>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+      <app-custom-input
+        [control]="clientForm.get('documentNumber')"
+        placeholder="Codi País"
+        label="Codi País"
+        controlId="documentNumber"
+        type="text"
+      >
+      </app-custom-input>
+    </div>
+    <div class="col-1">
+      <app-custom-input
+        [control]="clientForm.get('documentNumber')"
+        placeholder="DC Iban"
+        label="DC Iban"
+        controlId="documentNumber"
+        type="text"
+      >
+      </app-custom-input>
+    </div>
+    <div class="col-2">
+      <app-custom-input
+        [control]="clientForm.get('documentNumber')"
+        placeholder="Entitat"
+        label="Entitat"
+        controlId="documentNumber"
+        type="text"
+      >
+      </app-custom-input>
+    </div>
+    <div class="col-2">
+      <app-custom-input
+        [control]="clientForm.get('documentNumber')"
+        placeholder="Sucursal"
+        label="Sucursal"
+        controlId="documentNumber"
+        type="text"
+      >
+      </app-custom-input>
+    </div>
+    <div class="col-1">
+      <app-custom-input
+        [control]="clientForm.get('documentNumber')"
+        placeholder="DC"
+        label="DC"
+        controlId="documentNumber"
+        type="text"
+      >
+      </app-custom-input>
+    </div>
+    <div class="col-2">
+      <app-custom-input
+        [control]="clientForm.get('documentNumber')"
+        placeholder="Núm. compte"
+        label="Núm. compte"
+        controlId="documentNumber"
+        type="text"
+      >
+      </app-custom-input>
+    </div>
+    <div class="col-2">
+      <app-custom-input
+        [control]="clientForm.get('documentNumber')"
+        placeholder="Banc"
+        label="Banc"
+        controlId="documentNumber"
+        type="text"
+      >
+      </app-custom-input>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <p>Cargando datos del cliente...</p>
+</ng-template>

@@ -1,5 +1,34 @@
+// Importar el archivo custom-select.scss
+@import "custom-select";
+
 .select-width {
   width: 100%;
+}
+
+input {
+  width: 100%;
+}
+
+/* Estilo general para los inputs */
+.form-control {
+  background: #e6e6e6; /* Fondo claro para mayor efecto */
+  border: 1px solid #c0c0c0; /* Borde suave */
+  padding: 8px 12px; /* Padding adecuado para que el texto no esté muy pegado al borde */
+  width: 100%; /* Ajusta esto según necesites */
+  box-sizing: border-box; /* Incluye el padding y border en el ancho total */
+}
+
+/* Aplicar sombras para el efecto de biselado y relieve */
+.form-control:focus {
+  outline: none; /* Elimina el borde de foco predeterminado */
+  box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.8),
+    /* Sombra interna clara */ inset -1px -1px 2px rgba(0, 0, 0, 0.2); /* Sombra interna oscura */
+}
+
+.form-control:hover {
+  box-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8),
+    /* Sombra externa clara para el efecto elevado */ -1px -1px 2px
+      rgba(0, 0, 0, 0.1); /* Sombra externa oscura para el efecto de profundidad */
 }
 
 .red-juridic-background-color {
@@ -136,7 +165,9 @@
       text-transform: capitalize;
       font-size: 16px;
       font-weight: 600;
-      border: none;
+      border-left: 1px solid #b1b1b1;
+      border-right: 1px solid #b1b1b1;
+      border-top: 1px solid #b1b1b1;
       background-color: #b1b1b1;
       color: #fff;
       border-radius: 0;
@@ -144,8 +175,8 @@
       position: relative; /* Necesario para posicionar correctamente el pseudo-elemento */
       height: 42px;
       &.active {
-        background-color: #777777; /* Más oscuro para la pestaña activa */
-
+        background-color: #ffffff; /* Más oscuro para la pestaña activa */
+        color: #333333;
         .iconoredondeo {
           color: #59b41b;
         }
@@ -194,7 +225,7 @@
       color: #000; /* Color de texto blanco */
       padding: 14px;
       &.fade.show.active {
-        border: 1px solid #777777; /* Sin borde */
+        border: 1px solid #b1b1b1; /* Sin borde */
         background-color: #ffffff; /* Color de fondo verde más oscuro para pestaña activa */
       }
     }

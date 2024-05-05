@@ -27,6 +27,10 @@ import { CliComunicacionsComponent } from './clients/cli-comunicacions/cli-comun
 import { CliHistoricAbonamentsComponent } from './clients/cli-historic-abonaments/cli-historic-abonaments.component';
 import { CliLopdComponent } from './clients/cli-lopd/cli-lopd.component';
 import { CliDadesJuridiquesComponent } from './clients/cli-dades-juridiques/cli-dades-juridiques.component';
+import { CustomSelectComponent } from './shared/components/custom-select/custom-select.component';
+import { CustomInputComponent } from './shared/components/custom-input/custom-input.component';
+import { CustomCheckboxComponent } from './shared/components/custom-checkbox/custom-checkbox.component';
+import { CustomRadioGroupComponent } from './shared/components/custom-radio-group/custom-radio-group.component';
 
 @NgModule({
   imports: [
@@ -60,6 +64,10 @@ import { CliDadesJuridiquesComponent } from './clients/cli-dades-juridiques/cli-
     CliHistoricAbonamentsComponent,
     CliLopdComponent,
     CliDadesJuridiquesComponent,
+    CustomSelectComponent,
+    CustomInputComponent,
+    CustomCheckboxComponent,
+    CustomRadioGroupComponent,
   ],
   exports: [LayoutComponent],
 })

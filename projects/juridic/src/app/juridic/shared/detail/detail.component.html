@@ -237,13 +237,12 @@
       //
         -->
     <div *ngSwitchCase="'clients'">
-      <div class="d-flex justify-content-between m-4">
+      <div class="d-flex justify-content-start align-items-center mt-4 mb-4">
         <div>
-          Cliente:
-          <strong>{{ data.clientName }} {{ data.clientSurname }}</strong>
+          <h3>{{ data.name }} {{ data.surname }}</h3>
         </div>
         <div>
-          NIF/NIE/DOC: <strong>{{ data.documentNumber }}</strong>
+          - <strong>{{ data.documentNumber }}</strong>
         </div>
         <div>
           <strong>{{ data.entityType }}</strong>
@@ -252,9 +251,7 @@
 
       <div class="row">
         <div class="col-md-12">
-          <app-sub-tabs-cli
-            [identificador]="data.documentNumber"
-          ></app-sub-tabs-cli>
+          <app-sub-tabs-cli [identificador]="data.id"></app-sub-tabs-cli>
         </div>
       </div>
     </div>

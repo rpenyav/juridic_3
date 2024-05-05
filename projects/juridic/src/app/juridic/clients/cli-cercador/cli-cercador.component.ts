@@ -20,9 +20,11 @@ import { subscribeToTranslations } from '../../utils/functions';
 })
 export class CliCercadorComponent implements OnInit, OnDestroy {
   searchForm: FormGroup;
-  endpoint = 'clients/search';
+  //endpoint = 'clients/search';
+  endpoint = 'persons/persons/paged';
+
   results: ClientModel[] = [];
-  pageNumber: number = 1;
+  pageNumber: number = 0;
   pageSize: number = 10;
   totalElements: number = 0;
   errorMessage: string | null = null;
@@ -57,8 +59,8 @@ export class CliCercadorComponent implements OnInit, OnDestroy {
   initForm(): void {
     this.searchForm = this.fb.group({
       documentNumber: [''],
-      clientName: [''],
-      clientSurname: [''],
+      name: [''],
+      surname: [''],
     });
   }
 

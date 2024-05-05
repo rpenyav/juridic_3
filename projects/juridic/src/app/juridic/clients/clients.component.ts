@@ -26,7 +26,7 @@ import { ClientModel } from '../interfaces/clients';
   templateUrl: './clients.component.html',
 })
 export class ClientsComponent implements OnInit {
-  endpoint = 'clients';
+  endpoint = 'persons/persons';
   typeofbus = 'clients';
   sessionStorageKey = 'client-search';
   sessionStorageKeyTabs = 'cli-tabs';

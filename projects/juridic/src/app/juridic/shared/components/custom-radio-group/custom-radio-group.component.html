@@ -1,0 +1,9 @@
+<label *ngFor="let option of options" class="form-check-label">
+  <input
+    class="form-check-input"
+    type="radio"
+    [formControl]="control"
+    [value]="option.value"
+  />
+  {{ option.label }}
+</label>
