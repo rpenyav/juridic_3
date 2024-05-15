@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
 export class SubTabsCliComponent {
   @Input() identificador: number;
 
-  activeTabId: string = 'generals-tab';
+  activeTabId: string = 'principal-tab';
 
   ngOnInit(): void {
     const savedTabId = localStorage.getItem('activeTab');

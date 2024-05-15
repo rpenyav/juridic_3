@@ -237,15 +237,20 @@
       //
         -->
     <div *ngSwitchCase="'clients'">
-      <div class="d-flex justify-content-start align-items-center mt-4 mb-4">
-        <div>
-          <h3>{{ data.name }} {{ data.surname }}</h3>
+      <div
+        class="d-flex justify-content-between align-items-center mt-4 mb-4 pe-4"
+      >
+        <div class="d-flex align-items-center">
+          <div>
+            <h3>{{ data.name }} {{ data.surname }}</h3>
+          </div>
+          <div class="ms-2">
+            - <strong>{{ data.documentNumber }}</strong>
+          </div>
         </div>
         <div>
-          - <strong>{{ data.documentNumber }}</strong>
-        </div>
-        <div>
-          <strong>{{ data.entityType }}</strong>
+          <strong *ngIf="data.personTypeId === 2">Persona física</strong>
+          <strong *ngIf="data.personTypeId === 1">Persona jurídica</strong>
         </div>
       </div>
 

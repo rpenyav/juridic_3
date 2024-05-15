@@ -14,6 +14,10 @@ export const APP_ROUTES: Routes = [
     loadChildren: () =>
       loadRemoteModule({
         remoteEntry: 'http://localhost:3002/remoteEntry.js',
+
+        // remoteEntry:
+        //   'http://juridic3demo.cronda.coop:8001/authentication/remoteEntry.js',
+
         remoteName: 'authentication',
         exposedModule: './AuthModule',
       }).then((m) => m.AuthModule),

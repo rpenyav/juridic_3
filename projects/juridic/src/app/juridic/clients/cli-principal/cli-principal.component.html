@@ -1,0 +1,77 @@
+<ng-container *ngIf="client$ | async as client">
+  <div class="container-fluid mt-3">
+    <div class="row">
+      <div class="col-md-2">
+        <strong>Document Type:</strong> {{ client.documentTypeId }}
+      </div>
+      <div class="col-md-2">
+        <strong>Document Number:</strong> {{ client.documentNumber }}
+      </div>
+      <div class="col-md-3"><strong>Name:</strong> {{ client.name }}</div>
+      <div class="col-md-3"><strong>Surname:</strong> {{ client.surname }}</div>
+      <div class="col-md-2">
+        <strong>Person Type:</strong>
+        {{ client.personTypeId === 1 ? "Persona física" : "Persona Jurídica" }}
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-3">
+        <strong>Valid:</strong> {{ client.valid ? "Yes" : "No" }}
+      </div>
+      <div class="col-md-3"><strong>Gender:</strong> {{ client.genderId }}</div>
+      <div class="col-md-3">
+        <strong>Date Modified:</strong> {{ client.dateMod | date }}
+      </div>
+      <div class="col-md-3"><strong>Type:</strong> {{ client.type }}</div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-3">
+        <strong>Nationality ID:</strong> {{ client.nationalityId }}
+      </div>
+      <div class="col-md-3">
+        <strong>Language ID:</strong> {{ client.languageId }}
+      </div>
+      <div class="col-md-3">
+        <strong>Payment Method ID:</strong> {{ client.paymentMethodId }}
+      </div>
+      <div class="col-md-3">
+        <strong>Relation CR ID:</strong> {{ client.relationCrId }}
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-3">
+        <strong>Administration System:</strong>
+        {{ client.administrationSystem }}
+      </div>
+      <div class="col-md-3">
+        <strong>Patronal Number:</strong> {{ client.patronalNumber }}
+      </div>
+      <div class="col-md-3">
+        <strong>Number of Workers:</strong> {{ client.numberOfWorkers }}
+      </div>
+      <div class="col-md-3">
+        <strong>Late Payment:</strong> {{ client.latePayment ? "Yes" : "No" }}
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-3">
+        <strong>Late Payment Description:</strong>
+        {{ client.latePaymentDescription }}
+      </div>
+      <div class="col-md-3">
+        <strong>Subscriber Antiquity:</strong>
+        {{ client.subscriberAntiquity | date }}
+      </div>
+      <div class="col-md-3">
+        <strong>Accounting Account:</strong> {{ client.accountingAccount }}
+      </div>
+      <div class="col-md-3">
+        <strong>Activity:</strong> {{ client.activity }}
+      </div>
+    </div>
+  </div>
+</ng-container>

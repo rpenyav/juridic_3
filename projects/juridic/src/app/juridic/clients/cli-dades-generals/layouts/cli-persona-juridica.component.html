@@ -1,0 +1,233 @@
+<div class="row modificacio mb-5">
+  <div class="col-md-12">
+    <h5>Informació general</h5>
+
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <app-custom-input
+          [control]="clientForm.get('cooperativesRegisterNumber')"
+          placeholder="Nº registre cooperatives"
+          label="Nº registre cooperatives"
+          controlId="cooperativesRegisterNumber"
+          type="text"
+        >
+        </app-custom-input>
+      </div>
+      <div class="col-md-3">
+        <app-custom-select
+          [control]="clientForm.get('documentTypeId')"
+          [endpoint]="'1/document_types/paged?page=0&pagesize=10'"
+          [placeholder]="'IAE'"
+          [label]="'IAE'"
+          [controlId]="'documentTypeId'"
+          [valueField]="'id'"
+          [displayField]="'literalDescriptionText'"
+        >
+        </app-custom-select>
+      </div>
+      <div class="col-md-3">
+        <app-custom-select
+          [control]="clientForm.get('cnae')"
+          [endpoint]="'1/cnae/paged?page=0&pagesize=10'"
+          [placeholder]="'CNAE'"
+          [label]="'CNAE'"
+          [controlId]="'cnae'"
+          [valueField]="'code'"
+          [displayField]="'literalDescriptionText'"
+        >
+        </app-custom-select>
+      </div>
+      <div class="col-md-3">
+        <app-custom-checkbox
+          [control]="clientForm.get('hasSpouse')"
+          label="Abonado"
+          controlId="hasSpouse"
+        >
+        </app-custom-checkbox>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <app-custom-input
+          [control]="clientForm.get('numberOfWorkers')"
+          placeholder="Número empleados"
+          label="Número empleados"
+          controlId="numberOfWorkers"
+          type="text"
+        >
+        </app-custom-input>
+      </div>
+      <div class="col-md-3">
+        <app-custom-select
+          [control]="clientForm.get('cnae')"
+          [endpoint]="'1/cnae/paged?page=0&pagesize=10'"
+          [placeholder]="'Ramo profesional'"
+          [label]="'Ramo profesional'"
+          [controlId]="'cnae'"
+          [valueField]="'code'"
+          [displayField]="'literalDescriptionText'"
+        >
+        </app-custom-select>
+      </div>
+      <div class="col-md-3">
+        <app-custom-input
+          [control]="clientForm.get('patronalNumber')"
+          placeholder="Núm patronal"
+          label="Núm patronal"
+          controlId="patronalNumber"
+          type="text"
+        ></app-custom-input>
+      </div>
+      <div class="col-md-3">
+        <app-custom-input
+          [control]="clientForm.get('patronalNumber')"
+          placeholder="E-mail"
+          label="E-mail"
+          controlId="patronalNumber"
+          type="text"
+        ></app-custom-input>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <app-custom-input
+          [control]="clientForm.get('patronalNumber')"
+          placeholder="Carrer"
+          label="Carrer"
+          controlId="patronalNumber"
+          type="text"
+        ></app-custom-input>
+      </div>
+      <div class="col-md-2">
+        <app-custom-input
+          [control]="clientForm.get('patronalNumber')"
+          placeholder="CP"
+          label="CP"
+          controlId="patronalNumber"
+          type="text"
+        ></app-custom-input>
+      </div>
+      <div class="col-md-3">
+        <app-custom-select
+          [control]="clientForm.get('cnae')"
+          [endpoint]="'1/provinces/paged?page=0&pagesize=10'"
+          [placeholder]="'Provincia'"
+          [label]="'Provincia'"
+          [controlId]="'cnae'"
+          [valueField]="'code'"
+          [displayField]="'name'"
+        >
+        </app-custom-select>
+      </div>
+      <div class="col-md-3">
+        <app-custom-select
+          [control]="clientForm.get('cnae')"
+          [endpoint]="'1/municipalities/paged?page=0&pagesize=10'"
+          [placeholder]="'Población'"
+          [label]="'Población'"
+          [controlId]="'cnae'"
+          [valueField]="'code'"
+          [displayField]="'name'"
+        >
+        </app-custom-select>
+      </div>
+      <div class="col-md-1">
+        <app-custom-checkbox
+          [control]="clientForm.get('hasLegalRepresentatives')"
+          label="2a dirección"
+          controlId="hasLegalRepresentatives"
+        >
+        </app-custom-checkbox>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row modificacio mb-5">
+  <div class="col-md-6">
+    <h5>Contactos cliente</h5>
+    <div class="row mb-3">
+      <div class="col-md-12 mt-2">
+        <div class="section-header">
+          <h6>Registros</h6>
+          <button class="btn p-0 section-button">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <app-table
+          type="contactpersons"
+          [data]="client.contactPersons"
+        ></app-table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h5>Personas de referencia</h5>
+    <div class="row mb-3">
+      <div class="col-md-12 mt-2">
+        <div class="section-header">
+          <button class="btn p-0 section-button">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <app-table
+          type="personesreferencia"
+          [data]="client.centers"
+        ></app-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row modificacio mb-5">
+  <div class="col-md-4">
+    <app-custom-checkbox
+      [control]="clientForm.get('hasLegalRepresentatives')"
+      label="Tiene documentación pendiente de recoger"
+      controlId="hasLegalRepresentatives"
+    >
+    </app-custom-checkbox>
+  </div>
+
+  <div class="col-md-4">
+    <app-custom-input
+      [control]="clientForm.get('attorneyId')"
+      placeholder="Data"
+      label="Data"
+      controlId="attorneyId"
+      type="text"
+    >
+    </app-custom-input>
+  </div>
+  <div class="col-md-4">
+    <app-custom-input
+      [control]="clientForm.get('judgeId')"
+      placeholder="Comentari"
+      label="Comentari"
+      controlId="judgeId"
+      type="text"
+    >
+    </app-custom-input>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <app-custom-textarea
+          [control]="clientForm.get('observations')"
+          placeholder="Observaciones"
+          label="Observaciones"
+          controlId="observations"
+          rows="4"
+        >
+        </app-custom-textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end Persona Juridica -->

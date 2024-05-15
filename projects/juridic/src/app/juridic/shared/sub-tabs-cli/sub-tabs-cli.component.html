@@ -4,13 +4,13 @@
       <li class="nav-item" role="presentation">
         <button
           class="nav-link rounded-top"
-          [class.active]="activeTabId === 'generals-tab'"
-          (click)="setActiveTab('generals-tab')"
-          id="generals-tab"
-          aria-controls="generals"
-          aria-selected="activeTabId === 'generals-tab'"
+          [class.active]="activeTabId === 'principal-tab'"
+          (click)="setActiveTab('principal-tab')"
+          id="principal-tab"
+          aria-controls="principal"
+          aria-selected="activeTabId === 'principal-tab'"
         >
-          Dades generals
+          360
         </button>
       </li>
       <li class="nav-item" role="presentation">
@@ -28,13 +28,13 @@
       <li class="nav-item" role="presentation">
         <button
           class="nav-link rounded-top"
-          [class.active]="activeTabId === 'bancaries-tab'"
-          (click)="setActiveTab('bancaries-tab')"
-          id="bancaries-tab"
-          aria-controls="bancaries"
-          aria-selected="activeTabId === 'bancaries-tab'"
+          [class.active]="activeTabId === 'general-tab'"
+          (click)="setActiveTab('general-tab')"
+          id="general-tab"
+          aria-controls="general"
+          aria-selected="activeTabId === 'general-tab'"
         >
-          Dades bancàries
+          Dades generals
         </button>
       </li>
 
@@ -146,13 +146,11 @@
     <div class="tab-content" id="myTabContent">
       <div
         class="tab-pane fade"
-        [ngClass]="{ 'show active': activeTabId === 'generals-tab' }"
-        id="generals"
+        [ngClass]="{ 'show active': activeTabId === 'principal-tab' }"
+        id="principal"
         role="tabpanel"
       >
-        <app-cli-dades-generals
-          [clientId]="identificador"
-        ></app-cli-dades-generals>
+        <app-cli-principal [clientId]="identificador"></app-cli-principal>
       </div>
       <div
         class="tab-pane fade"
@@ -160,19 +158,19 @@
         id="juridiques"
         role="tabpanel"
       >
-        <app-cli-dades-juridiques
+        <!-- <app-cli-dades-juridiques
           [clientId]="identificador"
-        ></app-cli-dades-juridiques>
+        ></app-cli-dades-juridiques> -->
       </div>
       <div
         class="tab-pane fade"
-        [ngClass]="{ 'show active': activeTabId === 'bancaries-tab' }"
-        id="bancaries"
+        [ngClass]="{ 'show active': activeTabId === 'general-tab' }"
+        id="general"
         role="tabpanel"
       >
-        <app-cli-dades-bancaries
+        <app-cli-dades-generals
           [clientId]="identificador"
-        ></app-cli-dades-bancaries>
+        ></app-cli-dades-generals>
       </div>
 
       <div

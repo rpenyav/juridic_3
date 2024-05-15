@@ -1,0 +1,341 @@
+<div class="row modificacio mb-5">
+  <div class="col-md-12">
+    <h5>Informació personal</h5>
+
+    <div class="row mb-3">
+      <div class="col-md-1">
+        <app-custom-select
+          [control]="clientForm.get('documentTypeId')"
+          [endpoint]="'1/document_types/paged?page=0&pagesize=10'"
+          [placeholder]="'Select a document type'"
+          [label]="'Document type'"
+          [controlId]="'documentTypeId'"
+          [valueField]="'id'"
+          [displayField]="'literalDescriptionText'"
+        >
+        </app-custom-select>
+      </div>
+      <div class="col-md-1">
+        <app-custom-input
+          [control]="clientForm.get('documentNumber')"
+          placeholder="Nº ident"
+          label="Nº ident"
+          controlId="documentNumber"
+          type="text"
+        >
+        </app-custom-input>
+      </div>
+      <div class="col-md-3">
+        <app-custom-input
+          [control]="clientForm.get('name')"
+          placeholder="Nombre"
+          label="Nombre"
+          controlId="name"
+          type="text"
+        ></app-custom-input>
+      </div>
+      <div class="col-md-3">
+        <app-custom-input
+          [control]="clientForm.get('surname')"
+          placeholder="Apellidos"
+          label="Apellidos"
+          controlId="surname"
+          type="text"
+        >
+        </app-custom-input>
+      </div>
+      <div class="col-md-2">
+        <app-custom-select
+          [control]="clientForm.get('genderId')"
+          [endpoint]="'1/genders/paged?page=0&pageSize=10'"
+          [placeholder]="'Select a gender'"
+          [label]="'Gender'"
+          [controlId]="'genderId'"
+          [valueField]="'id'"
+          [displayField]="'literalDescriptionText'"
+        >
+        </app-custom-select>
+      </div>
+      <div class="col-md-2">
+        <app-custom-select
+          [control]="clientForm.get('nationalityId')"
+          [endpoint]="'1/genders/paged?page=0&pageSize=10'"
+          [placeholder]="'Select a nationality'"
+          [label]="'Nationality'"
+          [controlId]="'nationalityId'"
+          [valueField]="'id'"
+          [displayField]="'literalDescriptionText'"
+        >
+        </app-custom-select>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-2">
+        <app-custom-input
+          [control]="clientForm.get('seguridadSocialNumber')"
+          placeholder="Número seguridad social"
+          label="Número seguridad social"
+          controlId="seguridadSocialNumber"
+          type="text"
+        >
+        </app-custom-input>
+      </div>
+      <div class="col-md-2">
+        {{ client.birthDate }}
+        <app-custom-input
+          [control]="clientForm.get('birthDate')"
+          placeholder="Data de neixement"
+          label="Data de neixement"
+          controlId="birthDate"
+          type="date"
+        >
+        </app-custom-input>
+      </div>
+      <div class="col-md-2">
+        <app-custom-input
+          [control]="clientForm.get('birthPlace')"
+          placeholder="Lloc de neixement"
+          label="Lloc de neixement"
+          controlId="birthPlace"
+          type="text"
+        ></app-custom-input>
+      </div>
+      <div class="col-md-2">
+        <app-custom-input
+          [control]="clientForm.get('deathDate')"
+          placeholder="Data obit"
+          label="Data obit"
+          controlId="deathDate"
+          type="date"
+        >
+        </app-custom-input>
+      </div>
+      <div class="col-md-2">
+        <app-custom-select
+          [control]="clientForm.get('maritalStatusId')"
+          [endpoint]="'1/genders/paged?page=0&pageSize=10'"
+          [placeholder]="'Estat civil'"
+          [label]="'Estat civil'"
+          [controlId]="'maritalStatusId'"
+          [valueField]="'id'"
+          [displayField]="'literalDescriptionText'"
+        >
+        </app-custom-select>
+      </div>
+      <div class="col-md-2 pt-4">
+        <app-custom-checkbox
+          [control]="clientForm.get('hasSpouse')"
+          label="Tiene conyuge"
+          controlId="hasSpouse"
+        >
+        </app-custom-checkbox>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-1">
+        <app-custom-checkbox
+          [control]="clientForm.get('conflictive')"
+          label="Conflictivo"
+          controlId="conflictive"
+        >
+        </app-custom-checkbox>
+      </div>
+      <div class="col-md-4">
+        <app-custom-textarea
+          [control]="clientForm.get('conflictDescription')"
+          placeholder="Descripción del conflicto"
+          label="Descripción del conflicto"
+          controlId="conflictDescription"
+          rows="6"
+        >
+        </app-custom-textarea>
+      </div>
+      <div class="col-md-7">
+        <app-custom-textarea
+          [control]="clientForm.get('observations')"
+          placeholder="Observaciones"
+          label="Observaciones"
+          controlId="observations"
+          rows="6"
+        >
+        </app-custom-textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row modificacio mb-5">
+  <div class="col-md-12">
+    <h5>Información de Contacto</h5>
+    <div class="row mb-3">
+      <div class="col-md-12 mt-2">
+        <div class="section-header">
+          <h6>Adreçes</h6>
+          <button class="btn p-0 section-button">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <app-table type="clientaddress" [data]="client.addresses"></app-table>
+
+        <div class="section-header">
+          <h6>E-mails</h6>
+          <button class="btn p-0 section-button">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <app-table type="clientemails" [data]="client.emails"></app-table>
+
+        <div class="section-header">
+          <h6>Telèfons</h6>
+          <button class="btn p-0 section-button">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+          </button>
+        </div>
+        <app-table type="clienttelephones" [data]="client.phones"></app-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row modificacio mb-5">
+  <div class="col-md-12">
+    <h5>Información financiera</h5>
+    <div class="row mb-3">
+      <div class="col-md-12 mt-2">
+        <div class="section-header">
+          <h6>Cuentas bancarias</h6>
+          <button class="btn p-0 section-button">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <app-table
+          type="clientbankaccounts"
+          [data]="client.bankAccounts"
+        ></app-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row modificacio mb-5">
+  <div class="col-md-4">
+    <h5>Información Legal</h5>
+
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <app-custom-checkbox
+          [control]="clientForm.get('hasLegalRepresentatives')"
+          label="Tiene representación legal"
+          controlId="hasLegalRepresentatives"
+        >
+        </app-custom-checkbox>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <app-custom-input
+          [control]="clientForm.get('attorneyId')"
+          placeholder="Rep.Legal"
+          label="Rep.Legal"
+          controlId="attorneyId"
+          type="text"
+        >
+        </app-custom-input>
+      </div>
+      <div class="col-md-4">
+        <app-custom-input
+          [control]="clientForm.get('judgeId')"
+          placeholder="Juez"
+          label="Juez"
+          controlId="judgeId"
+          type="text"
+        >
+        </app-custom-input>
+      </div>
+      <div class="col-md-4">
+        <app-custom-input
+          [control]="clientForm.get('lawyerId')"
+          placeholder="Abogado"
+          label="Abogado"
+          controlId="lawyerId"
+          type="text"
+        ></app-custom-input>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <h5>Información de la cuenta</h5>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <app-custom-select
+          [control]="clientForm.get('languageId')"
+          [endpoint]="'1/document_types/paged?page=0&pagesize=10'"
+          [placeholder]="'Select a language'"
+          [label]="'Idioma preferente'"
+          [controlId]="'languageId'"
+          [valueField]="'id'"
+          [displayField]="'literalDescriptionText'"
+        >
+        </app-custom-select>
+      </div>
+      <div class="col-md-6">
+        <app-custom-input
+          [control]="clientForm.get('subscriberAntiquity')"
+          placeholder="Antigüedad"
+          label="Antigüedad"
+          controlId="subscriberAntiquity"
+          type="date"
+        ></app-custom-input>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <app-custom-select
+          [control]="clientForm.get('paymentMethodId')"
+          [endpoint]="'1/document_types/paged?page=0&pagesize=10'"
+          [placeholder]="'Seleccione metodo de pago'"
+          [label]="'Método de pago'"
+          [controlId]="'paymentMethodId'"
+          [valueField]="'id'"
+          [displayField]="'literalDescriptionText'"
+        >
+        </app-custom-select>
+      </div>
+
+      <div class="col-md-6">
+        <app-custom-input
+          [control]="clientForm.get('relationCrId')"
+          placeholder="Relacion Card"
+          label="Relacion Card"
+          controlId="relationCrId"
+          type="date"
+        ></app-custom-input>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-12">"latePayment": false,</div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <app-custom-textarea
+          [control]="clientForm.get('latePaymentDescription')"
+          placeholder="Descripción último pago"
+          label="Descripción último pago"
+          controlId="latePaymentDescription"
+          rows="4"
+        >
+        </app-custom-textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end Persona Fisica -->

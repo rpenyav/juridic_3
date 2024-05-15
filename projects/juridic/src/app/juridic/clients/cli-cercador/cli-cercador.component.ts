@@ -118,7 +118,6 @@ export class CliCercadorComponent implements OnInit, OnDestroy {
   }
 
   handleReferenciaSelected(item: ClientModel) {
-    console.log('em', item);
     this.referenciaSelected.emit(item);
   }
 

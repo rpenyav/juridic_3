@@ -1,0 +1,25 @@
+.modificacio {
+  h5 {
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #333333;
+    padding-bottom: 8px;
+  }
+  h6 {
+    font-style: italic;
+    color: #999999;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #999999;
+    padding-bottom: 4px;
+  }
+
+  .section-button {
+    background: none;
+    border: none;
+  }
+}

@@ -31,6 +31,10 @@ import { CustomSelectComponent } from './shared/components/custom-select/custom-
 import { CustomInputComponent } from './shared/components/custom-input/custom-input.component';
 import { CustomCheckboxComponent } from './shared/components/custom-checkbox/custom-checkbox.component';
 import { CustomRadioGroupComponent } from './shared/components/custom-radio-group/custom-radio-group.component';
+import { CliPrincipalComponent } from './clients/cli-principal/cli-principal.component';
+import { CustomTextareaComponent } from './shared/components/custom-textarea/custom-textarea.component';
+import { CliPersonaFisicaComponent } from './clients/cli-dades-generals/layouts/cli-persona-fisica.component';
+import { CliPersonaJuridicaComponent } from './clients/cli-dades-generals/layouts/cli-persona-juridica.component';
 
 @NgModule({
   imports: [
@@ -68,6 +72,10 @@ import { CustomRadioGroupComponent } from './shared/components/custom-radio-grou
     CustomInputComponent,
     CustomCheckboxComponent,
     CustomRadioGroupComponent,
+    CliPrincipalComponent,
+    CustomTextareaComponent,
+    CliPersonaFisicaComponent,
+    CliPersonaJuridicaComponent,
   ],
   exports: [LayoutComponent],
 })
