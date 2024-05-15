@@ -125,6 +125,8 @@ export class ClientsComponent implements OnInit {
   }
 
   cerrarTab(tabId: string) {
+    this.actualizarTabsAbiertos(tabId);
+
     cerrarTab(
       tabId,
       this.thisTabs,
@@ -134,6 +136,24 @@ export class ClientsComponent implements OnInit {
       () => this.seleccionarBuscador(),
       this.tabsRoutePrefix
     );
+  }
+
+  private actualizarTabsAbiertos(tabId: string) {
+    const tabOpenedKey = `isTabOpenedWith${
+      this.typeofbus.charAt(0).toUpperCase() + this.typeofbus.slice(1)
+    }`;
+    let openedTabs: string[] = JSON.parse(
+      sessionStorage.getItem(tabOpenedKey) || '[]'
+    );
+
+    // Asegúrate de que tabId es una cadena para la comparación
+    const tabIdStr = String(tabId);
+
+    // Filtrar el ID de la pestaña que se está cerrando, asegurando que se comparen como cadenas
+    openedTabs = openedTabs.filter((id) => String(id) !== tabIdStr);
+
+    // Actualizar sessionStorage con los IDs restantes
+    sessionStorage.setItem(tabOpenedKey, JSON.stringify(openedTabs));
   }
 
   actualizarSessionStorage() {

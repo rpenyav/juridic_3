@@ -1,5 +1,5 @@
-// Importar el archivo custom-select.scss
 @import "custom-select";
+@import "forms";
 
 .select-width {
   width: 100%;
@@ -7,6 +7,31 @@
 
 input {
   width: 100%;
+}
+
+.auth {
+  height: 95vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .burdeos {
+    background-color: #800020;
+    text-align: center;
+    width: 100%;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+  .btn-custom {
+    background-color: #800020; /* Un tono burdeos */
+    color: white; /* Texto blanco para mejor contraste */
+    border-radius: 30px; /* Bordes muy redondeados */
+    width: 100%; /* Hace que el botón se expanda al ancho total del contenedor */
+  }
+
+  .btn-custom:hover {
+    background-color: #66001b; /* Un tono ligeramente más oscuro al pasar el mouse */
+  }
 }
 
 /* Estilo general para los inputs */

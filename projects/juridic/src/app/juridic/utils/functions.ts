@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
 import { I18nService } from 'shared-lib';
 import { ExpedienteModel } from '../interfaces/expedientes';
-import { ClientModel } from '../interfaces/clients';
+import { Addresses, ClientModel } from '../interfaces/clients';
 
 interface Tab {
   id: string;
@@ -166,7 +166,55 @@ export function setupColumns<T extends ExpedienteModel | ClientModel>(
         { field: 'surname', title: 'Fins' },
         { field: 'surname', title: 'Càrrec' },
       ] as Column<T>[];
+    case 'clientaddress':
+      return [
+        { field: 'street', title: 'Calle' },
+        { field: 'postalCode.code', title: 'Código Postal' }, // Asumiendo que quieres mostrar el código postal directamente
+        { field: 'municipality.name', title: 'Municipio' }, // Asumiendo un acceso a un objeto más complejo dentro de PostalCode
+        { field: 'province.name', title: 'Provincia' }, // Similar para provincia
+        { field: 'country.literalNameText', title: 'País' }, // Asumiendo que quieres el nombre del país
+      ] as Column<T>[];
 
+    case 'clientemails':
+      return [
+        { field: 'number', title: 'E-mail' },
+        { field: 'description', title: 'Descripción' },
+        { field: 'type.code', title: 'Tipo de Email' },
+        { field: 'principal', title: 'Principal' },
+      ] as Column<T>[];
+
+    case 'clienttelephones':
+      return [
+        { field: 'number', title: 'Número' },
+        { field: 'description', title: 'Descripción' },
+        { field: 'type.code', title: 'Tipo de Teléfono' },
+        { field: 'principal', title: 'Principal' },
+      ] as Column<T>[];
+
+    case 'clientbankaccounts':
+      return [
+        { field: 'titular', title: 'Titular' },
+        { field: 'chargeAccount', title: 'Cuenta de Cargo' },
+        { field: 'foreignAccount', title: 'Cuenta Extranjera' },
+        { field: 'bank.name', title: 'Nombre del Banco' },
+        { field: 'iban', title: 'IBAN' },
+        { field: 'bank.swift', title: 'SWIFT/BIC' },
+        { field: 'bank.country.literalNameText', title: 'País del Banco' },
+      ] as Column<T>[];
+
+    case 'contactpersons':
+      return [
+        { field: 'documentNumber', title: 'DNI/NIF' },
+        { field: 'surname', title: 'Nom' },
+        { field: 'surname', title: 'E-mail' },
+        { field: 'surname', title: 'Teléfono' },
+      ] as Column<T>[];
+    case 'personesreferencia':
+      return [
+        { field: 'documentNumber', title: 'DNI/NIF' },
+        { field: 'surname', title: 'Nom' },
+        { field: 'surname', title: 'Área responsable' },
+      ] as Column<T>[];
     default:
       return [];
   }

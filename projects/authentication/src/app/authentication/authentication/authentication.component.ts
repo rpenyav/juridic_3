@@ -5,7 +5,6 @@ import { AuthenticationService } from '../../authentication.service';
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
-  styleUrls: ['./authentication.component.scss'],
 })
 export class AuthComponent implements OnInit {
   loginForm: FormGroup;
@@ -28,7 +27,6 @@ export class AuthComponent implements OnInit {
       this.authService.login(username, password).subscribe({
         next: (response) => {
           console.log('Login successful', response);
-          // Maneja el login exitoso aquí
         },
         error: (error) => {
           console.error('Login failed', error);
