@@ -68,7 +68,7 @@
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "COMM_PURPOSES": {
-        "TITLE": "Communication Purposes",
+        "TITLE": "Finalitats de Comunicació",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "COMM_MODES": {
@@ -87,6 +87,14 @@
         "TITLE": "Sales de visita",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
+    "VISIT_TYPES": {
+        "TITLE": "Tipus de visita",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "VAT_PERCENTAGES": {
+        "TITLE": "Percentatges d'IVA",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
     "SUBSCRIPTION_TAGS": {
         "TITLE": "Etiquetes de subscripció",
         "SUBTITLE": "Your translation for the subtitle goes here"
@@ -99,12 +107,28 @@
         "TITLE": "Carpetes Estat",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
+    "EXPFOLDERSUBJECTS": {
+        "TITLE": "Carpetas Subjects",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
     "EXPFOLDERTYPE": {
         "TITLE": "Carpetes Tipus",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "EXPPROVINANCE": {
         "TITLE": "Procedència",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "FESTIVITYDAYS": {
+        "TITLE": "Festivity days",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "FESTIVITYYEARS": {
+        "TITLE": "Festivity years",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "GENERES": {
+        "TITLE": "Gèneres",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "MENU": {
@@ -126,8 +150,28 @@
         "PERSONES": "Personal",
         "LOPD": "LOPD",
         "VISIT_ROOMS": "Sales de visita",
-        "SUBSCRIPTION_TAGS": "Etiquetes de subscripció",
-        "EXPEDIENTS": "Expedients"
+        "SUBSCRIPTION_TAGS": "Etiquetes d'abonament",
+        "EXPEDIENTS": "Expedients",
+        "VISIT_TYPES": "Tipus de visita",
+        "VAT_PERCENTAGES": "Percentatges d'IVA",
+        "VISITES": "Visites",
+        "SUBSCRIPTIONS": "Abonaments",
+        "SUBSCRIPTION_TYPES": "Tipus d'abonament",
+        "SUBSCRIPTION_COVERAGES": "Cobertures d'abonaments",
+        "SUBSCRIPTION_DURATIONS": "Durada dels abonaments",
+        "SUBSCRIPTION_PARENTALS": "Parentius d'abonament",
+        "SUBSCRIPTION_PROCEDURES": "Tràmits d'abonament",
+        "FESTIVITY": "Festivitats",
+        "SUBSCRIPTION_STATUS": "Estats d'abonament",
+        "SUBSCRIPTION_PHASES": "Fases de tràmit d'abonament",
+        "RETURN_REASONS": "Motius de devolució",
+        "OFFICES": "Oficines",
+        "NACIONALITIES": "Nacionalitats",
+        "LEGAL_REPRESENTATIONS": "Representacions legals",
+        "LANGUAGES": "Idiomes",
+        "INVOICE_SERIES": "Sèries de facturació",
+        "GROUPS": "Grups"
+
     },
     "SUBMENU": {
         "COUNTRIES": "Països",
@@ -145,14 +189,19 @@
         "ORILOPD": "Origens LOPD",
         "REGLOPD": "Regulacions LOPD",
         "ADDRESSTYPE": "Tipus d'Adreces",
-        "MODESCOM_PURPOSE": "Purpose",
+        "MODESCOM_PURPOSE": "Finalitats",
         "MODESCOM_PURPOSE_PROFILES": "Purpose Profiles",
         "MODESCOM_MODES": "Modes",
         "MODESCOM_TYPES": "Types",
         "EXPEDIENT_FOLDER_STATES": "Carpetes Estat",
         "EXPEDIENT_FOLDER_SUBJECTS": "Carpetes Subject",
         "EXPEDIENT_FOLDER_TYPES": "Carpetes Tipus",
-        "EXPEDIENT_PROVENANCES": "Procedència"
+        "EXPEDIENT_PROVENANCES": "Procedència",
+        "FESTIVITY_DAYS": "Dies festius",
+        "FESTIVITY_YEARS": "Festivitats annuals",
+        "RELATION_TYPES": "Tipus de relació",
+        "PROFILES": "Perfils",
+        "PROFESSIONS": "Professions"
     },
     "TXT": {
         "HOME": "Inici",
@@ -167,7 +216,16 @@
         "new_registre": "Nou registre",
         "settings": "Configuració",
         "logout": "Logout",
-        "swift": "Swift"
+        "swift": "Swift",
+        "serch_in": "Cercar a ",
+        "cercar": "Cercar",
+        "contains": "Conté",
+        "greaterEquals": "Igual",
+        "begins": "Comença",
+        "greater": "Major",
+        "lowerEquals": "Menor",
+        "seguent": "Següent",
+        "anterior": "Anterior"
     },
     "FORM": {
         "campo_obligatorio": "Es un camp obligatori",
@@ -196,7 +254,17 @@
         "create_success_message": "El registro se ha creado",
         "create_error_title": "Error añadiendo el registro",
         "create_error_message": "Ha habido un error creando el registro",
-        "desea_eliminar": "Desitja esborrar ",
-        "capacity": "Capacitat"
-    }
+        "desea_eliminar": "Desitja esborrar "
+    },
+    "Name":"Nom",
+    "name":"Nom",
+    "code":"Codi",
+
+    "Codi":"Codi",
+    "Actions": "Accions",
+    "Tipo": "Tipus",
+    "Cancelar": "Cancel·lar",
+    "Editar Campos": "Editar",
+    "Guardar_finalitzar": "Guardar i tornar"
+
 }

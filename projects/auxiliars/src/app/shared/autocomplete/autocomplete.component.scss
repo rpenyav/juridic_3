@@ -1,0 +1,12 @@
+ul.autocomplete{
+  background: #fff;
+  width: 100%;
+  list-style: none;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow: auto;
+  /* top: 0px; */
+  margin-top: -3px;
+  padding-left:10px;
+  cursor:pointer;
+}

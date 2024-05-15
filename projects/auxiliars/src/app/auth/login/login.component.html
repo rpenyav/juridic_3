@@ -1,0 +1,43 @@
+<div class="position-absolute top-50 start-50 translate-middle">
+  <div class="login-container">
+    <img [src]="assetsBaseUrl + 'images/juridic_logo.svg'" />
+    <form (ngSubmit)="login()">
+      <div class="form-group">
+        <label for="username">Usuario</label>
+        <input
+          class="form-control"
+          placeholder="Escriba su usuario"
+          type="username"
+          id="username"
+          [(ngModel)]="username"
+          name="username"
+          required
+        />
+        <mat-icon>account_circle</mat-icon>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input
+          class="form-control"
+          placeholder="Escriba su contraseña"
+          [type]="showPassword ? 'text' : 'password'"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+        <mat-icon (click)="viewPass()"
+          >{{ showPassword ? "visibility_off" : "visibility" }}
+        </mat-icon>
+      </div>
+      <div>
+        <button type="submit">Iniciar sesión</button>
+      </div>
+    </form>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </div>
+
+  <div class="footer">&copy; Col·lectiu Ronda 2024 - v1.0</div>
+</div>

@@ -1,0 +1,20 @@
+<div class="bs-autocomplete-container">
+    <input [id]="'inputField' + inputId" class="form-control bs-autocomplete-input" autocomplete="off"
+           [(ngModel)]="filter" (ngModelChange)="filterEntries($event)" data-toggle="dropdown"
+           disabled="{{disabled}}"
+           
+           (focus)="inputFieldFocused()"
+           placeholder="{{inputPlaceholder}}"/>
+          
+    <ul [id]="'menu' + inputId" class="autocomplete" *ngIf="showResults"> 
+     <li class="option" *ngFor="let entry of filteredEntities" >
+       <a (click)="selectEntry(entry)">{{getEntryTitle(entry)}}</a>
+       <!-- <a href="javascript:void(0)" *ngIf="entryProperty" (click)="selectEntry(entry)">{{entry}}</a>
+        <a href="javascript:void(0)" *ngIf="!entryProperty" (click)="selectEntry(entry)">{{entry}}</a>
+       -->
+      </li>
+      
+    </ul>
+ 
+
+  </div>

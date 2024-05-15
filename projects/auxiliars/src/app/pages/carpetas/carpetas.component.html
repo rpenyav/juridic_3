@@ -1,0 +1,15 @@
+<app-layout
+  ><div>{{ "CARPETASTITLE.TITLE" | translate }}</div>
+
+  <div *ngIf="carpetasTypes.length > 0">
+    <h2>Carpetas</h2>
+    <ul>
+      <li *ngFor="let carpetasType of carpetasTypes">
+        {{ carpetasType.name }}
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="carpetasTypes.length === 0">
+    <p>No se encontraron carpetas.</p>
+  </div>
+</app-layout>

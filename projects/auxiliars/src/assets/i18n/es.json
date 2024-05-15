@@ -8,7 +8,7 @@
         "SUBTITLE": "Tu traducción para el subtítulo va aquí"
     },
     "BANKSTITLE": {
-        "TITLE": "Bancs",
+        "TITLE": "Bancos",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "CARPETASTITLE": {
@@ -68,7 +68,7 @@
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "COMM_PURPOSES": {
-        "TITLE": "Communication Purposes",
+        "TITLE": "Finalidades de Comunicación",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "COMM_MODES": {
@@ -87,6 +87,14 @@
         "TITLE": "Visit Romms",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
+    "VISIT_TYPES": {
+        "TITLE": "Tipo de visitas",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "VAT_PERCENTAGES": {
+        "TITLE": "Porcentajes de IVA",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
     "SUBSCRIPTION_TAGS": {
         "TITLE": "Etiquetas de subscripción",
         "SUBTITLE": "Your translation for the subtitle goes here"
@@ -103,8 +111,24 @@
         "TITLE": "Carpetas Tipos",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
+    "EXPFOLDERSUBJECTS": {
+        "TITLE": "Carpetas Subjects",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
     "EXPPROVINANCE": {
         "TITLE": "Procedencia",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "FESTIVITYDAYS": {
+        "TITLE": "Festivity days",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "FESTIVITYYEARS": {
+        "TITLE": "Festivity years",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "GENERES": {
+        "TITLE": "Géneros",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "MENU": {
@@ -126,7 +150,36 @@
         "LOPD": "LOPD",
         "VISIT_ROOMS": "Salas de visita",
         "SUBSCRIPTION_TAGS": "Etiquetas de subscripción",
-        "EXPEDIENTS": "Expedientes"
+        "EXPEDIENTS": "Expedientes",
+        "VISIT_TYPES": "Tipo de visitas",
+        "VISITES": "Visitas",
+        "SUBSCRIPTIONS": "Subscripciones",
+        "SUBSCRIPTION_TYPES": "Tipo de abonos",
+        "SUBSCRITION_COVERAGES": "Cobertura de abonos",
+        "SUBSCRIPTION_DURATIONS": "Duración de los abonos",
+        "SUBSCRIPTION_PARENTALS": "Padres de abonos",
+        "SUBSCRIPTION_PROCEDURES": "Procedimientos de abonos"
+,
+        "VAT_PERCENTAGES": "Percentatges d'IVA",
+        "FESTIVITY": "Festivos",
+        "FESTIVITY_DAYS": "Días festivos",
+        "FESTIVITY_YEARS": "Festivos anuales",
+        "SUBSCRIPTION_STATUS": "Estados de abonos",
+        "SUBSCRIPTION_PHASES": "Fases de trámite de abonos",
+        "RETURN_REASONS": "Motivos de devolución",
+        "OFFICES": "Oficinas",
+        "NACIONALITIES": "Nacionalidades",
+        "LEGAL_REPRESENTATIONS": "Representaciones legales",
+        "LANGUAGES": "Idiomas",
+        "INVOICE_SERIES": "Series de facturación",
+        "GROUPS": "Grupos"
+
+
+
+
+
+
+
     },
     "SUBMENU": {
         "COUNTRIES": "Países",
@@ -144,17 +197,23 @@
         "ORILOPD": "Orígenes LOPD",
         "REGLOPD": "Regulaciones LOPD",
         "ADDRESSTYPE": "Tipos de Direcciones",
-        "MODESCOM_PURPOSE": "Purpose",
+        "MODESCOM_PURPOSE": "Finalidades",
         "MODESCOM_PURPOSE_PROFILES": "Purpose Profiles",
         "MODESCOM_MODES": "Modes",
         "MODESCOM_TYPES": "Types",
         "EXPEDIENT_FOLDER_STATES": "Carpetas Estado",
         "EXPEDIENT_FOLDER_SUBJECTS": "Carpetas Subject",
         "EXPEDIENT_FOLDER_TYPES": "Carpetas Tipos",
-        "EXPEDIENT_PROVENANCES": "Procedencia"
+        "EXPEDIENT_PROVENANCES": "Procedencia",
+        "RELATION_TYPES": "Tipos de relació",
+        "PROFILES": "Perfiles",
+        "PROFESSIONS": "Profesiones"
+
+
+
     },
     "TXT": {
-        "HOME": "Inici",
+        "HOME": "Inicio",
         "noshantrobat": "No se han hallado",
         "nombre": "Nombre",
         "codigo": "Código",
@@ -166,7 +225,17 @@
         "new_registre": "Nuevo registro",
         "settings": "Configuración",
         "logout": "Logout",
-        "swift": "Swift"
+        "swift": "Swift",
+        "serch_in": "Buscar en ",
+        "cercar": "Buscar",
+        "contains": "Contiene",
+        "greaterEquals": "Igual",
+        "begins": "Empieza",
+        "greater": "Mayor",
+        "lowerEquals": "Menor",
+        "seguent": "Siguiente",
+        "anterior": "Anterior"
+
     },
     "FORM": {
         "name": "Nombre",
@@ -197,5 +266,17 @@
         "create_error_message": "Ha habido un error creando el registro",
         "desea_eliminar": "Se dipone a borrar ",
         "capacity": "Capacidad"
-    }
+    },
+    "Name":"Nombre",
+    "name":"Nombre",
+    "code":"Código",
+
+    "Codi":"Código",
+    "Actions": "Acciones",
+    "Tipo": "Tipo",
+    "Cancelar": "Cancelar",
+    "Editar Campos": "Editar",
+    "Guardar_finalitzar": "Guardar y finalizar"
+
+
 }

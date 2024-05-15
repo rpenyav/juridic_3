@@ -1,4 +1,4 @@
-import { MenuItem } from '../../interfaces/menu';
+import { MenuItem } from 'src/interfaces/menu';
 
 export const MENU_ITEMS: { [key: string]: MenuItem } = {
   documents: {
@@ -56,10 +56,10 @@ export const MENU_ITEMS: { [key: string]: MenuItem } = {
         url: '/locations/autonomous-regions',
       },
       {
-        key: 'towns',
-        icon: 'towns',
+        key: 'municipalities',
+        icon: 'municipalities',
         text: 'SUBMENU.TOWNS',
-        url: '/management-a/submenu-a3',
+        url: '/municipalities',
       },
       {
         key: 'comarcs',
@@ -71,7 +71,7 @@ export const MENU_ITEMS: { [key: string]: MenuItem } = {
         key: 'postalCodes',
         icon: 'postal',
         text: 'SUBMENU.POSTAL_CODES',
-        url: '/management-a/submenu-a5',
+        url: '/localizations/postal-codes',
       },
       {
         key: 'poblation',
@@ -99,12 +99,12 @@ export const MENU_ITEMS: { [key: string]: MenuItem } = {
         text: 'SUBMENU.MODESCOM_PURPOSE',
         url: '/communications/purpose',
       },
-      {
+    /*  {
         key: 'com_purpose_profiles',
         icon: 'streamline',
         text: 'SUBMENU.MODESCOM_PURPOSE_PROFILES',
         url: '/communications/purpose-profiles',
-      },
+      },*/
       {
         key: 'com_modes',
         icon: 'walky',
@@ -153,6 +153,27 @@ export const MENU_ITEMS: { [key: string]: MenuItem } = {
     ],
   },
 
+  festivityTypes: {
+    key: 'festivityTypes',
+    icon: 'festivity',
+    text: 'MENU.FESTIVITY',
+    url: '/management-a',
+    children: [
+      {
+        key: 'festivity_days',
+        icon: 'party',
+        text: 'SUBMENU.FESTIVITY_DAYS',
+        url: '/festivity/festivity-days',
+      },
+      {
+        key: 'festivity_years',
+        icon: 'party',
+        text: 'SUBMENU.FESTIVITY_YEARS',
+        url: '/festivity/festivity-years',
+      },
+    ],
+  },
+
   personesTypes: {
     key: 'personesTypes',
     icon: 'personal',
@@ -163,13 +184,13 @@ export const MENU_ITEMS: { [key: string]: MenuItem } = {
         key: 'generes',
         icon: 'generes',
         text: 'SUBMENU.GENERES',
-        url: '/management-b',
+        url: '/personal/genders',
       },
       {
-        key: 'tipusPerson',
-        icon: 'communication',
+        key: 'person-types',
+        icon: 'person-types',
         text: 'SUBMENU.TIPUSPERSON',
-        url: '/management-x',
+        url: '/person-types',
       },
       {
         key: 'tipusPhone',
@@ -179,15 +200,45 @@ export const MENU_ITEMS: { [key: string]: MenuItem } = {
       },
       {
         key: 'estatCivil',
-        icon: 'communication',
+        icon: 'marital-status',
         text: 'MENU.ESTATCIVIL',
-        url: '/management-x',
+        url: '/marital-status',
       },
       {
         key: 'addressType',
         icon: 'adresa',
         text: 'SUBMENU.ADDRESSTYPE',
         url: '/addresstype',
+      },
+      {
+        key: 'relationTypes',
+        icon: 'relation-types',
+        text: 'SUBMENU.RELATION_TYPES',
+        url: '/relation-types',
+      },
+      {
+        key: 'profiles',
+        icon: 'profiles',
+        text: 'SUBMENU.PROFILES',
+        url: '/profiles',
+      },
+      {
+        key: 'professions',
+        icon: 'professions',
+        text: 'SUBMENU.PROFESSIONS',
+        url: '/professions',
+      },
+      {
+        key: 'nacionalities',
+        icon: 'nacionalities',
+        text: 'MENU.NACIONALITIES',
+        url: '/nacionalities',
+      },
+      {
+        key: 'legal-representations',
+        icon: 'legal-representations',
+        text: 'MENU.LEGAL_REPRESENTATIONS',
+        url: '/legal-representations',
       },
     ],
   },
@@ -199,15 +250,15 @@ export const MENU_ITEMS: { [key: string]: MenuItem } = {
     children: [
       {
         key: 'oriLopd',
-        icon: 'communication',
+        icon: 'lopd-origins',
         text: 'SUBMENU.ORILOPD',
-        url: '/management-x',
+        url: '/lopd-origins',
       },
       {
         key: 'regLopd',
-        icon: 'communication',
+        icon: 'lopd-regulations',
         text: 'SUBMENU.REGLOPD',
-        url: '/management-x',
+        url: '/lopd-regulations',
       },
     ],
   },
@@ -242,16 +293,118 @@ export const MENU_ITEMS: { [key: string]: MenuItem } = {
     text: 'MENU.METODESPAY',
     url: '/pay-methods',
   },
-  visitroomsTypes: {
-    key: 'visitroomsTypes',
-    icon: 'visit-rooms',
-    text: 'MENU.VISIT_ROOMS',
-    url: '/visit-rooms',
+  visits: {
+    key: 'visitsTypes',
+    icon: 'visits',
+    text: 'MENU.VISITES',
+    url: '/visits',
+    children: [
+      {
+        key: 'visitroomsTypes',
+        icon: 'visit-rooms',
+        text: 'MENU.VISIT_ROOMS',
+        url: '/visit-rooms',
+      },
+      {
+        key: 'visitTypes',
+        icon: 'visit-types',
+        text: 'MENU.VISIT_TYPES',
+        url: '/visit-types',
+      },
+    ],
   },
-  subscriptiontagsTypes: {
-    key: 'subscriptiontagsTypes',
-    icon: 'subscriptiontags',
-    text: 'MENU.SUBSCRIPTION_TAGS',
-    url: '/subscription-tags',
+  subscriptions: {
+    key: 'subscriptions',
+    icon: 'subscriptions',
+    text: 'MENU.SUBSCRIPTIONS',
+    url: '/subscriptions',
+    children: [
+      {
+        key: 'subscriptiontagsTypes',
+        icon: 'subscriptiontags',
+        text: 'MENU.SUBSCRIPTION_TAGS',
+        url: '/subscription-tags',
+      },
+      {
+        key: 'subscriptionTypeTypes',
+        icon: 'subscriptionTypes',
+        text: 'MENU.SUBSCRIPTION_TYPES',
+        url: '/subscription-types',
+      },
+      {
+        key: 'subscriptionCoveragesTypes',
+        icon: 'subscription-coverages',
+        text: 'MENU.SUBSCRIPTION_COVERAGES',
+        url: '/subscription-coverages',
+      },
+      {
+        key: 'subscriptionDurationTypes',
+        icon: 'subscription-durations',
+        text: 'MENU.SUBSCRIPTION_DURATIONS',
+        url: '/subscription-durations',
+      },
+      {
+        key: 'subscriptionParentalsTypes',
+        icon: 'subscription-parentals',
+        text: 'MENU.SUBSCRIPTION_PARENTALS',
+        url: '/subscription-parentals',
+      },
+      {
+        key: 'subscriptionProceduresTypes',
+        icon: 'subscription-procedures',
+        text: 'MENU.SUBSCRIPTION_PROCEDURES',
+        url:  '/subscription-procedures',
+      },
+      {
+        key: 'subscriptionStatusTypes',
+        icon: 'subscription-status',
+        text: 'MENU.SUBSCRIPTION_STATUS',
+        url:  '/subscription-status',
+      },
+      {
+        key: 'subscriptionProceduresPhases',
+        icon: 'subscription-phases',
+        text: 'MENU.SUBSCRIPTION_PHASES',
+        url:  '/subscription-phases',
+      },
+    ],
   },
+
+  vatPercentagesTypes: {
+    key: 'vatPercentagesTypes',
+    icon: 'vat-percentages',
+    text: 'MENU.VAT_PERCENTAGES',
+    url: '/vat-percentages',
+  },
+  returnReasonsType: {
+    key: 'returnReasonsType',
+    icon: 'return-reasons',
+    text: 'MENU.RETURN_REASONS',
+    url: '/return-reasons',
+  },
+  offices: {
+    key: 'offices',
+    icon: 'offices',
+    text: 'MENU.OFFICES',
+    url: '/offices',
+  },
+  languages:{
+    key: 'languages',
+    icon: 'languages',
+    text: 'MENU.LANGUAGES',
+    url: '/languages',
+  },
+  invoiceSeries:{
+    key: 'invoice-series',
+    icon: 'invoice-series',
+    text: 'MENU.INVOICE_SERIES',
+    url: '/invoice-series',
+  },
+  groups:{
+    key: 'groups',
+    icon: 'groups',
+    text: 'MENU.GROUPS',
+    url: '/groups',
+  }
+  
 };

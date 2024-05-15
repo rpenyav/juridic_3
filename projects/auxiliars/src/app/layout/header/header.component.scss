@@ -1,0 +1,64 @@
+::ng-deep .small-select {
+  .mat-mdc-select .mat-mdc-select-trigger {
+    height: 26px !important; // Establece la altura deseada aquí
+    padding: 0 !important; // Asegúrate de que el padding interno no afecte la altura
+    line-height: 16px; // Ajusta esto para centrar verticalmente el texto si es necesario
+    font-size: 14px;
+    border-radius:0;
+    
+  }
+
+  .mat-mdc-text-field-wrapper,
+  .mat-mdc-form-field-infix {
+    background-color: transparent;
+    height: 30px !important;
+    border: 0 !important; // Asegúrate de que no hay borde que afecte visualmente
+    padding: 2px !important; // Remueve el padding para que no afecte la altura
+    border-radius:0;
+  }
+
+  .mat-mdc-form-field-flex {
+    border: none !important; // Confirma que no hay bordes adicionales
+  }
+
+  .mdc-line-ripple {
+    display: none !important; // Elimina el efecto de underline
+  }
+
+  .mat-option {
+    color: black;
+    background-color: white;
+    padding: 0 !important; // Ajusta el padding de las opciones para que coincida con el estilo deseado
+
+    &:hover {
+      background-color: #eee;
+    }
+  }
+}
+
+.header__min-hei {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: #c9c9c9;
+}
+
+.header {
+  h3 {
+    padding-left: 15px;
+    padding-top: 10px;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  img {
+    height:25px;
+    margin-left:15px;
+  }
+
+  &>div:nth-child(1) {
+    background:#9b081e;
+    width:281px;
+  }
+  &>div:nth-child(2) {
+    width:calc(100% - 281px);
+  }
+}

@@ -1,0 +1,101 @@
+<div class="editable-container form-group me-3">
+  <label *ngIf="label" class="form-label mb-2" [attr.for]="field">{{
+    label
+  }}</label>
+
+    <ng-container 
+     [ngSwitch]="fieldtype || getType(value)">
+   
+      <input
+      *ngSwitchCase="'string'"
+      [id]="field"
+      class="form-control"
+      [(ngModel)]="value"
+      (ngModelChange)="onChange($event)"
+      [readonly]="!isEditing"
+      [disabled]="!isEditing"
+      type="text"
+      maxlength="{{maxlength}}"
+    />
+   
+  
+      <input *ngSwitchCase="'number'"
+      [id]="field"
+      class="form-control"
+      [(ngModel)]="value"
+      (ngModelChange)="onChange($event)"
+      [readonly]="!isEditing"
+      [disabled]="!isEditing"
+      type="number"
+    />
+    
+    <app-autocomplete *ngSwitchCase="'autocomplete'"
+    [structure]="structure"
+   
+    (onEntrySelected)="onChange($event)"
+    [currentValue]="value"
+    [readonly]="!isEditing"
+    [disabled]="!isEditing"
+    ></app-autocomplete> 
+   
+    
+
+    <input *ngSwitchCase="'decimal'"
+    [id]="field"
+    class="form-control"
+    [(ngModel)]="value"
+    (ngModelChange)="onChange($event)"
+    [readonly]="!isEditing"
+    [disabled]="!isEditing"
+    type="number"
+    step=".01"
+    />
+
+
+    <input *ngSwitchCase="'boolean'"
+    [id]="field"
+    class="checkbox"
+    [(ngModel)]="value"
+    (ngModelChange)="onChange($event)"
+    [readonly]="!isEditing"
+    [disabled]="!isEditing"
+    type="checkbox"
+    />
+
+    <input *ngSwitchCase="'date'"
+    [id]="field"
+    class="date"
+    [(ngModel)]="value"
+    (ngModelChange)="onChange($event)"
+    [readonly]="!isEditing"
+    [disabled]="!isEditing"
+    type="date"
+    />
+
+    
+      <input *ngSwitchDefault
+      [id]="field"
+      class="form-control"
+      [(ngModel)]="value"
+      (ngModelChange)="onChange($event)"
+      [readonly]="!isEditing"
+      [disabled]="!isEditing"
+      type="text"
+    />
+   
+  </ng-container>
+
+ 
+ 
+  <!--
+  <input
+    [id]="field"
+    class="form-control"
+    [(ngModel)]="value"
+    (ngModelChange)="onChange($event)"
+    [readonly]="!isEditing"
+    [disabled]="!isEditing"
+    [type]="getType(value)"
+  />
+  -->
+</div>

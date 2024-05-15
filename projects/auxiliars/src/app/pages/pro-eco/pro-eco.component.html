@@ -1,0 +1,15 @@
+<app-layout
+  ><div>{{ "PROECOTITLE.TITLE" | translate }}</div>
+
+  <div *ngIf="proEcoTypes.length > 0">
+    <h2>ProEco</h2>
+    <ul>
+      <li *ngFor="let proEcoType of proEcoTypes">
+        {{ proEcoType.name }}
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="proEcoTypes.length === 0">
+    <p>No se encontraron proEco.</p>
+  </div>
+</app-layout>

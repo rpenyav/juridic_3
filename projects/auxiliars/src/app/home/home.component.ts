@@ -1,14 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
+  constructor(
+    private route: ActivatedRoute,
+    private translate: TranslateService
+  ) {}
 
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      const lang = params['lang'];
+      if (lang) {
+        this.translate.use(lang);
+      }
+    });
   }
-
 }

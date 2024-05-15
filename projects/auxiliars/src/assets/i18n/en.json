@@ -87,6 +87,14 @@
         "TITLE": "Salas de visita",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
+    "VAT_PERCENTAGES": {
+        "TITLE": "VAT percentages",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "VISIT_TYPES": {
+        "TITLE": "Visit types",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
     "SUBSCRIPTION_TAGS": {
         "TITLE": "Subscription tags",
         "SUBTITLE": "Your translation for the subtitle goes here"
@@ -99,12 +107,28 @@
         "TITLE": "Carpetes Estat",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
+    "EXPFOLDERSUBJECTS": {
+        "TITLE": "Carpetas Subjects",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
     "EXPFOLDERTYPE": {
         "TITLE": "Carpetes Tipus",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "EXPPROVINANCE": {
         "TITLE": "Procedència",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "FESTIVITYDAYS": {
+        "TITLE": "Festivity days",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "FESTIVITYYEARS": {
+        "TITLE": "Festivity years",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "GENERES": {
+        "TITLE": "Genders",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "MENU": {
@@ -126,7 +150,36 @@
         "LOPD": "GDPR (General Data Protection Regulation)",
         "VISIT_ROOMS": "Visit rooms",
         "SUBSCRIPTION_TAGS": "Subscription tags",
-        "EXPEDIENTS": "Expedients"
+        "EXPEDIENTS": "Expedients",
+        "VISIT_TYPES": "Visit types",
+        "VISITES": "Visits",
+        "SUBSCRIPTIONS": "Subscriptions",
+        "SUBSCRIPTION_TYPES": "Subscription types",
+        "SUBSCRITION_COVERAGES": "Subscription coverages",
+        "SUBSCRIPTION_DURATIONS": "Subscription durations",
+        "SUBSCRIPTION_PARENTALS": "Subscription parents",
+        "SUBSCRIPTION_PROCEDURES": "Subscription procedures",
+        "SUBSCRIPTION_PHASES": "Subscription procedure phases",
+        "RETURN_REASONS": "Devolution reasons"
+
+
+,
+        "VAT_PERCENTAGES": "Percentatges d'IVA",
+        "FESTIVITY": "Festivity",
+        "FESTIVITY_DAYS": "Festivity days",
+        "FESTIVITY_YEARS": "Festivity years",
+        "SUBSCRIPTION_STATUS": "Subscription status",
+        "OFFICES": "Offices",
+        "NACIONALITIES": "Nacionalities",
+        "LEGAL_REPRESENTATIONS": "Legal representations",
+        "LANGUAGES": "Languages",
+        "INVOICE_SERIES": "Invoice series",
+        "GROUPS": "Groups"
+
+
+
+
+
     },
     "SUBMENU": {
         "COUNTRIES": "Countries",
@@ -151,10 +204,16 @@
         "EXPEDIENT_FOLDER_STATES": "States Folders",
         "EXPEDIENT_FOLDER_SUBJECTS": "Subject Folders",
         "EXPEDIENT_FOLDER_TYPES": "Tipus Folders",
-        "EXPEDIENT_PROVENANCES": "Provenance"
+        "EXPEDIENT_PROVENANCES": "Provenance",
+        "RELATION_TYPES": "Relation types",
+        "PROFILES": "Profiles",
+        "PROFESSIONS": "Professions"
+
+
+
     },
     "TXT": {
-        "HOME": "Inici",
+        "HOME": "Home",
         "noshantrobat": "Not found",
         "nombre": "Name",
         "codigo": "Code",
@@ -166,7 +225,17 @@
         "new_registre": "New registre",
         "settings": "Settings",
         "logout": "Logout",
-        "swift": "Swift"
+        "swift": "Swift",
+        "serch_in": "Search in ",
+        "cercar": "Search",
+        "contains": "Contains",
+        "greaterEquals": "Equals",
+        "begins": "Begins",
+        "greater": "Greater",
+        "lowerEquals": "Lower",
+        "seguent": "Next",
+        "anterior": "Previous"
+
     },
     "FORM": {
         "name": "Name",
@@ -197,5 +266,17 @@
         "create_error_message": "Ha habido un error creando el registro",
         "desea_eliminar": "Do you want delete ",
         "capacity": "Capacidad"
-    }
+    },
+    "Name":"Name",
+    "name":"Name",
+    "code":"Code",
+
+    "Codi":"Code",
+    "Actions": "Actions",
+    "Tipo": "Type",
+    "Cancelar": "Cancel",
+    "Editar Campos": "Edit",
+    "Guardar_finalitzar": "Save and return"
+
+
 }
