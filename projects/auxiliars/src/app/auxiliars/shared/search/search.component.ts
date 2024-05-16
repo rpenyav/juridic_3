@@ -1,18 +1,20 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-import { GeneralService } from '../../../auxiliars/services/general.service';
 import { PaginatedResponse } from '../../../auxiliars/interfaces/paginated';
+import { GeneralService } from '../../../auxiliars/services/general.service';
+import { I18nService } from 'shared-lib';
+import { Subscription } from 'rxjs';
 
 class SearchOperators {
   static stringOperators = [
-    { value: 'contains', label: 'Contiene', icon: 'find_in_page' },
-    { value: 'greaterEquals', label: 'Igual a', icon: 'drag_handle' },
+    { value: 'contains', label: 'conté', icon: 'find_in_page' },
+    { value: 'equals', label: 'Igual a', icon: 'drag_handle' },
     { value: 'begins', label: 'Comienza', icon: 'vertical_align_top' },
   ];
   static numberOperators = [
     { value: 'equals', label: 'Igual a', icon: 'drag_handle' },
     { value: 'greater', label: 'Mayor que', icon: 'keyboard_arrow_up' },
-    { value: 'lowerEquals', label: 'Menor que', icon: 'keyboard_arrow_down' },
+    { value: 'lower', label: 'Menor que', icon: 'keyboard_arrow_down' },
   ];
 }
 
@@ -43,10 +45,19 @@ export class SearchComponent implements OnInit {
   }[] = [];
   searchResults: any[] = [];
   showError: boolean = false;
-
-  constructor(private generalService: GeneralService) {}
+  translations: Record<string, any> = {};
+  private translationsSubscription: Subscription;
+  constructor(
+    private generalService: GeneralService,
+    private i18nService: I18nService
+  ) {}
 
   ngOnInit(): void {
+    this.translationsSubscription = this.i18nService.translations$.subscribe(
+      (translations) => {
+        this.translations = translations;
+      }
+    );
     this.searchInputs = this.searchCriteria.map((crit) => ({
       ...crit,
       value: '',
@@ -63,6 +74,26 @@ export class SearchComponent implements OnInit {
     } else {
       operators = SearchOperators.numberOperators;
     }
+    operators.forEach((o) => {
+      switch (o.value) {
+        case 'contains':
+          o.label = this.i18nService.getTranslation('TXT.contains');
+          break;
+        case 'greater':
+        case 'equals':
+          o.label = this.i18nService.getTranslation('TXT.greaterEquals');
+          break;
+        case 'begins':
+          o.label = this.i18nService.getTranslation('TXT.begins');
+          break;
+        case 'greater':
+          o.label = this.i18nService.getTranslation('TXT.greater');
+          break;
+        case 'lower':
+          o.label = this.i18nService.getTranslation('TXT.lowerEquals');
+          break;
+      }
+    });
     return operators.map((op) => ({
       value: op.value,
       label: op.label,

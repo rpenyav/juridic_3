@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
+import { environment } from 'projects/auxiliars/src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DocumentsTypeService {
+  assetsBaseUrl = environment.assetsBaseUrl;
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.DOCUMENTS_ENDPOINT}`;
   constructor(private http: HttpClient) {}

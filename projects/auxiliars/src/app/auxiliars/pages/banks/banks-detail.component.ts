@@ -1,6 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
+import { environment } from 'projects/auxiliars/src/environments/environment';
+
 import { MENU_ITEMS } from '../../../constants/menu.constants';
 import { Bank } from '../../interfaces/banks';
 
@@ -13,6 +15,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./banks-detail.component.scss'],
 })
 export class BanksDetailComponent implements OnInit {
+  assetsBaseUrl = environment.assetsBaseUrl;
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.BANKS_ENDPOINT}`;
   icono: string = 'banksType';
@@ -50,10 +53,7 @@ export class BanksDetailComponent implements OnInit {
     this.loadRegisterDetail(); // Recarga los detalles del registro con el nuevo idioma
   }
 
-  handleFieldChange(
-    fieldName: string,
-    updatedValue: string | number | boolean
-  ): void {
+  handleFieldChange(fieldName: string, updatedValue: any): void {
     if (this.registerDetail) {
       if (fieldName === 'capacity' || fieldName === 'deskId') {
         this.registerDetail[fieldName] = Number(updatedValue);

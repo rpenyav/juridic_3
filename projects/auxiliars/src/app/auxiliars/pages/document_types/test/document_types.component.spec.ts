@@ -9,7 +9,7 @@ import {
 } from '@angular/core/testing';
 import { DocumentstypesComponent } from '../document_types.component';
 import { of } from 'rxjs';
-import { AddressType } from 'src/app/interfaces/address-type';
+import { AddressType } from '../../../interfaces/address-type';
 
 describe('DocumentstypesComponent', () => {
   let component: DocumentstypesComponent;

@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { JURIDIC_ROUTES } from './juridic.routes';
 import { SharedLibModule } from 'shared-lib';
 import { HeaderComponent, FooterComponent, LayoutComponent } from './layout';
-
 import { ExpedientesComponent } from './expedientes/expedientes.component';
 import { ExpCercadorComponent } from './expedientes/exp-cercador/exp-cercador.component';
 import { ClientsComponent } from './clients/clients.component';

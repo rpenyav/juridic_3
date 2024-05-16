@@ -3,9 +3,9 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestingModule } from 'src/app/testing/testing/testing.module';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DocumentstypesDetailComponent } from '../document_types-detail.component';
-import { GeneralService } from 'src/app/services/general.service';
+import { GeneralService } from '../../services/general.service';
 import { of } from 'rxjs';
-import { DocumentsType } from 'src/app/interfaces/documents-type';
+import { DocumentsType } from '../../../interfaces/documents-type';
 
 describe('DocumentstypesDetailComponent', () => {
   let component: DocumentstypesDetailComponent;

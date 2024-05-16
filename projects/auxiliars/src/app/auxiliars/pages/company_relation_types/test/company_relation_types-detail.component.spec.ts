@@ -3,9 +3,9 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestingModule } from 'src/app/testing/testing/testing.module';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CompanyRelationTypesDetailComponent } from '../company_relation_types-detail.component';
-import { GeneralService } from 'src/app/services/general.service';
+import { GeneralService } from '../../services/general.service';
 import { of } from 'rxjs';
-import { AddressType } from 'src/app/interfaces/address-type';
+import { AddressType } from '../../../interfaces/address-type';
 
 describe('CompanyRelationTypesDetailComponent', () => {
   let component: CompanyRelationTypesDetailComponent;

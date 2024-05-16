@@ -1,6 +1,6 @@
 <header>
   <div class="container-fluid">
-    <app-header></app-header>
+    <app-aux-header></app-aux-header>
   </div>
 </header>
 <mat-drawer-container #drw class="layout-container" autosize>
@@ -25,7 +25,7 @@
           >
             <div class="d-flex align-items-center">
               <img
-                src="/assets/icons/{{ item.value.icon }}.png"
+                [src]="'assets/icons/' + item.value.icon + '.png'"
                 class="custom-mat-icon"
                 alt="{{ item.value.text | translate }}"
               />
@@ -47,7 +47,7 @@
           >
             <div class="d-flex justify-content-start sidebar__height-item">
               <img
-                src="/assets/icons/{{ item.value.icon }}.png"
+                [src]="'assets/icons/' + item.value.icon + '.png'"
                 class="custom-mat-icon"
                 alt="{{ item.value.text | translate }}"
               />
@@ -70,7 +70,7 @@
             >
               <div class="d-flex justify-content-start sidebar__height-item">
                 <img
-                  src="/assets/icons/{{ child.icon }}.png"
+                  [src]="'assets/icons/' + child.icon + '.png'"
                   class="custom-mat-icon"
                   alt="{{ child.text | translate }}"
                 />
@@ -91,12 +91,10 @@
         </div>
       </div>
     </main>
-
-
   </div>
 </mat-drawer-container>
 <footer>
   <div class="container-fluid">
-    <app-footer></app-footer>
+    <app-aux-footer></app-aux-footer>
   </div>
 </footer>

@@ -4,12 +4,12 @@ const {
 } = require("@angular-architects/module-federation/webpack");
 
 module.exports = withModuleFederationPlugin({
-  name: "auxiliar",
+  name: "auxiliars",
 
   exposes: {
     // Update this whole line (both, left and right part):
-    "./AuxiliarModule":
-      "./projects/auxiliars/src/app/auxiliars/auxiliar.module.ts",
+    "./AuxiliarsModule":
+      "./projects/auxiliars/src/app/auxiliars/auxiliars.module.ts",
   },
 
   shared: {

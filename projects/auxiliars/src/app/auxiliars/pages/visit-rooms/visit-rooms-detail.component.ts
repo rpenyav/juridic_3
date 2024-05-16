@@ -1,10 +1,11 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
-import { MENU_ITEMS } from '../../../constants/menu.constants';
+import Swal from 'sweetalert2';
+
 import { VisitRooms } from '../../interfaces/visit-rooms';
 import { GeneralService } from '../../services/general.service';
-import Swal from 'sweetalert2';
+import { environment } from 'projects/auxiliars/src/environments/environment';
+import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
 
 @Component({
   selector: 'app-visit-rooms-detail',
@@ -12,9 +13,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./visit-rooms-detail.component.scss'],
 })
 export class VisitRoomsDetailComponent implements OnInit {
+  assetsBaseUrl = environment.assetsBaseUrl;
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.VISIT_ROOMS}`;
-  icono: string = 'visitroomsTypes';
+  icono: string = 'visit-rooms';
   redirectRoute: string = 'visit-rooms'; //ruta retorn al llistat
   id: string | null = null;
   registerDetail: VisitRooms | null = null;
@@ -22,7 +24,7 @@ export class VisitRoomsDetailComponent implements OnInit {
   loading: boolean = true;
   isEditing: boolean = false;
   tempChanges: { [key: string]: any } = {}; // Almacena temporalmente los cambios
-  showLangEdit: boolean = true; // el modulo es editable por idiomas?
+  showLangEdit: boolean = false; // el modulo es editable por idiomas?
   postLanguage: number = 1; // Idioma por defecto, por ejemplo, 1 para ES
   activeLanguage: number = 1; // Rastrea el idioma activo
   insertMode: boolean = false;
@@ -43,7 +45,7 @@ export class VisitRoomsDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.icono = MENU_ITEMS[this.icono].icon;
+    //    this.icono = MENU_ITEMS[this.icono].icon;
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (this.id === 'add') {
@@ -60,10 +62,7 @@ export class VisitRoomsDetailComponent implements OnInit {
     this.loadRegisterDetail();
   }
 
-  handleFieldChange(
-    fieldName: string,
-    updatedValue: string | number | boolean
-  ): void {
+  handleFieldChange(fieldName: string, updatedValue: any): void {
     if (this.registerDetail) {
       if (fieldName === 'capacity' || fieldName === 'deskId') {
         this.registerDetail[fieldName] = Number(updatedValue);
@@ -104,6 +103,13 @@ export class VisitRoomsDetailComponent implements OnInit {
     const updatedDataString = localStorage.getItem('editData');
     if (updatedDataString) {
       const updatedData: VisitRooms = JSON.parse(updatedDataString);
+
+      Object.getOwnPropertyNames(this.registerDetail).forEach((k) => {
+        if (!updatedData.hasOwnProperty(k) && this.registerDetail) {
+          updatedData[k] = this.registerDetail[k];
+        }
+      });
+
       this.saveChanges(updatedData);
       localStorage.removeItem('editData');
       this.isEditing = !this.isEditing;

@@ -1,16 +1,20 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import {
-  PaginatedResponse,
-  ExpFolderStates,
-} from '../../interfaces/expedients/folder-states';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 import { I18nService } from 'shared-lib';
-import { showCustomAlert } from 'projects/auxiliars/src/utils/showCustomAlert';
+
 import { Router } from '@angular/router';
-import { MENU_ITEMS } from '../../../constants/menu.constants';
-import { GeneralService } from '../../services/general.service';
+import { showCustomAlert } from 'projects/auxiliars/src/utils/showCustomAlert';
 import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
+import { MENU_ITEMS } from '../../../constants/menu.constants';
+
+import {
+  ExpFolderStates,
+  PaginatedResponse,
+} from '../../interfaces/expedients/folder-states';
+import { GeneralService } from '../../services/general.service';
+import { environment } from 'projects/auxiliars/src/environments/environment';
 
 @Component({
   selector: 'app-expedient-folder-states',
@@ -18,6 +22,7 @@ import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
   styleUrls: ['./expedient_folder_states.component.scss'],
 })
 export class ExpedientFolderStatesComponent implements OnInit {
+  assetsBaseUrl = environment.assetsBaseUrl;
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.EXPEDIENTS_FOLDER_STATES_ENDPOINT}`;
   registerTypesData: ExpFolderStates[] = [];
@@ -44,8 +49,8 @@ export class ExpedientFolderStatesComponent implements OnInit {
 
   constructor(
     public generalService: GeneralService,
-
-    private txt: I18nService,
+    private modalService: NgbModal,
+    private i18nService: I18nService,
     private router: Router
   ) {}
 
@@ -53,7 +58,9 @@ export class ExpedientFolderStatesComponent implements OnInit {
     const localitTypes = MENU_ITEMS[this.iconoS]?.children;
     localitTypes?.find((child) => child.key === this.icono);
 
-    const savedPageNumber = localStorage.getItem('pageNumber');
+    const savedPageNumber = sessionStorage.getItem(
+      this.detailUrl + '.pageNumber'
+    );
     if (savedPageNumber !== null) {
       this.pageNumber = +savedPageNumber;
     }
@@ -67,6 +74,22 @@ export class ExpedientFolderStatesComponent implements OnInit {
    */
   getLangFromStorage(): string {
     return localStorage.getItem('userLang') ?? this.defaultLanguage;
+  }
+
+  // ---------------------------------------------------------------------------
+  // métodos de la modal
+  // ---------------------------------------------------------------------------
+
+  openModal(action: 'add', register: any = null) {
+    this.currentAction = action;
+    this.selectedRegister = register;
+    if (action === 'add') {
+      this.modalService.open(this.modalContent, {
+        backdrop: 'static',
+        keyboard: false,
+        centered: true,
+      });
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -154,6 +177,7 @@ export class ExpedientFolderStatesComponent implements OnInit {
 
   getRegisters(): void {
     this.loading = true;
+    this.currentSearchBody = [];
     this.generalService
       .getRegisterTypes<PaginatedResponse>(
         this.ENDPOINT,
@@ -179,7 +203,10 @@ export class ExpedientFolderStatesComponent implements OnInit {
 
   onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
-    localStorage.setItem('pageNumber', pageNumber.toString());
+    sessionStorage.setItem(
+      this.detailUrl + '.pageNumber',
+      pageNumber.toString()
+    );
     this.getRegisters();
   }
 
@@ -248,18 +275,18 @@ export class ExpedientFolderStatesComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log('Respuesta del servidor:', response);
-          showCustomAlert(this.txt, {
+          showCustomAlert(this.i18nService, {
             titleKey: 'FORM.create_success_title',
             textKey: 'FORM.create_success_message',
             icon: 'success',
             confirmButtonTextKey: 'FORM.ok',
           });
-
+          this.modalService.dismissAll();
           this.getRegisters();
         },
         error: (error) => {
           console.error('Error al crear el registro:', error);
-          showCustomAlert(this.txt, {
+          showCustomAlert(this.i18nService, {
             titleKey: 'FORM.create_error_title',
             textKey: 'FORM.create_error_message',
             icon: 'error',
@@ -288,11 +315,11 @@ export class ExpedientFolderStatesComponent implements OnInit {
    * @param registerTypes
    */
   delete(nametype: ExpFolderStates) {
-    const titleWithName = `${this.txt.getInstant('FORM.desea_eliminar')} "${
-      nametype.literalDescriptionText
-    }"?`;
+    const titleWithName = `${this.i18nService.getTranslation(
+      'FORM.desea_eliminar'
+    )} "${nametype.literalDescriptionText}"?`;
 
-    showCustomAlert(this.txt, {
+    showCustomAlert(this.i18nService, {
       titleKey: 'FORM.title_swa',
       textKey: 'FORM.text_swa',
       confirmButtonTextKey: 'FORM.yes_delete',

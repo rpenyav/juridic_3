@@ -9,7 +9,7 @@ import {
 } from '@angular/core/testing';
 import { EconomicProceduretypesComponent } from '../economic_procedure_types.component';
 import { of } from 'rxjs';
-import { AddressType } from 'src/app/interfaces/address-type';
+import { AddressType } from '../../../interfaces/address-type';
 
 describe('EconomicProceduretypesComponent', () => {
   let component: EconomicProceduretypesComponent;

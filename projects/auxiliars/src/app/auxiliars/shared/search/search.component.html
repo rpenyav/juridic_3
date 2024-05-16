@@ -8,9 +8,10 @@
           [(ngModel)]="input.value"
           (keyup.enter)="submitSearch()"
           (input)="onInputChange()"
-          placeholder="Buscar en {{ input.field }}..."
+          [placeholder]="translations['FORM'].serch_in"
         />
 
+        <!-- placeholder="{{'TXT.serch_in' |translate}} {{ getLiteral(input.field) }}..." -->
         <app-operator-switch
           [operators]="getOperatorOptions(input.type)"
           (operatorChanged)="input.operator = $event"
@@ -20,7 +21,9 @@
     </ng-container>
     <!-- </div>
   <div class="d-flex align-items-center mt-2"> -->
-    <button class="btn btn-primary" (click)="submitSearch()">Buscar</button>
+    <button class="btn btn-primary" (click)="submitSearch()">
+      {{ translations["TXT"].cercar }}
+    </button>
   </div>
   <!-- <button class="btn btn-secondary ms-2 mt-2" (click)="resetSearch()">Reset</button> -->
 </div>

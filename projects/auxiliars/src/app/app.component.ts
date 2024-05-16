@@ -1,16 +1,29 @@
+// import { Component } from '@angular/core';
+// import { I18nService } from 'shared-lib';
+
+// @Component({
+//   selector: 'app-root',
+//   templateUrl: './app.component.html',
+//   styleUrls: ['./app.component.scss'],
+// })
+// export class AppComponent {
+//   constructor(private I18nService: I18nService) {}
+
+//   ngOnInit() {
+//     const userLang = localStorage.getItem('userLang') || 'ca';
+//     this.I18nService.use(userLang);
+//   }
+// }
+
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  templateUrl: 'app.component.html',
 })
 export class AppComponent {
-  constructor(private translate: TranslateService) {}
-
-  ngOnInit() {
-    const userLang = localStorage.getItem('userLang') || 'ca';
-    this.translate.use(userLang);
+  constructor(http: HttpClient) {
+    console.debug('http', http);
   }
 }

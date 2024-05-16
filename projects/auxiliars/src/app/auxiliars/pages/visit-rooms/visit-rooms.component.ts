@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PaginatedResponse, VisitRooms } from '../../interfaces/visit-rooms';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 import { I18nService } from 'shared-lib';
-
 import { Router } from '@angular/router';
-import { MENU_ITEMS } from '../../../constants/menu.constants';
-import { GeneralService } from '../../services/general.service';
-import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
 import { showCustomAlert } from 'projects/auxiliars/src/utils/showCustomAlert';
+
+import { VisitRooms, PaginatedResponse } from '../../interfaces/visit-rooms';
+import { GeneralService } from '../../services/general.service';
+import { environment } from 'projects/auxiliars/src/environments/environment';
+import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
 
 @Component({
   selector: 'app-visitrooms',
@@ -16,6 +16,7 @@ import { showCustomAlert } from 'projects/auxiliars/src/utils/showCustomAlert';
   styleUrls: ['./visit-rooms.component.scss'],
 })
 export class VisitRoomsComponent implements OnInit {
+  assetsBaseUrl = environment.assetsBaseUrl;
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.VISIT_ROOMS}`;
   addressTypesData: VisitRooms[] = [];
@@ -31,21 +32,23 @@ export class VisitRoomsComponent implements OnInit {
   currentAction!: string;
   selectedRegister: any;
   formForm!: FormGroup;
-  icono: string = 'visitroomsTypes';
+  icono: string = 'visit-rooms';
   @ViewChild('uploadModal')
   defaultLanguage: string = 'ca';
   detailUrl: string = 'visit-rooms';
 
   constructor(
     public generalService: GeneralService,
-
-    private txt: I18nService,
+    private modalService: NgbModal,
+    private i18nService: I18nService,
     public router: Router
   ) {}
 
   ngOnInit(): void {
-    this.icono = MENU_ITEMS[this.icono].icon;
-    const savedPageNumber = localStorage.getItem('pageNumber');
+    //this.icono = MENU_ITEMS[this.icono].icon;
+    const savedPageNumber = sessionStorage.getItem(
+      this.detailUrl + '.pageNumber'
+    );
     if (savedPageNumber !== null) {
       this.pageNumber = +savedPageNumber;
     }
@@ -153,6 +156,7 @@ export class VisitRoomsComponent implements OnInit {
 
   getRegisters(): void {
     this.loading = true;
+    this.currentSearchBody = [];
     this.generalService
       .getRegisterTypes<PaginatedResponse>(
         this.ENDPOINT,
@@ -178,7 +182,10 @@ export class VisitRoomsComponent implements OnInit {
 
   onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
-    localStorage.setItem('pageNumber', pageNumber.toString());
+    sessionStorage.setItem(
+      this.detailUrl + '.pageNumber',
+      pageNumber.toString()
+    );
     this.getRegisters();
   }
 
@@ -250,18 +257,18 @@ export class VisitRoomsComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log('Respuesta del servidor:', response);
-          showCustomAlert(this.txt, {
+          showCustomAlert(this.i18nService, {
             titleKey: 'FORM.create_success_title',
             textKey: 'FORM.create_success_message',
             icon: 'success',
             confirmButtonTextKey: 'FORM.ok',
           });
-
+          this.modalService.dismissAll();
           this.getRegisters();
         },
         error: (error) => {
           console.error('Error al crear el registro:', error);
-          showCustomAlert(this.txt, {
+          showCustomAlert(this.i18nService, {
             titleKey: 'FORM.create_error_title',
             textKey: 'FORM.create_error_message',
             icon: 'error',
@@ -296,11 +303,11 @@ export class VisitRoomsComponent implements OnInit {
    * @param addressTypes
    */
   delete(addressTypes: VisitRooms) {
-    const titleWithName = `${this.txt.getInstant('FORM.desea_eliminar')} "${
-      addressTypes.name
-    }"?`;
+    const titleWithName = `${this.i18nService.getTranslation(
+      'FORM.desea_eliminar'
+    )} "${addressTypes.name}"?`;
 
-    showCustomAlert(this.txt, {
+    showCustomAlert(this.i18nService, {
       titleKey: 'FORM.title_swa',
       textKey: 'FORM.text_swa',
       confirmButtonTextKey: 'FORM.yes_delete',

@@ -1,9 +1,9 @@
 import Swal, { SweetAlertIcon } from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
+import { I18nService } from 'shared-lib';
 
 // Función de utilidad para mostrar alertas personalizadas
 export function showCustomAlert(
-  txt: TranslateService,
+  i18nService: I18nService,
   {
     titleKey = '',
     textKey = '',
@@ -16,10 +16,10 @@ export function showCustomAlert(
     customTitle = '',
   }
 ) {
-  const title = customTitle || txt.instant(titleKey);
-  const text = txt.instant(textKey);
-  const confirmButtonText = txt.instant(confirmButtonTextKey);
-  const cancelButtonText = txt.instant(cancelButtonTextKey); // Siempre traduce el texto del botón de cancelar
+  const title = customTitle || i18nService.getTranslation(titleKey);
+  const text = i18nService.getTranslation(textKey);
+  const confirmButtonText = i18nService.getTranslation(confirmButtonTextKey);
+  const cancelButtonText = i18nService.getTranslation(cancelButtonTextKey); // Siempre traduce el texto del botón de cancelar
 
   return Swal.fire({
     title,

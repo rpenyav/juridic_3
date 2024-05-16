@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { EditInterface } from '../../interfaces/editInterface';
 
 @Component({
   selector: 'app-edit',
@@ -7,13 +8,21 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class EditComponent {
   @Input() field: string = '';
-  @Input() value: string | number | boolean = '';
+  @Input() value: string | number | Date | boolean = '';
   @Input() label: string = '';
-  @Input() fieldtype: 'string' | 'number' | 'boolean' = 'string';
+  @Input() fieldtype:
+    | 'string'
+    | 'number'
+    | 'boolean'
+    | 'decimal'
+    | 'date'
+    | string = 'string';
+  @Input() maxlength: number | null = null;
+  @Input() structure?: EditInterface;
 
-  originalValue: string | number | boolean = '';
-  @Output() valueChange = new EventEmitter<string | number | boolean>();
-  @Output() save = new EventEmitter<string | number | boolean>();
+  originalValue: string | number | Date | boolean = '';
+  @Output() valueChange = new EventEmitter<string | number | boolean | Date>();
+  @Output() save = new EventEmitter<string | number | boolean | Date>();
   @Output() cancel = new EventEmitter<void>();
   @Input() isEditing: boolean = false;
 
@@ -24,10 +33,13 @@ export class EditComponent {
     }
   }
 
-  onChange(value: string): void {
+  onChange(value: any): void {
     console.log('Input modified value:', value);
-
     this.updateLocalStorage(this.field, value);
+  }
+
+  getType(value: any): string {
+    return typeof value;
   }
 
   updateLocalStorage(field: string, value: string): void {
@@ -37,7 +49,7 @@ export class EditComponent {
   }
 
   saveEdit(): void {
-    let valueToEmit: string | number | boolean = this.value;
+    let valueToEmit: string | number | Date | boolean = this.value;
     if (this.fieldtype === 'number') {
       valueToEmit = Number(this.value);
     } else if (this.fieldtype === 'boolean') {

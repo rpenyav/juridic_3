@@ -84,7 +84,7 @@
                       </button>
                     </div>
                     <button class="btn btn-primary" (click)="toggleEdit()">
-                      {{ isEditing ? "Cancelar" : "Editar Campos" }}
+                      {{ (isEditing ? "Cancelar" : "Editar Campos") | translate }}
                     </button>
 
                     <button
@@ -92,7 +92,7 @@
                       (click)="toggleSave()"
                       [disabled]="!isEditing"
                     >
-                      Guardar y finalizar
+                      {{"Guardar_finalitzar" | translate }}
                     </button>
                   </div>
                 </div>

@@ -9,7 +9,7 @@
         "expedientes": "Expedients",
         "clients": "Clients"
     },
-    "MENU": {
+    "GENERALMENU": {
         "Expedients": "Expedients",
         "Clients": "Clients"
     },
@@ -42,5 +42,270 @@
     "BUTTON": {
         "buscar": "Buscar",
         "clean": "Netejar"
-    }
+    },
+    "HOME": {
+        "TITLE": "Home",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "ADDRESSTYPE": {
+        "TITLE": "Address Types",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "BANKSTITLE": {
+        "TITLE": "Banks",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "CARPETASTITLE": {
+        "TITLE": "Folders",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "DOMAINSTITLE": {
+        "TITLE": "Domains",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "CNAETITLE": {
+        "TITLE": "CNAE",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "DOCUMENTSTITLE": {
+        "TITLE": "Documents",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "DOCUMENTTYPESTITLE": {
+        "TITLE": "Documents Type",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "PARAMSTITLE": {
+        "TITLE": "Parameters",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "PROECOTITLE": {
+        "TITLE": "Economic Procedures",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "PAYMEHTODSTITLE": {
+        "TITLE": "Payment Methods",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "RELEMPTITLE": {
+        "TITLE": "Business Relations",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "REPLEGALTITLE": {
+        "TITLE": "Legal Representations",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "PROVINCESTITLE": {
+        "TITLE": "Provinces",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "AUTONOMIESTITLE": {
+        "TITLE": "Autonomous Regions",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "COUNTRIESTITLE": {
+        "TITLE": "Countries",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "COMARCSTITLE": {
+        "TITLE": "Regions",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "COMM_PURPOSES": {
+        "TITLE": "Communication Purposes",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "COMM_MODES": {
+        "TITLE": "Communication Modes",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "COMM_TYPES": {
+        "TITLE": "Communication Types",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "COMM_PURPOSES_PROFILE": {
+        "TITLE": "Communication Purposes Profiles",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "VISIT_ROOMS": {
+        "TITLE": "Salas de visita",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "VAT_PERCENTAGES": {
+        "TITLE": "VAT percentages",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "VISIT_TYPES": {
+        "TITLE": "Visit types",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "SUBSCRIPTION_TAGS": {
+        "TITLE": "Subscription tags",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "COMPANY_RELATIONS": {
+        "TITLE": "Business Relations",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "EXPFOLDERSTATE": {
+        "TITLE": "Carpetes Estat",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "EXPFOLDERSUBJECTS": {
+        "TITLE": "Carpetas Subjects",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "EXPFOLDERTYPE": {
+        "TITLE": "Carpetes Tipus",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "EXPPROVINANCE": {
+        "TITLE": "Procedència",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "FESTIVITYDAYS": {
+        "TITLE": "Festivity days",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "FESTIVITYYEARS": {
+        "TITLE": "Festivity years",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "GENERES": {
+        "TITLE": "Genders",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "MENU": {
+        "DOCUMENTS": "Documents",
+        "DOCUMENTS-TYPE": "Document Types",
+        "DOMINIS": "Domains",
+        "BANCS": "Banks",
+        "LOCALIT": "Locations",
+        "CNAE": "CNAE",
+        "COMUNICACIONS": "Communications",
+        "ESTATCIVIL": "Civil Status",
+        "EMPRESES": "Business Relations",
+        "PROCEDIMENTS": "Economic Procedures",
+        "FOLDERS": "Folders",
+        "REPLEGALS": "Legal Representations",
+        "PARAMETRES": "Parameters",
+        "METODESPAY": "Payment Methods",
+        "PERSONES": "Staff",
+        "LOPD": "GDPR (General Data Protection Regulation)",
+        "VISIT_ROOMS": "Visit rooms",
+        "SUBSCRIPTION_TAGS": "Subscription tags",
+        "EXPEDIENTS": "Expedients",
+        "VISIT_TYPES": "Visit types",
+        "VISITES": "Visits",
+        "SUBSCRIPTIONS": "Subscriptions",
+        "SUBSCRIPTION_TYPES": "Subscription types",
+        "SUBSCRITION_COVERAGES": "Subscription coverages",
+        "SUBSCRIPTION_DURATIONS": "Subscription durations",
+        "SUBSCRIPTION_PARENTALS": "Subscription parents",
+        "SUBSCRIPTION_PROCEDURES": "Subscription procedures",
+        "SUBSCRIPTION_PHASES": "Subscription procedure phases",
+        "RETURN_REASONS": "Devolution reasons",
+        "VAT_PERCENTAGES": "Percentatges d'IVA",
+        "FESTIVITY": "Festivity",
+        "FESTIVITY_DAYS": "Festivity days",
+        "FESTIVITY_YEARS": "Festivity years",
+        "SUBSCRIPTION_STATUS": "Subscription status",
+        "OFFICES": "Offices",
+        "NACIONALITIES": "Nacionalities",
+        "LEGAL_REPRESENTATIONS": "Legal representations",
+        "LANGUAGES": "Languages",
+        "INVOICE_SERIES": "Invoice series",
+        "GROUPS": "Groups"
+    },
+    "SUBMENU": {
+        "COUNTRIES": "Countries",
+        "PROVINCES": "Provinces",
+        "COMMUNITIES": "Autonomous Regions",
+        "TOWNS": "Municipalities",
+        "COMARCS": "Regions",
+        "POSTAL_CODES": "Postal Codes",
+        "POBLATION": "Populations",
+        "MODESCOM": "Communication Modes",
+        "COMMUNICATIONS": "Communications",
+        "GENERES": "Genres",
+        "TIPUSPERSON": "Types of People",
+        "TIPUSPHONE": "Types of Phone",
+        "ORILOPD": "GDPR Origins",
+        "REGLOPD": "GDPR Regulations",
+        "ADDRESSTYPE": "Address Types",
+        "MODESCOM_PURPOSE": "Purpose",
+        "MODESCOM_PURPOSE_PROFILES": "Purpose Profiles",
+        "MODESCOM_MODES": "Modes",
+        "MODESCOM_TYPES": "Types",
+        "EXPEDIENT_FOLDER_STATES": "States Folders",
+        "EXPEDIENT_FOLDER_SUBJECTS": "Subject Folders",
+        "EXPEDIENT_FOLDER_TYPES": "Tipus Folders",
+        "EXPEDIENT_PROVENANCES": "Provenance",
+        "RELATION_TYPES": "Relation types",
+        "PROFILES": "Profiles",
+        "PROFESSIONS": "Professions"
+    },
+    "TXT": {
+        "HOME": "Home",
+        "noshantrobat": "Not found",
+        "nombre": "Name",
+        "codigo": "Code",
+        "escribaelnombre": "Enter the name",
+        "filtrar": "Filter by",
+        "provincia_sing": "province",
+        "bank_sing": "bank",
+        "actions": "Actions",
+        "new_registre": "New registre",
+        "settings": "Settings",
+        "logout": "Logout",
+        "swift": "Swift",
+        "serch_in": "Search in ",
+        "cercar": "Search",
+        "contains": "Contains",
+        "greaterEquals": "Equals",
+        "begins": "Begins",
+        "greater": "Greater",
+        "lowerEquals": "Lower",
+        "seguent": "Next",
+        "anterior": "Previous"
+    },
+    "FORM": {
+        "name": "Name",
+        "code": "Code",
+        "deskId": "Desk Id",
+        "capacity": "Capacity",
+        "swift": "Swift",
+        "campo_obligatorio": "Is required",
+        "added": "Add",
+        "modify": "Modify",
+        "cancel": "Cancel",
+        "ok": "Ok",
+        "close": "Close",
+        "title_swa": "This action delete ",
+        "text_swa": "You won't be able to revert this!",
+        "yes_delete": "Yes, delete it!",
+        "delete_done": "Record deleted",
+        "reg_deleted": "The record has been deleted",
+        "error": "Error",
+        "there_are_problem": "There was a problem deleting the record",
+        "edit_success_title": "Modificar registro",
+        "edit_success_message": "El registro ha sido modificado",
+        "edit_error_title": "Error de modificación",
+        "edit_error_message": "ha habido un error modificando el registro",
+        "create_success_title": "Añadir nuevo registro",
+        "create_success_message": "El registro se ha creado",
+        "create_error_title": "Error añadiendo el registro",
+        "create_error_message": "Ha habido un error creando el registro",
+        "desea_eliminar": "Do you want delete ",
+        "capacity": "Capacidad"
+    },
+    "Name": "Name",
+    "name": "Name",
+    "code": "Code",
+    "Codi": "Code",
+    "Actions": "Actions",
+    "Tipo": "Type",
+    "Cancelar": "Cancel",
+    "Editar Campos": "Edit",
+    "Guardar_finalitzar": "Save and return"
 }

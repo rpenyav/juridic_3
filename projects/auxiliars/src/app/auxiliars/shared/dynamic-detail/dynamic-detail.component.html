@@ -54,8 +54,40 @@
   ><app-visit-rooms-detail></app-visit-rooms-detail
 ></ng-container>
 
+<ng-container *ngIf="type === 'visit-types'"
+  ><app-visit-types-detail></app-visit-types-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'vat-percentages'"
+  ><app-vat-percentages-detail></app-vat-percentages-detail
+></ng-container>
+
 <ng-container *ngIf="type === 'subscription-tag'"
   ><app-subscription-tags-detail></app-subscription-tags-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'subscription-types'"
+  ><app-subscription-types-detail></app-subscription-types-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'subscription-coverages'"
+  ><app-subscription-coverages-detail></app-subscription-coverages-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'subscription-durations'"
+  ><app-subscription-durations-detail></app-subscription-durations-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'subscription-parentals'"
+  ><app-subscription-parentals-detail></app-subscription-parentals-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'subscription-status'"
+  ><app-subscription-status-detail></app-subscription-status-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'subscription-procedures'"
+  ><app-subscription-procedures-detail></app-subscription-procedures-detail
 ></ng-container>
 
 <ng-container *ngIf="type === 'documents-type'"
@@ -76,4 +108,88 @@
 
 <ng-container *ngIf="type === 'provenance'"
   ><app-expedient-provenance-detail></app-expedient-provenance-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'exp-folder-subjects'"
+  ><app-expedient-folder-subjects-detail></app-expedient-folder-subjects-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'festivity-days'"
+  ><app-festivity-days-detail></app-festivity-days-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'festivity-years'"
+  ><app-festivity-years-detail></app-festivity-years-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'genders'"
+  ><app-generes-detail></app-generes-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'return-reasons'"
+  ><app-return-reasons-detail></app-return-reasons-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'relation-types'"
+  ><app-relation-types-detail></app-relation-types-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'profiles'"
+  ><app-profiles-detail></app-profiles-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'professions'"
+  ><app-professions-detail></app-professions-detail
+></ng-container>
+
+
+<ng-container *ngIf="type === 'person-types'"
+  ><app-person-types-detail></app-person-types-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'offices'"
+  ><app-offices-detail></app-offices-detail
+></ng-container>
+
+
+<ng-container *ngIf="type === 'nacionalities'"
+  ><app-nacionalities-detail></app-nacionalities-detail
+></ng-container>
+
+
+<ng-container *ngIf="type === 'municipalities'"
+  ><app-municipalities-detail></app-municipalities-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'marital-status'"
+  ><app-marital-status-detail></app-marital-status-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'lopd-regulations'"
+  ><app-lopd-regulations-detail></app-lopd-regulations-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'lopd-origins'"
+  ><app-lopd-origins-detail></app-lopd-origins-detail
+></ng-container>
+
+
+
+<ng-container *ngIf="type === 'legal-representations'"
+  ><app-legal-representations-detail></app-legal-representations-detail
+></ng-container>
+
+
+<ng-container *ngIf="type === 'languages'"
+  ><app-languages-detail></app-languages-detail
+></ng-container>
+
+
+
+<ng-container *ngIf="type === 'invoice-series'"
+  ><app-invoice-series-detail></app-invoice-series-detail
+></ng-container>
+
+<ng-container *ngIf="type === 'groups'"
+  ><app-groups-detail></app-groups-detail
 ></ng-container>

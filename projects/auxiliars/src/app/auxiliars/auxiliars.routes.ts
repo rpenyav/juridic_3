@@ -27,15 +27,15 @@ import { ProEcoComponent } from './pages/pro-eco/pro-eco.component';
 import { RelEmpresasComponent } from './pages/rel-empresas/rel-empresas.component';
 import { RepLegalsComponent } from './pages/rep-legals/rep-legals.component';
 import { SettingsComponent } from './pages/settings/settings.component';
-import { SubscriptionTagsComponent } from './pages/subscription-tags/subscription-tags.component';
+
 import { VisitRoomsComponent } from './pages/visit-rooms/visit-rooms.component';
 import { DynamicDetailComponent } from './shared/dynamic-detail/dynamic-detail.component';
+import { SubscriptionTagsComponent } from './pages/subscriptions/subscription-tags/subscription-tags.component';
 
 export const AUXILIAR_ROUTES: Routes = [
-  {
-    path: 'auxiliars',
-    component: AuxiliarsComponent,
-  },
+  { path: '', redirectTo: '/auxiliars', pathMatch: 'full' },
+  { path: 'auxiliars', component: AuxiliarsComponent },
+
   {
     path: 'home',
     component: HomeComponent,
@@ -192,4 +192,5 @@ export const AUXILIAR_ROUTES: Routes = [
     component: ExpedientProvenanceComponent,
     //canActivate: [canActivate],
   },
+  { path: '**', redirectTo: '/not-found' },
 ];

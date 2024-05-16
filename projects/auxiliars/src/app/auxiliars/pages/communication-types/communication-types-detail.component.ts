@@ -1,10 +1,11 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
 import { MENU_ITEMS } from '../../../constants/menu.constants';
 import { ComTypes } from '../../interfaces/communications/types';
 import { GeneralService } from '../../services/general.service';
-import Swal from 'sweetalert2';
+import { environment } from 'projects/auxiliars/src/environments/environment';
 
 @Component({
   selector: 'app-communication-types-detail',
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./communication-types-detail.component.scss'],
 })
 export class CommunicationTypesDetailComponent implements OnInit {
+  assetsBaseUrl = environment.assetsBaseUrl;
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.COMMUNICATIONS_TYPES}`;
   iconoS: string = 'comTypes';
@@ -63,10 +65,7 @@ export class CommunicationTypesDetailComponent implements OnInit {
     this.loadRegisterDetail();
   }
 
-  handleFieldChange(
-    fieldName: string,
-    updatedValue: string | number | boolean
-  ): void {
+  handleFieldChange(fieldName: string, updatedValue: any): void {
     if (this.registerDetail) {
       if (fieldName === 'capacity' || fieldName === 'deskId') {
         this.registerDetail[fieldName] = Number(updatedValue);

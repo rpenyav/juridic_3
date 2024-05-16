@@ -1,5 +1,6 @@
-import { environment } from 'src/environments/environment';
 //import { environment } from 'src/environments/environment.prod';
+
+import { environment } from '../../environments/environment';
 
 function mapLanguageToNumber(languageCode: string): number {
   const languageMap: { [key: string]: number } = {
@@ -72,13 +73,5 @@ export function getApiEndpoints() {
     LANGUAGES: `${environment.apiBaseUrl}/${language}/languages`,
     INVOICE_SERIES: `${environment.apiBaseUrl}/${language}/invoice_series`,
     GROUPS: `${environment.apiBaseUrl}/${language}/groups`,
-
-
-
-
-
-
-
-
   };
 }

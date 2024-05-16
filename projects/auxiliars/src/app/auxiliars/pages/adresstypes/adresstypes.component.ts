@@ -1,14 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PaginatedResponse, AddressType } from '../../interfaces/address-type';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
-
-import { showCustomAlert } from 'projects/auxiliars/src/utils/showCustomAlert';
-import { Router } from '@angular/router';
-import { MENU_ITEMS } from '../../../constants/menu.constants';
-import { GeneralService } from '../../services/general.service';
-import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
 import { I18nService } from 'shared-lib';
+
+import { Router } from '@angular/router';
+import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
+import { environment } from 'projects/auxiliars/src/environments/environment';
+import { GeneralService } from '../../services/general.service';
+import { MENU_ITEMS } from '../../../constants/menu.constants';
+import { showCustomAlert } from 'projects/auxiliars/src/utils/showCustomAlert';
+import { AddressType, PaginatedResponse } from '../../interfaces/address-type';
 
 @Component({
   selector: 'app-adresstypes',
@@ -16,6 +18,7 @@ import { I18nService } from 'shared-lib';
   styleUrls: ['./adresstypes.component.scss'],
 })
 export class AdresstypesComponent implements OnInit {
+  assetsBaseUrl = environment.assetsBaseUrl;
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.ADDRESS_TYPES_ENDPOINT}`;
   addressTypesData: AddressType[] = [];
@@ -38,13 +41,17 @@ export class AdresstypesComponent implements OnInit {
 
   constructor(
     public generalService: GeneralService,
+    private modalService: NgbModal,
     private i18nService: I18nService,
+
     public router: Router
   ) {}
 
   ngOnInit(): void {
     this.icono = MENU_ITEMS[this.icono].icon;
-    const savedPageNumber = localStorage.getItem('pageNumber');
+    const savedPageNumber = sessionStorage.getItem(
+      this.detailUrl + '.pageNumber'
+    );
     if (savedPageNumber !== null) {
       this.pageNumber = +savedPageNumber;
     }
@@ -137,6 +144,7 @@ export class AdresstypesComponent implements OnInit {
 
   getRegisters(): void {
     this.loading = true;
+    this.currentSearchBody = [];
     this.generalService
       .getRegisterTypes<PaginatedResponse>(
         this.ENDPOINT,
@@ -162,7 +170,10 @@ export class AdresstypesComponent implements OnInit {
 
   onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
-    localStorage.setItem('pageNumber', pageNumber.toString());
+    sessionStorage.setItem(
+      this.detailUrl + '.pageNumber',
+      pageNumber.toString()
+    );
     this.getRegisters();
   }
 
@@ -215,17 +226,19 @@ export class AdresstypesComponent implements OnInit {
   // ---------------------------------------------------------------------------
 
   create(addressTypesData: AddressType) {
+    console.log('Enviando datos al servidor:', addressTypesData);
     this.generalService
       .createRegisterType<AddressType>(this.ENDPOINT, addressTypesData)
       .subscribe({
         next: (response) => {
+          console.log('Respuesta del servidor:', response);
           showCustomAlert(this.i18nService, {
             titleKey: 'FORM.create_success_title',
             textKey: 'FORM.create_success_message',
             icon: 'success',
             confirmButtonTextKey: 'FORM.ok',
           });
-
+          this.modalService.dismissAll();
           this.getRegisters();
         },
         error: (error) => {
@@ -239,6 +252,7 @@ export class AdresstypesComponent implements OnInit {
         },
       });
   }
+
   /**
    * aquí definim la ruta de la pàgina de detall
    * per això definirem aquí la ruta i afegirem al component compartit dynamic-detail
@@ -264,7 +278,7 @@ export class AdresstypesComponent implements OnInit {
    * @param addressTypes
    */
   delete(addressTypes: AddressType) {
-    const titleWithName = `${this.i18nService.getInstant(
+    const titleWithName = `${this.i18nService.getTranslation(
       'FORM.desea_eliminar'
     )} "${addressTypes.literalDescriptionText}"?`;
 

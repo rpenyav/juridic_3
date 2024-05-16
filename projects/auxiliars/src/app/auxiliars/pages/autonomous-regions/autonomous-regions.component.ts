@@ -1,13 +1,16 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { PaginatedResponse, Autonomies } from '../../interfaces/autonomies';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 import { I18nService } from 'shared-lib';
-import { showCustomAlert } from 'projects/auxiliars/src/utils/showCustomAlert';
 import { Router } from '@angular/router';
-import { MENU_ITEMS } from '../../../constants/menu.constants';
-import { GeneralService } from '../../services/general.service';
+
+import { showCustomAlert } from 'projects/auxiliars/src/utils/showCustomAlert';
 import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
+import { MENU_ITEMS } from '../../../constants/menu.constants';
+import { Autonomies, PaginatedResponse } from '../../interfaces/autonomies';
+
+import { GeneralService } from '../../services/general.service';
+import { environment } from 'projects/auxiliars/src/environments/environment';
 
 @Component({
   selector: 'app-autonomous-regions',
@@ -15,6 +18,7 @@ import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
   styleUrls: ['./autonomous-regions.component.scss'],
 })
 export class AutonomousRegionsComponent implements OnInit {
+  assetsBaseUrl = environment.assetsBaseUrl;
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.AUTONOMIES_ENDPOINT}`;
   registerTypesData: Autonomies[] = [];
@@ -41,8 +45,8 @@ export class AutonomousRegionsComponent implements OnInit {
 
   constructor(
     public generalService: GeneralService,
-
-    private txt: I18nService,
+    private modalService: NgbModal,
+    private i18nService: I18nService,
     private router: Router
   ) {}
 
@@ -50,7 +54,9 @@ export class AutonomousRegionsComponent implements OnInit {
     const localitTypes = MENU_ITEMS[this.iconoS]?.children;
     localitTypes?.find((child) => child.key === this.icono);
 
-    const savedPageNumber = localStorage.getItem('pageNumber');
+    const savedPageNumber = sessionStorage.getItem(
+      this.detailUrl + '.pageNumber'
+    );
     if (savedPageNumber !== null) {
       this.pageNumber = +savedPageNumber;
     }
@@ -64,6 +70,22 @@ export class AutonomousRegionsComponent implements OnInit {
    */
   getLangFromStorage(): string {
     return localStorage.getItem('userLang') ?? this.defaultLanguage;
+  }
+
+  // ---------------------------------------------------------------------------
+  // métodos de la modal
+  // ---------------------------------------------------------------------------
+
+  openModal(action: 'add', register: any = null) {
+    this.currentAction = action;
+    this.selectedRegister = register;
+    if (action === 'add') {
+      this.modalService.open(this.modalContent, {
+        backdrop: 'static',
+        keyboard: false,
+        centered: true,
+      });
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -151,6 +173,7 @@ export class AutonomousRegionsComponent implements OnInit {
 
   getRegisters(): void {
     this.loading = true;
+    this.currentSearchBody = [];
     this.generalService
       .getRegisterTypes<PaginatedResponse>(
         this.ENDPOINT,
@@ -176,7 +199,10 @@ export class AutonomousRegionsComponent implements OnInit {
 
   onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
-    localStorage.setItem('pageNumber', pageNumber.toString());
+    sessionStorage.setItem(
+      this.detailUrl + '.pageNumber',
+      pageNumber.toString()
+    );
     this.getRegisters();
   }
 
@@ -251,18 +277,18 @@ export class AutonomousRegionsComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log('Respuesta del servidor:', response);
-          showCustomAlert(this.txt, {
+          showCustomAlert(this.i18nService, {
             titleKey: 'FORM.create_success_title',
             textKey: 'FORM.create_success_message',
             icon: 'success',
             confirmButtonTextKey: 'FORM.ok',
           });
-
+          this.modalService.dismissAll();
           this.getRegisters();
         },
         error: (error) => {
           console.error('Error al crear el registro:', error);
-          showCustomAlert(this.txt, {
+          showCustomAlert(this.i18nService, {
             titleKey: 'FORM.create_error_title',
             textKey: 'FORM.create_error_message',
             icon: 'error',
@@ -291,11 +317,11 @@ export class AutonomousRegionsComponent implements OnInit {
    * @param registerTypes
    */
   delete(nametype: Autonomies) {
-    const titleWithName = `${this.txt.getInstant('FORM.desea_eliminar')} "${
-      nametype.name
-    }"?`;
+    const titleWithName = `${this.i18nService.getTranslation(
+      'FORM.desea_eliminar'
+    )} "${nametype.name}"?`;
 
-    showCustomAlert(this.txt, {
+    showCustomAlert(this.i18nService, {
       titleKey: 'FORM.title_swa',
       textKey: 'FORM.text_swa',
       confirmButtonTextKey: 'FORM.yes_delete',

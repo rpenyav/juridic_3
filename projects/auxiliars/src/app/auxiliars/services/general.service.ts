@@ -1,25 +1,19 @@
-/* eslint-disable nombre-de-la-regla */
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { getAuthToken } from 'projects/auxiliars/src/utils/getToken';
+
+import { HeadersService } from 'projects/juridic/src/app/juridic/services/headers.service';
+import { environment } from 'projects/auxiliars/src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GeneralService {
-  constructor(private http: HttpClient) {}
-
-  /**
-   * Genera capçaleres per a les sol·licituds HTTP.
-   * @returns HttpHeaders amb l'autorització inclosa.
-   */
-  private getHeaders(): HttpHeaders {
-    const authToken = getAuthToken();
-    return new HttpHeaders({ Authorization: `Bearer ${authToken}` });
-  }
+  constructor(
+    private http: HttpClient,
+    private headersService: HeadersService
+  ) {}
 
   /**
    * BUSQUEDA
@@ -37,14 +31,15 @@ export class GeneralService {
     sortType: string = 'ASC' // Asume 'ASC' como valor por defecto
   ): Observable<T> {
     console.log(page);
-    // Construimos el endpoint incluyendo los parámetros de paginación y ordenación
     let paginatedEndpoint = `${endpoint}/search?page=0&pagesize=${pagesize}`;
     if (sortField) {
       paginatedEndpoint += `&sortField=${sortField}&sortType=${sortType}`;
     }
 
     return this.http
-      .post<T>(paginatedEndpoint, searchBody, { headers: this.getHeaders() })
+      .post<T>(paginatedEndpoint, searchBody, {
+        headers: this.headersService.getAuthHeaders(),
+      })
       .pipe(
         tap((data) => console.log('Resultados de búsqueda:', data)),
         catchError((error) => {
@@ -68,6 +63,7 @@ export class GeneralService {
    * @param sortType El tipo de orden (ASC o DESC).
    * @returns Observable<T> Un observable que emite los datos solicitados.
    */
+  // Otros métodos modificados para usar headersService.getAuthHeaders()
   getRegisterTypes<T>(
     endpoint: string,
     pageNumber: number = 0,
@@ -75,9 +71,7 @@ export class GeneralService {
     sortField?: string,
     sortType: string = 'ASC'
   ): Observable<T> {
-    // Ajuste para el índice base 0 antes de realizar la solicitud.
-    pageNumber = Math.max(pageNumber - 1, 0); // Asegura que el número de página no sea negativo.
-
+    pageNumber = Math.max(pageNumber - 1, 0);
     let params = new HttpParams()
       .set('page', pageNumber.toString())
       .set('pagesize', pageSize.toString());
@@ -88,7 +82,7 @@ export class GeneralService {
 
     return this.http
       .get<T>(`${endpoint}/paged`, {
-        headers: this.getHeaders(),
+        headers: this.headersService.getAuthHeaders(),
         params: params,
       })
       .pipe(
@@ -113,7 +107,9 @@ export class GeneralService {
 
   getRegisterTypeById<T>(endpoint: string, id: number): Observable<T | null> {
     return this.http
-      .get<T>(`${endpoint}/${id}`, { headers: this.getHeaders() })
+      .get<T>(`${endpoint}/${id}`, {
+        headers: this.headersService.getAuthHeaders(),
+      })
       .pipe(
         catchError(() => {
           return throwError(
@@ -133,7 +129,9 @@ export class GeneralService {
    */
   createRegisterType<T>(endpoint: string, registreType: T): Observable<T> {
     return this.http
-      .post<T>(`${endpoint}/`, registreType, { headers: this.getHeaders() })
+      .post<T>(`${endpoint}/`, registreType, {
+        headers: this.headersService.getAuthHeaders(),
+      })
       .pipe(
         catchError(() => {
           return throwError(
@@ -159,7 +157,7 @@ export class GeneralService {
     console.log(endpoint);
     //const url = `${endpoint}/upload-massive`;
     const url = `${localhost}/upload-massive`;
-    let headers = this.getHeaders();
+    let headers = this.headersService.getAuthHeaders();
     headers = headers.delete('Content-Type');
 
     return this.http
@@ -188,7 +186,9 @@ export class GeneralService {
     registerType: T
   ): Observable<T> {
     return this.http
-      .put<T>(`${endpoint}/${id}`, registerType, { headers: this.getHeaders() })
+      .put<T>(`${endpoint}/${id}`, registerType, {
+        headers: this.headersService.getAuthHeaders(),
+      })
       .pipe(
         catchError((error) => {
           console.error('Error al actualizar el registro:', error);
@@ -210,7 +210,9 @@ export class GeneralService {
 
   deleteRegisterType<R>(endpoint: string, id: number): Observable<R> {
     return this.http
-      .delete<R>(`${endpoint}/${id}`, { headers: this.getHeaders() })
+      .delete<R>(`${endpoint}/${id}`, {
+        headers: this.headersService.getAuthHeaders(),
+      })
       .pipe(
         catchError(() => {
           return throwError(

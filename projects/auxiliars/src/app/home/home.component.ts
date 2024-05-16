@@ -1,6 +1,7 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { I18nService } from 'shared-lib';
 
 @Component({
   selector: 'app-home',
@@ -9,17 +10,22 @@ import { TranslateService } from '@ngx-translate/core';
   encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent {
+  translations: Record<string, any> = {};
+  public translationsSubscription: Subscription;
   constructor(
+    private cdr: ChangeDetectorRef,
+    private router: Router,
     private route: ActivatedRoute,
-    private translate: TranslateService
+    private i18nService: I18nService
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      const lang = params['lang'];
-      if (lang) {
-        this.translate.use(lang);
-      }
-    });
+    this.translationsSubscription = this.i18nService.translations$.subscribe(
+      (translations: Record<string, any>) => {
+        this.translations = translations;
+        debugger;
+      },
+      (error) => console.error('Error loading translations', error)
+    );
   }
 }

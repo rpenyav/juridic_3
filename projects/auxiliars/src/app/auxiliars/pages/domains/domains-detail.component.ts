@@ -1,6 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
+import { environment } from 'projects/auxiliars/src/environments/environment';
+
 import { MENU_ITEMS } from '../../../constants/menu.constants';
 import { Domains } from '../../interfaces/domains';
 import { GeneralService } from '../../services/general.service';
@@ -12,6 +14,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./domains-detail.component.scss'],
 })
 export class DomainsDetailComponent implements OnInit {
+  assetsBaseUrl = environment.assetsBaseUrl;
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.DOMAINS_ENDPOINT}`;
   icono: string = 'domainsType';
@@ -50,10 +53,7 @@ export class DomainsDetailComponent implements OnInit {
     console.log('postLanguage', this.postLanguage); // Mover aquí
   }
 
-  handleFieldChange(
-    fieldName: string,
-    updatedValue: string | number | boolean
-  ): void {
+  handleFieldChange(fieldName: string, updatedValue: any): void {
     if (this.registerDetail) {
       if (fieldName === 'capacity' || fieldName === 'deskId') {
         this.registerDetail[fieldName] = Number(updatedValue);

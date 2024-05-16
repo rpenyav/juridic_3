@@ -45,8 +45,8 @@ export const APP_ROUTES: Routes = [
       loadRemoteModule({
         type: 'manifest',
         remoteName: 'auxiliars',
-        exposedModule: './AuxiliarModule',
-      }).then((m) => m.AuxiliarModule),
+        exposedModule: './AuxiliarsModule',
+      }).then((m) => m.AuxiliarsModule),
     canActivate: [canActivate],
   },
 

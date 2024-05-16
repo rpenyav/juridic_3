@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { EditInterface } from '../../interfaces/editInterface';
 
 @Component({
   selector: 'app-insert',
@@ -9,8 +10,11 @@ export class InsertComponent {
   @Input() field: string = '';
   @Input() value: string = '';
   @Input() label: string = '';
-  @Input() fieldtype: 'string' | 'number' | 'boolean' = 'string';
+  @Input() fieldtype: 'string' | 'number' | 'boolean' | 'decimal' | string =
+    'string';
   @Output() save = new EventEmitter<string | number | boolean>();
+  @Input() maxlength: number | null = null;
+  @Input() structure: EditInterface | null = null;
 
   originalValue: string = '';
   @Output() valueChange = new EventEmitter<string>();
@@ -34,7 +38,7 @@ export class InsertComponent {
   updateLocalStorage(
     field: string,
     value: any,
-    fieldType: 'string' | 'number' | 'boolean'
+    fieldType: 'string' | 'number' | 'boolean' | string
   ): void {
     let currentData = JSON.parse(localStorage.getItem('insertData') ?? '{}');
 

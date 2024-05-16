@@ -1,10 +1,11 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
 import { MENU_ITEMS } from '../../../constants/menu.constants';
 import { DocumentsType } from '../../interfaces/documents-type';
 import { GeneralService } from '../../services/general.service';
-import Swal from 'sweetalert2';
+import { environment } from 'projects/auxiliars/src/environments/environment';
 
 @Component({
   selector: 'app-document-types-detail',
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./document_types-detail.component.scss'],
 })
 export class DocumentstypesDetailComponent implements OnInit {
+  assetsBaseUrl = environment.assetsBaseUrl;
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.DOCUMENTS_TYPES_ENDPOINT}`;
   icono: string = 'documentsType';
@@ -60,10 +62,7 @@ export class DocumentstypesDetailComponent implements OnInit {
     this.loadRegisterDetail();
   }
 
-  handleFieldChange(
-    fieldName: string,
-    updatedValue: string | number | boolean
-  ): void {
+  handleFieldChange(fieldName: string, updatedValue: any): void {
     if (this.registerDetail) {
       if (fieldName === 'capacity' || fieldName === 'deskId') {
         this.registerDetail[fieldName] = Number(updatedValue);

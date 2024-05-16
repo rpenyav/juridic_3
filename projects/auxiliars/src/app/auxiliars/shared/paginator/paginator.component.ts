@@ -15,7 +15,8 @@ export class PaginatorComponent implements OnInit {
   @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
 
   ngOnInit(): void {
-    const savedPageNumber = localStorage.getItem('pageNumber');
+   // const savedPageNumber = sessionStorage.getItem(this.detailUrl + ".pageNumber");
+   const savedPageNumber = null;
     if (savedPageNumber) {
       this.pageNumber = parseInt(savedPageNumber, 10);
     }
@@ -60,7 +61,7 @@ export class PaginatorComponent implements OnInit {
   onPageChange(page: PageItem): void {
     if (page === '...') return;
     this.pageNumber = page as number;
-    localStorage.setItem('pageNumber', this.pageNumber.toString());
-    this.pageChange.emit(this.pageNumber);
+  //  sessionStorage.setItem(this.detailUrl + ".pageNumber", this.pageNumber.toString());
+    this.pageChange.emit(this.pageNumber );
   }
 }

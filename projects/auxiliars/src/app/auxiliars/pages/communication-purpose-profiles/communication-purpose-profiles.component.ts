@@ -1,16 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  PaginatedResponse,
-  PurposeProfiles,
-} from '../../interfaces/communications/purpose-profiles';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 import { I18nService } from 'shared-lib';
-import { showCustomAlert } from 'projects/auxiliars/src/utils/showCustomAlert';
 import { Router } from '@angular/router';
-import { MENU_ITEMS } from '../../../constants/menu.constants';
-import { GeneralService } from '../../services/general.service';
+import { showCustomAlert } from 'projects/auxiliars/src/utils/showCustomAlert';
 import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
+import { MENU_ITEMS } from '../../../constants/menu.constants';
+import {
+  PurposeProfiles,
+  PaginatedResponse,
+} from '../../interfaces/communications/purpose-profiles';
+import { GeneralService } from '../../services/general.service';
+import { environment } from 'projects/auxiliars/src/environments/environment';
 
 @Component({
   selector: 'app-communication-purpose-profiles',
@@ -18,6 +20,7 @@ import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
   styleUrls: ['./communication-purpose-profiles.component.scss'],
 })
 export class CommunicationPurposeProfilesComponent implements OnInit {
+  assetsBaseUrl = environment.assetsBaseUrl;
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.COMMUNICATIONS_PURPOSE_PROFILES}`;
   addressTypesData: PurposeProfiles[] = [];
@@ -41,8 +44,8 @@ export class CommunicationPurposeProfilesComponent implements OnInit {
 
   constructor(
     public generalService: GeneralService,
-
-    private txt: I18nService,
+    private modalService: NgbModal,
+    private i18nService: I18nService,
     public router: Router
   ) {}
 
@@ -50,7 +53,9 @@ export class CommunicationPurposeProfilesComponent implements OnInit {
     const localitTypes = MENU_ITEMS[this.iconoS]?.children;
     localitTypes?.find((child) => child.key === this.icono);
 
-    const savedPageNumber = localStorage.getItem('pageNumber');
+    const savedPageNumber = sessionStorage.getItem(
+      this.detailUrl + '.pageNumber'
+    );
     if (savedPageNumber !== null) {
       this.pageNumber = +savedPageNumber;
     }
@@ -151,6 +156,7 @@ export class CommunicationPurposeProfilesComponent implements OnInit {
 
   getRegisters(): void {
     this.loading = true;
+    this.currentSearchBody = [];
     this.generalService
       .getRegisterTypes<PaginatedResponse>(
         this.ENDPOINT,
@@ -176,7 +182,10 @@ export class CommunicationPurposeProfilesComponent implements OnInit {
 
   onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
-    localStorage.setItem('pageNumber', pageNumber.toString());
+    sessionStorage.setItem(
+      this.detailUrl + '.pageNumber',
+      pageNumber.toString()
+    );
     this.getRegisters();
   }
 
@@ -241,18 +250,18 @@ export class CommunicationPurposeProfilesComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log('Respuesta del servidor:', response);
-          showCustomAlert(this.txt, {
+          showCustomAlert(this.i18nService, {
             titleKey: 'FORM.create_success_title',
             textKey: 'FORM.create_success_message',
             icon: 'success',
             confirmButtonTextKey: 'FORM.ok',
           });
-
+          this.modalService.dismissAll();
           this.getRegisters();
         },
         error: (error) => {
           console.error('Error al crear el registro:', error);
-          showCustomAlert(this.txt, {
+          showCustomAlert(this.i18nService, {
             titleKey: 'FORM.create_error_title',
             textKey: 'FORM.create_error_message',
             icon: 'error',
@@ -287,11 +296,11 @@ export class CommunicationPurposeProfilesComponent implements OnInit {
    * @param addressTypes
    */
   delete(addressTypes: PurposeProfiles) {
-    const titleWithName = `${this.txt.getInstant('FORM.desea_eliminar')} "${
-      addressTypes.name
-    }"?`;
+    const titleWithName = `${this.i18nService.getTranslation(
+      'FORM.desea_eliminar'
+    )} "${addressTypes.name}"?`;
 
-    showCustomAlert(this.txt, {
+    showCustomAlert(this.i18nService, {
       titleKey: 'FORM.title_swa',
       textKey: 'FORM.text_swa',
       confirmButtonTextKey: 'FORM.yes_delete',

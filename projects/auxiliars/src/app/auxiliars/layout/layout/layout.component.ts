@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 
+import { environment } from 'projects/auxiliars/src/environments/environment';
 import { MenuItem } from 'projects/auxiliars/src/interfaces/menu';
 import { MENU_ITEMS } from '../../../constants/menu.constants';
 
@@ -9,6 +10,7 @@ import { MENU_ITEMS } from '../../../constants/menu.constants';
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
+  assetsBaseUrl = environment.assetsBaseUrl;
   @ViewChild('drw') drw!: ElementRef;
   menuItems: { [key: string]: MenuItem } = MENU_ITEMS;
   isExpanded = false;

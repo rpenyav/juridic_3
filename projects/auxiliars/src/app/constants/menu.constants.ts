@@ -1,4 +1,4 @@
-import { MenuItem } from 'src/interfaces/menu';
+import { MenuItem } from '../../interfaces/menu';
 
 export const MENU_ITEMS: { [key: string]: MenuItem } = {
   documents: {
@@ -99,7 +99,7 @@ export const MENU_ITEMS: { [key: string]: MenuItem } = {
         text: 'SUBMENU.MODESCOM_PURPOSE',
         url: '/communications/purpose',
       },
-    /*  {
+      /*  {
         key: 'com_purpose_profiles',
         icon: 'streamline',
         text: 'SUBMENU.MODESCOM_PURPOSE_PROFILES',
@@ -353,19 +353,19 @@ export const MENU_ITEMS: { [key: string]: MenuItem } = {
         key: 'subscriptionProceduresTypes',
         icon: 'subscription-procedures',
         text: 'MENU.SUBSCRIPTION_PROCEDURES',
-        url:  '/subscription-procedures',
+        url: '/subscription-procedures',
       },
       {
         key: 'subscriptionStatusTypes',
         icon: 'subscription-status',
         text: 'MENU.SUBSCRIPTION_STATUS',
-        url:  '/subscription-status',
+        url: '/subscription-status',
       },
       {
         key: 'subscriptionProceduresPhases',
         icon: 'subscription-phases',
         text: 'MENU.SUBSCRIPTION_PHASES',
-        url:  '/subscription-phases',
+        url: '/subscription-phases',
       },
     ],
   },
@@ -388,23 +388,22 @@ export const MENU_ITEMS: { [key: string]: MenuItem } = {
     text: 'MENU.OFFICES',
     url: '/offices',
   },
-  languages:{
+  languages: {
     key: 'languages',
     icon: 'languages',
     text: 'MENU.LANGUAGES',
     url: '/languages',
   },
-  invoiceSeries:{
+  invoiceSeries: {
     key: 'invoice-series',
     icon: 'invoice-series',
     text: 'MENU.INVOICE_SERIES',
     url: '/invoice-series',
   },
-  groups:{
+  groups: {
     key: 'groups',
     icon: 'groups',
     text: 'MENU.GROUPS',
     url: '/groups',
-  }
-  
+  },
 };
