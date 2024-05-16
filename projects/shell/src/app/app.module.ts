@@ -15,6 +15,8 @@ import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header.component';
 import { SidebarComponent } from './layout/sidebar.component';
 import { StoreModule } from '@ngrx/store';
+import { GeneralHeaderComponent } from './layout/header/header-general.component';
+import { FooterComponent } from './layout/footer/footer.component';
 
 @NgModule({
   imports: [
@@ -32,7 +34,9 @@ import { StoreModule } from '@ngrx/store';
     NotFoundComponent,
     LayoutComponent,
     HeaderComponent,
+    FooterComponent,
     SidebarComponent,
+    GeneralHeaderComponent,
   ],
   providers: [AuthenticationService],
   bootstrap: [AppComponent],

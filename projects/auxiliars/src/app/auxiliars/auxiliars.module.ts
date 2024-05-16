@@ -11,8 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
-import { AuxFooterComponent } from './layout/footer/aux-footer.component';
-import { GeneralFooterComponent } from './layout/footer/generalfooter.component';
+
 import { BanksComponent } from './pages/banks/banks.component';
 import { CarpetasComponent } from './pages/carpetas/carpetas.component';
 import { DocumentsComponent } from './pages/documentos/documents.component';
@@ -160,9 +159,9 @@ import { GeneralLayoutComponent } from './layout/generallayout.component';
     AuxiliarsComponent,
     HomeComponent,
     AuxHeaderComponent,
-    AuxFooterComponent,
+
     LayoutComponent,
-    // LoginComponent,
+
     BanksComponent,
     CarpetasComponent,
     DomainsComponent,
@@ -283,7 +282,7 @@ import { GeneralLayoutComponent } from './layout/generallayout.component';
     InvoiceSeriesDetailComponent,
     GroupsComponent,
     GroupsDetailComponent,
-    GeneralFooterComponent,
+
     GeneralHeaderComponent,
     GeneralLayoutComponent,
   ],

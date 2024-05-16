@@ -4,7 +4,7 @@ import { JuridicComponent } from './juridic/juridic.component';
 import { RouterModule } from '@angular/router';
 import { JURIDIC_ROUTES } from './juridic.routes';
 import { SharedLibModule } from 'shared-lib';
-import { HeaderComponent, FooterComponent, LayoutComponent } from './layout';
+import { HeaderComponent, LayoutComponent } from './layout';
 import { ExpedientesComponent } from './expedientes/expedientes.component';
 import { ExpCercadorComponent } from './expedientes/exp-cercador/exp-cercador.component';
 import { ClientsComponent } from './clients/clients.component';
@@ -46,7 +46,7 @@ import { CliPersonaJuridicaComponent } from './clients/cli-dades-generals/layout
     JuridicComponent,
     LayoutComponent,
     HeaderComponent,
-    FooterComponent,
+
     ExpedientesComponent,
     ExpCercadorComponent,
     ClientsComponent,
