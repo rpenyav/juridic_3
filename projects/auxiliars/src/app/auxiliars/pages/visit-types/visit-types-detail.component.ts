@@ -13,7 +13,7 @@ import { VisitTypes } from '../../interfaces/visit-types';
   styleUrls: ['./visit-types-detail.component.scss'],
 })
 export class VisitTypesDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.VISIT_TYPES}`;
   icono: string = 'visit-types';

@@ -13,7 +13,7 @@ import { SubscriptionTag } from '../../../interfaces/subscription-tags';
   styleUrls: ['./subscription-tags-detail.component.scss'],
 })
 export class SubscriptionTagDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.VISIT_ROOMS}`;
   icono: string = 'subscriptiontags';

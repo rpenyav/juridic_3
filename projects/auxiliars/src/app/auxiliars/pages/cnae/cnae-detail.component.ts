@@ -13,7 +13,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./cnae-detail.component.scss'],
 })
 export class CnaeDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.ADDRESS_TYPES_ENDPOINT}`;
   icono: string = 'personesTypes';

@@ -6,16 +6,15 @@
         [ngStyle]="{ width: column.width }"
         (click)="column.sortable && sort(column)"
       >
-        {{ getHeader(column.label)}}
+        {{ getHeader(column.label) }}
         <ng-container *ngIf="column.sortable">
           <span class="material-icons caret">
-            <mat-icon *ngIf="!column.direction">swap_vert</mat-icon>
-            <mat-icon *ngIf="column.direction === 'ASC'"
-              >arrow_drop_up</mat-icon
-            >
-            <mat-icon *ngIf="column.direction === 'DESC'"
-              >arrow_drop_down</mat-icon
-            >
+            <i *ngIf="!column.direction" class="fas fa-arrows-alt-v"></i>
+            <i *ngIf="column.direction === 'ASC'" class="fas fa-caret-up"></i>
+            <i
+              *ngIf="column.direction === 'DESC'"
+              class="fas fa-caret-down"
+            ></i>
           </span>
         </ng-container>
       </th>
@@ -30,13 +29,13 @@
               type="button"
               class="btn small-butt"
               *ngIf="column.action"
-              (click)="column.action(row)"
+              (click)="viewDetails(row.id)"
             >
-              <mat-icon>visibility</mat-icon>
+              <i class="fas fa-eye"></i>
             </button>
 
             <button type="button" class="btn small-butt" (click)="delete(row)">
-              <mat-icon>delete</mat-icon>
+              <i class="fas fa-trash"></i>
             </button>
           </div>
         </ng-container>

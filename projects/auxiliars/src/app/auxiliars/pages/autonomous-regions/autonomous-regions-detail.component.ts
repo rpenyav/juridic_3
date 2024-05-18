@@ -14,7 +14,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./autonomous-regions-detail.component.scss'],
 })
 export class AutonomousRegionsDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.ADDRESS_TYPES_ENDPOINT}`;
   iconoS: string = 'localitTypes';

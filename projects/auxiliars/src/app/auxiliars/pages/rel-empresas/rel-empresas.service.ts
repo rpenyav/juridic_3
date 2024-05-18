@@ -8,7 +8,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   providedIn: 'root',
 })
 export class RelEmpresasTypeService {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.DOMAINS_ENDPOINT}`;
 

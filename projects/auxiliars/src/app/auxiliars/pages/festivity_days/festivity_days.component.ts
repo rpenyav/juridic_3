@@ -22,7 +22,7 @@ import {
   styleUrls: ['./festivity_days.component.scss'],
 })
 export class FestivityDaysComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.FESTIVITY_DAYS_ENDPOINT}`;
   registerTypesData: FestivityDays[] = [];

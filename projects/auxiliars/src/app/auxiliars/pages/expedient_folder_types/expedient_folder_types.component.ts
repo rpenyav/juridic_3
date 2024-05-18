@@ -20,7 +20,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./expedient_folder_types.component.scss'],
 })
 export class ExpedientFolderTypesComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.EXPEDIENTS_FOLDER_TYPES_ENDPOINT}`;
   registerTypesData: ExpFolderTypes[] = [];

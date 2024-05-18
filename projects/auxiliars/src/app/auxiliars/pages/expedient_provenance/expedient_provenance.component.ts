@@ -20,7 +20,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./expedient_provenance.component.scss'],
 })
 export class ExpedientProvenanceComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.EXPEDIENTS_PROVINANCE_ENDPOINT}`;
   registerTypesData: Provinance[] = [];

@@ -1,82 +1,105 @@
-.layout-container {
-  height: 100vh;
-}
-.sidebar-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-
-  z-index: 1000;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
-}
-
-.clase-expandida {
-  width: 280px;
-  transition: width 2s;
-}
-mat-nav-list {
-  transition: width 2s;
-}
-
-.custom-mat-icon {
-  font-size: 20px;
-  height: 20px;
-  width: 20px;
-}
-
-.main__height {
-  height: 90vh;
-}
-
-.sub-menu {
-  padding-left: 30px; /* Añade indentación a los submenús */
-}
-
-.text_margi {
-  padding-top: 12px;
-}
-
-.sidebar__height-item {
-  display: flex;
-  height: 25px;
-
-  justify-content: space-between;
-  align-items: center;
+.content {
   width: 100%;
 }
 
-.sidebar__height-item h5 {
-  padding-top: 12px;
+.caret-icon {
+  width: 12px;
+  height: 12px;
 }
 
-.icon-nomaterial {
+.sidebar {
+  width: 250px; /* Ancho mínimo cuando está cerrado */
+  background: #f0f0f0;
+  height: 100vh;
+  transition: width 0.3s ease;
+  position: relative;
+  padding-top: 3px;
+  overflow-x: hidden; /* Oculta el contenido que desborde */
+  overflow-y: auto; /* Habilita la barra de desplazamiento vertical cuando sea necesario */
+}
+
+/* Estilos para la barra de desplazamiento */
+.sidebar::-webkit-scrollbar {
+  width: 5px; /* Ancho de la barra de desplazamiento */
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #f0f0f0; /* Color de fondo del riel de la barra de desplazamiento */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #acacac; /* Color de la barra de desplazamiento */
+  border-radius: 4px; /* Bordes redondeados para la barra de desplazamiento */
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background-color: #9c9c9c; /* Color de la barra de desplazamiento al pasar el mouse */
+}
+
+.sidebar.closed {
+  width: 60px; /* Ancho cuando está expandido */
+}
+
+.toggle-button {
+  background: rgb(197, 197, 197);
+  border: none;
+  color: rgb(133, 133, 133);
+  padding: 10px;
+  min-width: 52px;
   cursor: pointer;
-  height: 44px;
-  padding-left: 16px;
+  margin-bottom: 15px;
+  transition: left 0.3s ease; /* Asegura que la transición sea suave */
+}
+
+.nav-list {
+  list-style: none;
+  width: 100%;
+
+  padding: 0px;
+  padding-left: 10px;
+
+  margin: 0px;
+
+  li {
+    padding: 0px;
+    list-style: none;
+    margin: 0px;
+    margin-bottom: 10px;
+  }
+}
+
+.menu-item {
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.text-container {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.menu-item img {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.sub-menu {
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.sub-menu img {
+  width: 30px !important;
+  height: 30px !important;
 }
 
 .caret-icon {
-  padding-right: 42px !important;
+  margin-left: auto; /* Alinea a la derecha dentro del contenedor */
 }
 
-mat-nav-list .menu-selected,
-mat-nav-list .menu-selected a {
-  background-color: #979797; /* Color de fondo para el ítem seleccionado */
-}
-
-/* Aumentar la especificidad para el ítem seleccionado */
-mat-nav-list .menu-selected .ng-star-inserted,
-mat-nav-list .menu-selected .ng-star-inserted a {
-  color: #fffdfd;
-}
-
-footer {
-  position:fixed;
-  left:0;
-  bottom:0;
-  background:#f6f6f6;
-
+/* Opcionales para mejorar la apariencia */
+.menu-selected,
+.menu-selected a {
+  background-color: transparent; /* Color de fondo para el ítem seleccionado */
 }

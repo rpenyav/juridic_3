@@ -13,7 +13,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./communication-modes-detail.component.scss'],
 })
 export class CommunicationModesDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.COMMUNICATIONS_MODES}`;
   iconoS: string = 'comTypes';

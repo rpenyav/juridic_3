@@ -18,6 +18,9 @@ export class DynamicDetailComponent implements OnInit {
       this.category = params['category'];
       this.type = params['type'];
       this.id = params['id'];
+      console.log('category:', this.category);
+      console.log('type:', this.type);
+      console.log('id:', this.id);
     });
   }
 }

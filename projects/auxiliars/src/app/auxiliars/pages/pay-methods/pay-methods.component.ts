@@ -17,7 +17,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./pay-methods.component.scss'],
 })
 export class PayMethodsComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.PAY_METHODS}`;
   addressTypesData: PayMethods[] = [];

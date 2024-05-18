@@ -9,6 +9,7 @@ import { MENU_ITEMS } from '../../../constants/menu.constants';
 import { Bank, PaginatedResponse } from '../../interfaces/banks';
 import { GeneralService } from '../../services/general.service';
 import { environment } from 'projects/auxiliars/src/environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-banks',
@@ -16,7 +17,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./banks.component.scss'],
 })
 export class BanksComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.BANKS_ENDPOINT}`;
   addressTypesData: Bank[] = [];
@@ -40,6 +41,9 @@ export class BanksComponent implements OnInit {
   defaultLanguage: string = 'ca';
   detailUrl: string = 'banks';
 
+  translations: Record<string, any> = {};
+  private translationsSubscription: Subscription;
+
   constructor(
     public generalService: GeneralService,
     private modalService: NgbModal,
@@ -57,8 +61,30 @@ export class BanksComponent implements OnInit {
     }
 
     this.getRegisters();
+    this.translationsSubscription = this.i18nService.translations$.subscribe(
+      (translations: Record<string, any>) => {
+        this.translations = translations;
+      },
+      (error) => console.error('Error loading translations', error)
+    );
   }
 
+  translate(key: string): string {
+    let parts = key.split('.');
+    let result = this.translations;
+    for (let part of parts) {
+      if (result[part]) {
+        result = result[part];
+      } else {
+        return key; // Devuelve la clave original si cualquier parte no existe
+      }
+    }
+    return typeof result === 'string' ? result : key;
+  }
+
+  ngOnDestroy() {
+    this.translationsSubscription.unsubscribe();
+  }
   /**
    * get language
    * @returns agafe el idioma de local storage
@@ -113,7 +139,6 @@ export class BanksComponent implements OnInit {
    * @param resultados
    */
   searchResults(resultados: any[]): void {
-    debugger;
     this.currentSearchBody = resultados;
     this.generalService
       .searchWithPost<PaginatedResponse>(
@@ -144,7 +169,6 @@ export class BanksComponent implements OnInit {
   // ---------------------------------------------------------------------------
 
   onSorted(sortData: { key: string; direction: 'ASC' | 'DESC' }) {
-    debugger;
     this.sortField = sortData.key;
     this.sortType = sortData.direction;
     this.generalService
@@ -309,12 +333,13 @@ export class BanksComponent implements OnInit {
    * no és necessari afegir-la al routing component
    * @param addressTypesId
    */
-  viewDetails(addressTypesId: string | number) {
-    const currentLang = this.getLangFromStorage();
-    this.router.navigate([
-      '/' + currentLang + `/_/${this.detailUrl}`,
-      addressTypesId,
-    ]);
+  viewDetails(addressTypesId: string | number): void {
+    this.router.navigate([`/auxiliars/_/${this.detailUrl}/${addressTypesId}`]);
+  }
+
+  navigateToAction(action: string) {
+    const routePath = `/auxiliars/_/${this.detailUrl}/${action}`;
+    this.router.navigate([routePath]);
   }
 
   /**

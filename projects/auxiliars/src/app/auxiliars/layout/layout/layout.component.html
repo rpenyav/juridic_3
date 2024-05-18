@@ -1,95 +1,102 @@
-<header>
-  <div class="container-fluid">
-    <app-aux-header></app-aux-header>
-  </div>
-</header>
-<mat-drawer-container #drw class="layout-container" autosize>
-  <mat-drawer #drawer mode="side" disableClose="true" opened="true">
-    <div class="scroll-area">
-      <button
-        mat-mini-fab
-        (click)="toggleSidebar()"
-        color="warn"
-        style="margin: 10px"
-        class="barbutton"
+<div class="d-flex justify-content-start">
+  <div [class.closed]="!isExpanded" class="sidebar">
+    <button (click)="toggleSidebar()" class="toggle-button">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-list">
+      <li
+        *ngFor="let item of menuItems | keyvalue"
+        [class.menu-selected]="selectedMenuItem === item.key"
       >
-        <mat-icon>menu</mat-icon>
-      </button>
-      <mat-nav-list [ngClass]="{ 'clase-expandida': isExpanded }">
-        <ng-container *ngFor="let item of menuItems | keyvalue">
-          <div
-            *ngIf="item.value.children"
-            (click)="!isExpanded && toggleSidebar(); toggleSubMenu(item)"
-            [ngClass]="{ 'menu-selected': selectedMenuItem === item.key }"
-            class="d-flex justify-content-between align-items-center sidebar__height-item icon-nomaterial"
-          >
-            <div class="d-flex align-items-center">
-              <img
-                [src]="'assets/icons/' + item.value.icon + '.png'"
-                class="custom-mat-icon"
-                alt="{{ item.value.text | translate }}"
-              />
-              <h5 class="ms-3 text_margi" *ngIf="isExpanded">
-                {{ item.value.text | translate }}
-              </h5>
-            </div>
-            <mat-icon class="caret-icon" *ngIf="isExpanded">
-              {{ item.value.isOpen ? "expand_less" : "expand_more" }}
-            </mat-icon>
+        <div
+          *ngIf="item.value.children"
+          (click)="toggleSubMenu(item)"
+          class="menu-item d-flex align-items-center"
+        >
+          <img
+            [src]="assetsBaseUrl + '/icons/' + item.value.icon + '.png'"
+            alt="{{ translate(item.value.text) }}"
+          />
+          <div class="text-container ms-2 flex-fill" *ngIf="isExpanded">
+            {{ translate(item.value.text) }}
+            <span *ngIf="item.value.isOpen">
+              <svg
+                class="caret-icon"
+                viewBox="0 0 12 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 2l4 4-4 4"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  fill="none"
+                />
+              </svg>
+            </span>
+            <span *ngIf="!item.value.isOpen">
+              <svg
+                class="caret-icon"
+                viewBox="0 0 12 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2 4l4 4 4-4"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  fill="none"
+                />
+              </svg>
+            </span>
           </div>
-
-          <a
-            *ngIf="!item.value.children"
-            mat-list-item
-            [routerLink]="['/' + getLangFromStorage() + item.value.url]"
-            (click)="selectMenuItem(item.key)"
-            [ngClass]="{ 'menu-selected': selectedMenuItem === item.key }"
-          >
-            <div class="d-flex justify-content-start sidebar__height-item">
-              <img
-                [src]="'assets/icons/' + item.value.icon + '.png'"
-                class="custom-mat-icon"
-                alt="{{ item.value.text | translate }}"
-              />
-              <h5 class="ms-3" *ngIf="isExpanded">
-                {{ item.value.text | translate }}
-              </h5>
-            </div>
-          </a>
-
-          <mat-nav-list
-            *ngIf="item.value.children && item.value.isOpen"
-            class="sub-menu"
+        </div>
+        <a
+          *ngIf="!item.value.children"
+          (click)="selectMenuItem(item.key)"
+          class="menu-item d-flex align-items-center"
+          [routerLink]="['/auxiliars/' + item.value.url]"
+        >
+          <img
+            [src]="assetsBaseUrl + '/icons/' + item.value.icon + '.png'"
+            alt="{{ translate(item.value.text) }}"
+          />
+          <div class="text-container ms-2 flex-fill" *ngIf="isExpanded">
+            {{ translate(item.value.text) }}
+          </div>
+        </a>
+        <ul *ngIf="item.value.children && item.value.isOpen" class="sub-menu">
+          <li
+            *ngFor="let child of item.value.children"
+            (click)="selectMenuItem(child.url)"
+            [class.menu-selected]="selectedMenuItem === child.url"
           >
             <a
-              *ngFor="let child of item.value.children"
-              mat-list-item
-              [routerLink]="['/' + getLangFromStorage() + child.url]"
-              (click)="child.url && selectMenuItem(child.url)"
-              [ngClass]="{ 'menu-selected': selectedMenuItem === child.url }"
+              [routerLink]="['/auxiliars/' + child.url]"
+              class="d-flex align-items-center"
             >
-              <div class="d-flex justify-content-start sidebar__height-item">
-                <img
-                  [src]="'assets/icons/' + child.icon + '.png'"
-                  class="custom-mat-icon"
-                  alt="{{ child.text | translate }}"
-                />
-                <h5 class="ms-3">{{ child.text | translate }}</h5>
+              <img
+                [src]="assetsBaseUrl + '/icons/' + child.icon + '.png'"
+                alt="{{ translate(child.text) }}"
+              />
+              <div class="text-container ms-2 flex-fill">
+                {{ translate(child.text) }}
               </div>
             </a>
-          </mat-nav-list>
-        </ng-container>
-      </mat-nav-list>
-    </div>
-  </mat-drawer>
-
-  <div class="layout-sidenav-content">
-    <main class="container-fluid main__height">
-      <div class="row">
-        <div class="col-12">
-          <ng-content></ng-content>
-        </div>
-      </div>
-    </main>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </div>
-</mat-drawer-container>
+  <div class="content">
+    <div class="layout-sidenav-content">
+      <main class="container-fluid main__height">
+        <div class="row">
+          <div class="col-12">
+            <ng-content></ng-content>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>

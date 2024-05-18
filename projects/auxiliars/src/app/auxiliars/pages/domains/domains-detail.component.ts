@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./domains-detail.component.scss'],
 })
 export class DomainsDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.DOMAINS_ENDPOINT}`;
   icono: string = 'domainsType';

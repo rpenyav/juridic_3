@@ -22,7 +22,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./expedient_folder_states.component.scss'],
 })
 export class ExpedientFolderStatesComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.EXPEDIENTS_FOLDER_STATES_ENDPOINT}`;
   registerTypesData: ExpFolderStates[] = [];

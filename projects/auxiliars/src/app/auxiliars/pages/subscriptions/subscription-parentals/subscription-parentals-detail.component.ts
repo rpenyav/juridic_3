@@ -21,7 +21,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./subscription-parentals.component.scss'],
 })
 export class SubscriptionParentalsDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   titol: string = '';
 

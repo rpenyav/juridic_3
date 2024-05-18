@@ -1,7 +1,6 @@
-<button (click)="switchOperator()">
-  <mat-icon
-    title="{{ operators[currentOperatorIndex].label || '' | translate }}"
-  >
-    {{ operators[currentOperatorIndex].icon || "" }}
-  </mat-icon>
+<button class="operator-button" (click)="switchOperator()">
+  <i
+    [class]="getFontAwesomeClass()"
+    [title]="translations[operators[currentOperatorIndex].label] || ''"
+  ></i>
 </button>

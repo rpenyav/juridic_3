@@ -14,7 +14,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./expedient_folder_subjects-detail.component.scss'],
 })
 export class ExpedientFolderSubjectsDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.EXPEDIENTS_FOLDER_STATES_ENDPOINT}`;
   iconoS: string = 'expedient_folder_subjects';

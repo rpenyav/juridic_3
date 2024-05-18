@@ -131,7 +131,7 @@ import { BanksDetailComponent } from './pages/banks/banks-detail.component';
 import { GroupsDetailComponent } from './pages/groups/groups-detail.component';
 import { ReturnReasonsDetailComponent } from './pages/return-reasons/return-reasons-detail.component';
 import { PostalCodesDetailComponent } from './pages/localizations/postal-codes/postal-codes-detail.component';
-import { HomeComponent } from '../home/home.component';
+
 import { LayoutComponent } from './layout/layout/layout.component';
 import { AutocompleteComponent } from './shared/autocomplete/autocomplete.component';
 import { SearchComponent } from './shared/search/search.component';
@@ -139,6 +139,7 @@ import { GeneralHeaderComponent } from './layout/header/generalheader.component'
 
 import { AuxiliarsComponent } from './auxiliars/auxiliars.component';
 import { GeneralLayoutComponent } from './layout/generallayout.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   imports: [

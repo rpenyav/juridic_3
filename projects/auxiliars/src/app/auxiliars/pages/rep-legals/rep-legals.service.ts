@@ -8,7 +8,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   providedIn: 'root',
 })
 export class RepLegalsTypeService {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.REP_LEGAL_ENDPOINT}`;
 

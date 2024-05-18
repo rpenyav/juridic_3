@@ -7,14 +7,20 @@ import { Subscription } from 'rxjs';
 
 class SearchOperators {
   static stringOperators = [
-    { value: 'contains', label: 'conté', icon: 'find_in_page' },
-    { value: 'equals', label: 'Igual a', icon: 'drag_handle' },
-    { value: 'begins', label: 'Comienza', icon: 'vertical_align_top' },
+    { value: 'contains', label: 'contains', icon: 'fa fa-search' }, // FontAwesome icon
+    { value: 'equals', label: 'equals', icon: 'fa fa-equals' }, // FontAwesome icon
+    { value: 'begins', label: 'begins', icon: 'fa fa-arrow-right' }, // FontAwesome icon
   ];
   static numberOperators = [
-    { value: 'equals', label: 'Igual a', icon: 'drag_handle' },
-    { value: 'greater', label: 'Mayor que', icon: 'keyboard_arrow_up' },
-    { value: 'lower', label: 'Menor que', icon: 'keyboard_arrow_down' },
+    { value: 'equals', label: 'equals', icon: 'fa fa-equals' }, // FontAwesome icon
+    { value: 'greater', label: 'greater', icon: 'fa fa-greater-than' }, // FontAwesome icon
+    { value: 'lower', label: 'lower', icon: 'fa fa-less-than' }, // FontAwesome icon
+  ];
+
+  operators = [
+    { value: 'drag_handle', label: 'drag_handle', icon: 'fa fa-bars' }, // FontAwesome icon
+    { value: 'zoom_in', label: 'zoom_in', icon: 'fa fa-search-plus' }, // FontAwesome icon
+    { value: 'zoom_out', label: 'zoom_out', icon: 'fa fa-search-minus' }, // FontAwesome icon
   ];
 }
 
@@ -77,20 +83,19 @@ export class SearchComponent implements OnInit {
     operators.forEach((o) => {
       switch (o.value) {
         case 'contains':
-          o.label = this.i18nService.getTranslation('TXT.contains');
+          o.label = this.i18nService.getTranslation('contains');
           break;
         case 'greater':
+          o.label = this.i18nService.getTranslation('greater');
+          break;
         case 'equals':
-          o.label = this.i18nService.getTranslation('TXT.greaterEquals');
+          o.label = this.i18nService.getTranslation('equals');
           break;
         case 'begins':
-          o.label = this.i18nService.getTranslation('TXT.begins');
-          break;
-        case 'greater':
-          o.label = this.i18nService.getTranslation('TXT.greater');
+          o.label = this.i18nService.getTranslation('begins');
           break;
         case 'lower':
-          o.label = this.i18nService.getTranslation('TXT.lowerEquals');
+          o.label = this.i18nService.getTranslation('lower');
           break;
       }
     });

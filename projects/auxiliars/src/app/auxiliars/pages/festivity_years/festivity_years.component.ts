@@ -19,7 +19,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./festivity_years.component.scss'],
 })
 export class FestivityYearsComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.FESTIVITY_YEARS_ENDPOINT}`;
   registerTypesData: FestivityYears[] = [];

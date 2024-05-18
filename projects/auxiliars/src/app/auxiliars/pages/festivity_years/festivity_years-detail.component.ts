@@ -14,7 +14,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./festivity_years-detail.component.scss'],
 })
 export class FestivityYearsDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.FESTIVITY_YEARS_ENDPOINT}`;
   iconoS: string = 'festivity_years';

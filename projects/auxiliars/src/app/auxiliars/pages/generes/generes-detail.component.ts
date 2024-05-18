@@ -13,7 +13,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./generes-detail.component.scss'],
 })
 export class GeneresDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.GENERES_ENDPOINT}`;
   iconoS: string = 'generes';

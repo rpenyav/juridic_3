@@ -19,7 +19,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./expedient_folder_subjects.component.scss'],
 })
 export class ExpedientFolderSubjectsComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.EXPEDIENTS_SUBJECTS_ENDPOINT}`;
   registerTypesData: ExpFolderSubjects[] = [];

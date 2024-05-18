@@ -23,7 +23,6 @@ export class HomeComponent {
     this.translationsSubscription = this.i18nService.translations$.subscribe(
       (translations: Record<string, any>) => {
         this.translations = translations;
-        debugger;
       },
       (error) => console.error('Error loading translations', error)
     );

@@ -23,7 +23,7 @@ import { EditInterface } from '../../../interfaces/editInterface';
   styleUrls: ['./subscription-coverages.component.scss'],
 })
 export class SubscriptionCoveragesDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   titol: string = '';
 

@@ -13,7 +13,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./comarcs-detail.component.scss'],
 })
 export class ComarcsDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.COMARCS_ENDPOINT}`;
   iconoS: string = 'localitTypes';

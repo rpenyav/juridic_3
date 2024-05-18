@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./banks-detail.component.scss'],
 })
 export class BanksDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.BANKS_ENDPOINT}`;
   icono: string = 'banksType';

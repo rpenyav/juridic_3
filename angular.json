@@ -29,6 +29,11 @@
 								"glob": "**/*",
 								"input": "projects/shared-lib/src/lib/assets/images/",
 								"output": "./assets/images/"
+							},
+							{
+								"glob": "**/*",
+								"input": "projects/shared-lib/src/lib/assets/icons/",
+								"output": "./assets/icons/"
 							}
 						],
 						"styles": [

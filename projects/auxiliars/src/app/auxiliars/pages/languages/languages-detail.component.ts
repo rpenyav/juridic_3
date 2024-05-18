@@ -6,10 +6,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { I18nService } from 'shared-lib';
-
+import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
+import { I18nService } from 'shared-lib';
 import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
+import { MENU_ITEMS } from '../../../constants/menu.constants';
 import { EditInterface } from '../../interfaces/editInterface';
 import { Languages } from '../../interfaces/languages';
 import { GeneralService } from '../../services/general.service';
@@ -25,10 +26,8 @@ export class LanguagesDetailComponent implements OnInit {
 
   id: string | null = null;
   registerDetail: Languages | null = null;
-  originalData: Languages | null = null;
   loading: boolean = true;
   isEditing: boolean = false;
-  tempChanges: { [key: string]: any } = {}; // Almacena temporalmente los cambios
 
   postLanguage: number = 1; // Idioma por defecto, por ejemplo, 1 para ES
   activeLanguage: number = 1; // Rastrea el idioma activo
@@ -40,18 +39,9 @@ export class LanguagesDetailComponent implements OnInit {
   ENDPOINT = `${this.endpoints.LANGUAGES}`;
   icono: string = 'languages';
   redirectRoute: string = 'languages'; //ruta retorn al llistat
-  titolKey = 'MENU.LANGUAGES';
 
-  /*
-  {
-    "code":6,
-    "analiticalCode":4,
-    "name":"Sofa",
-	"initials":"SOF",
-	"notifyVisitsGroup":true,
-	"fileId":4
-  }
-*/
+  translations: Record<string, any> = {};
+  private translationsSubscription: Subscription;
 
   editFields: Array<EditInterface> = [
     {
@@ -105,11 +95,8 @@ export class LanguagesDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.icono = MENU_ITEMS[this.icono].icon;
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-    setTimeout(() => {
-      this.titol = this.i18nService.getTranslation(this.titolKey);
-    });
+    this.icono = MENU_ITEMS[this.icono].icon;
 
     if (this.id === 'add') {
       this.insertMode = true;
@@ -117,6 +104,26 @@ export class LanguagesDetailComponent implements OnInit {
     } else {
       this.loadRegisterDetail();
     }
+
+    this.translationsSubscription = this.i18nService.translations$.subscribe(
+      (translations: Record<string, any>) => {
+        this.translations = translations;
+      },
+      (error) => console.error('Error loading translations', error)
+    );
+  }
+
+  translate(key: string): string {
+    let parts = key.split('.');
+    let result = this.translations;
+    for (let part of parts) {
+      if (result[part]) {
+        result = result[part];
+      } else {
+        return key; // Devuelve la clave original si cualquier parte no existe
+      }
+    }
+    return typeof result === 'string' ? result : key;
   }
 
   changePostLanguage(newLanguage: number): void {
@@ -140,23 +147,12 @@ export class LanguagesDetailComponent implements OnInit {
    */
   toggleEdit(): void {
     if (this.isEditing) {
-      this.registerDetail = JSON.parse(JSON.stringify(this.originalData));
+      //this.registerDetail = JSON.parse(JSON.stringify(this.originalData));
       localStorage.removeItem('editData');
       this.loadRegisterDetail();
     }
 
     this.isEditing = !this.isEditing;
-  }
-
-  /**
-   * obte el endpoint i canvia el idioma
-   */
-  getDynamicEndpoint(): string {
-    const endpointWithLanguage = this.ENDPOINT.replace(
-      '{lang}',
-      this.postLanguage.toString()
-    );
-    return endpointWithLanguage;
   }
 
   /**
@@ -195,11 +191,13 @@ export class LanguagesDetailComponent implements OnInit {
    */
   loadRegisterDetail(): void {
     const idNum = Number(this.id);
+
     if (!isNaN(idNum)) {
       const dynamicEndpoint = this.ENDPOINT.replace(
         /\/api\/\d+\//,
         `/api/${this.postLanguage}/`
       );
+
       this.generalService
         .getRegisterTypeById<Languages>(dynamicEndpoint, idNum)
         .subscribe({
@@ -218,14 +216,14 @@ export class LanguagesDetailComponent implements OnInit {
     }
   }
 
-  /**
-   * onsave
-   * @param fieldName
-   * @param value
-   */
-  onSave(fieldName: string, value: string | number | boolean): void {
-    this.newRecord[fieldName] = value;
-  }
+  // /**
+  //  * onsave
+  //  * @param fieldName
+  //  * @param value
+  //  */
+  // onSave(fieldName: string, value: string | number | boolean): void {
+  //   this.newRecord[fieldName] = value;
+  // }
 
   /**
    * INSERT

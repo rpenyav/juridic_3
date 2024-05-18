@@ -9,6 +9,8 @@ import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
 import { Languages, PaginatedResponse } from '../../interfaces/languages';
 
 import { GeneralService } from '../../services/general.service';
+import { MENU_ITEMS } from '../../../constants/menu.constants';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-languages',
@@ -35,12 +37,11 @@ export class LanguagesComponent implements OnInit {
   defaultLanguage: string = 'ca';
 
   detailUrl: string = 'languages';
-  sortField: string = 'id'; // Camp per defecte per la ordenacio
+  sortField: string = 'id';
   icono: string = 'languages';
   ENDPOINT = `${this.endpoints.LANGUAGES}`;
   addressTypesData: Languages[] = [];
   filteredRegistersData: Languages[] = [];
-  titolKey = 'MENU.LANGUAGES';
 
   // ---------------------------------------------------------------------------
   // TAULA
@@ -61,26 +62,26 @@ export class LanguagesComponent implements OnInit {
       label: 'ID',
       sortable: true,
       direction: 'ASC',
-      width: '10%',
+      width: '5%',
     },
     {
       key: 'code',
       label: 'code',
       sortable: true,
       direction: 'ASC',
-      width: '10%',
+      width: '5%',
     },
     {
       key: 'literalDescriptionText',
       label: 'name',
       sortable: true,
       direction: 'ASC',
-      width: '60%',
+      width: '65%',
     },
     {
       key: 'active',
       label: 'active',
-      sortable: true,
+      sortable: false,
       direction: 'ASC',
       width: '10%',
     },
@@ -111,6 +112,9 @@ export class LanguagesComponent implements OnInit {
     },
   ];
 
+  translations: Record<string, any> = {};
+  private translationsSubscription: Subscription;
+
   constructor(
     public generalService: GeneralService,
     private modalService: NgbModal,
@@ -119,15 +123,21 @@ export class LanguagesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.titol = this.i18nService.getTranslation(this.titolKey);
-    });
+    this.icono = MENU_ITEMS[this.icono].icon;
     const savedPageNumber = sessionStorage.getItem(
       this.detailUrl + '.pageNumber'
     );
     if (savedPageNumber !== null) {
       this.pageNumber = +savedPageNumber;
     }
+
+    this.translationsSubscription = this.i18nService.translations$.subscribe(
+      (translations: Record<string, any>) => {
+        this.translations = translations;
+      },
+      (error) => console.error('Error loading translations', error)
+    );
+
     this.getRegisters();
   }
 
@@ -136,7 +146,20 @@ export class LanguagesComponent implements OnInit {
    * @returns agafe el idioma de local storage
    */
   getLangFromStorage(): string {
-    return localStorage.getItem('userLang') ?? this.defaultLanguage;
+    return localStorage.getItem('appLocale') ?? this.defaultLanguage;
+  }
+
+  translate(key: string): string {
+    let parts = key.split('.');
+    let result = this.translations;
+    for (let part of parts) {
+      if (result[part]) {
+        result = result[part];
+      } else {
+        return key; // Devuelve la clave original si cualquier parte no existe
+      }
+    }
+    return typeof result === 'string' ? result : key;
   }
 
   /**
@@ -275,17 +298,13 @@ export class LanguagesComponent implements OnInit {
    * no és necessari afegir-la al routing component
    * @param addressTypesId
    */
-  viewDetails(addressTypesId: string | number) {
-    const currentLang = this.getLangFromStorage();
-    this.router.navigate([
-      '/' + currentLang + `/_/${this.detailUrl}`,
-      addressTypesId,
-    ]);
+
+  viewDetails(addressTypesId: string | number): void {
+    this.router.navigate([`/auxiliars/_/${this.detailUrl}/${addressTypesId}`]);
   }
 
   navigateToAction(action: string) {
-    const currentLang = this.getLangFromStorage();
-    const routePath = `/${currentLang}/_/${this.detailUrl}/${action}`;
+    const routePath = `/auxiliars/_/${this.detailUrl}/${action}`;
     this.router.navigate([routePath]);
   }
 

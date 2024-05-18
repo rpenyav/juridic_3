@@ -13,7 +13,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./company_relation_types-detail.component.scss'],
 })
 export class CompanyRelationTypesDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.COMP_REL_TYPES}`;
   icono: string = 'relEmpresesTypes';

@@ -14,7 +14,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./expedient_provenance-detail.component.scss'],
 })
 export class ExpedientProvenanceDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.EXPEDIENTS_PROVINANCE_ENDPOINT}`;
   iconoS: string = 'expedient_provenances';

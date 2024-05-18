@@ -18,7 +18,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./generes.component.scss'],
 })
 export class GeneresComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.GENERES_ENDPOINT}`;
   registerTypesData: Generes[] = [];

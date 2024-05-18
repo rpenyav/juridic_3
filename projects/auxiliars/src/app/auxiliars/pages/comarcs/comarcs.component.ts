@@ -17,7 +17,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./comarcs.component.scss'],
 })
 export class ComarcsComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.COMARCS_ENDPOINT}`;
   registerTypesData: Comarcs[] = [];

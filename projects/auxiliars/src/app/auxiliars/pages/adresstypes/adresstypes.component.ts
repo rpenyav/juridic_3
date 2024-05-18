@@ -18,7 +18,7 @@ import { AddressType, PaginatedResponse } from '../../interfaces/address-type';
   styleUrls: ['./adresstypes.component.scss'],
 })
 export class AdresstypesComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.ADDRESS_TYPES_ENDPOINT}`;
   addressTypesData: AddressType[] = [];
@@ -259,17 +259,12 @@ export class AdresstypesComponent implements OnInit {
    * no és necessari afegir-la al routing component
    * @param addressTypesId
    */
-  viewDetails(addressTypesId: string | number) {
-    const currentLang = this.getLangFromStorage();
-    this.router.navigate([
-      '/' + currentLang + `/_/${this.detailUrl}`,
-      addressTypesId,
-    ]);
+  viewDetails(addressTypesId: string | number): void {
+    this.router.navigate([`/auxiliars/_/${this.detailUrl}/${addressTypesId}`]);
   }
 
   navigateToAction(action: string) {
-    const currentLang = this.getLangFromStorage();
-    const routePath = `/${currentLang}/_/${this.detailUrl}/${action}`;
+    const routePath = `/auxiliars/_/${this.detailUrl}/${action}`;
     this.router.navigate([routePath]);
   }
 

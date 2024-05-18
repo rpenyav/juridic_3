@@ -13,7 +13,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./festivity_days-detail.component.scss'],
 })
 export class FestivityDaysDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.FESTIVITY_DAYS_ENDPOINT}`;
   iconoS: string = 'festivity_days';

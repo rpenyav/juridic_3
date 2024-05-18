@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { I18nService } from 'shared-lib';
 
 @Component({
@@ -6,7 +6,7 @@ import { I18nService } from 'shared-lib';
   templateUrl: './custom-table.component.html',
   styleUrls: ['./custom-table.component.scss'],
 })
-export class CustomTableComponent<T> {
+export class CustomTableComponent<T> implements OnInit {
   @Input() data: T[] = [];
   @Input() columns: {
     key: string;
@@ -25,6 +25,11 @@ export class CustomTableComponent<T> {
     direction: 'ASC' | 'DESC';
   }>();
   constructor(private i18nService: I18nService) {}
+
+  ngOnInit(): void {
+    console.log('data', this.data);
+    console.log('columns', this.columns);
+  }
 
   viewDetails(id: string | number | undefined): void {
     this.detailViewed.emit(id);

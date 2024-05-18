@@ -13,7 +13,7 @@ import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
   styleUrls: ['./visit-rooms-detail.component.scss'],
 })
 export class VisitRoomsDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.VISIT_ROOMS}`;
   icono: string = 'visit-rooms';

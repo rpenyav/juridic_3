@@ -16,7 +16,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./cnae.component.scss'],
 })
 export class CnaeComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.CNAE_ENDPOINT}`;
   addressTypesData: Cnae[] = [];

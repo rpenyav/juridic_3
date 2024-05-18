@@ -14,7 +14,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./communication-purpose-detail.component.scss'],
 })
 export class CommunicationPurposeDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.COMMUNICATIONS_MODES}`;
   iconoS: string = 'comTypes';

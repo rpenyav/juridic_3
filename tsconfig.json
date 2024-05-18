@@ -18,8 +18,13 @@
     "paths": {
       "shared-lib": [
         "projects/shared-lib/src/public-api.ts"
+      ],
+      "app/*": [
+        "projects/shell/src/app/*"
       ]
     },
     "useDefineForClassFields": false
   }
 }
+
+

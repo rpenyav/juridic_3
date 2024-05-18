@@ -19,7 +19,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./document_types.component.scss'],
 })
 export class DocumentstypesComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.DOCUMENTS_TYPES_ENDPOINT}`;
   addressTypesData: DocumentsType[] = [];
@@ -259,17 +259,12 @@ export class DocumentstypesComponent implements OnInit {
    * no és necessari afegir-la al routing component
    * @param addressTypesId
    */
-  viewDetails(addressTypesId: string | number) {
-    const currentLang = this.getLangFromStorage();
-    this.router.navigate([
-      '/' + currentLang + `/_/${this.detailUrl}`,
-      addressTypesId,
-    ]);
+  viewDetails(addressTypesId: string | number): void {
+    this.router.navigate([`/auxiliars/_/${this.detailUrl}/${addressTypesId}`]);
   }
 
   navigateToAction(action: string) {
-    const currentLang = this.getLangFromStorage();
-    const routePath = `/${currentLang}/_/${this.detailUrl}/${action}`;
+    const routePath = `/auxiliars/_/${this.detailUrl}/${action}`;
     this.router.navigate([routePath]);
   }
 

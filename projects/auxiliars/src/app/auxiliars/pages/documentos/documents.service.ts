@@ -8,7 +8,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   providedIn: 'root',
 })
 export class DocumentsTypeService {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.DOCUMENTS_ENDPOINT}`;
   constructor(private http: HttpClient) {}

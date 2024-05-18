@@ -18,7 +18,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./folders.component.scss'],
 })
 export class FoldersComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.FOLDERS_ENDPOINT}`;
   registerTypesData: Folders[] = [];

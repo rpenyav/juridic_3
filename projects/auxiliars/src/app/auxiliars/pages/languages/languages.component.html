@@ -1,23 +1,24 @@
 <app-layout>
-  <div class="container-fluid addresses">
+  <div class="container-fluid">
     <app-loader *ngIf="loading"></app-loader>
     <div *ngIf="!loading">
       <div class="row">
         <div class="col-12 mt-2 mb-2 d-flex align-items-center">
           <a class="enllac" routerLink="/" class="d-flex align-items-center">
-            <mat-icon
+            <i
+              class="fas fa-home"
               style="
                 font-size: 18px;
                 height: 18px;
                 width: 18px;
                 margin-right: 10px;
               "
-              >home</mat-icon
-            >
-            <span>{{ "TXT.HOME" | translate }}</span>
+            ></i>
+
+            <span>{{ translations["TXT"].HOME }}</span>
           </a>
           <span class="mx-2">/</span>
-          <span>{{ titol }}</span>
+          <span>{{ translations["LANGUAGES"].TITLE }}</span>
         </div>
       </div>
 
@@ -25,9 +26,9 @@
         <img
           class="iconopage"
           src="../../../assets/icons/{{ icono }}.png"
-          alt="{{ titol }}"
+          [alt]="translations['LANGUAGES'].TITLE"
         />
-        <h2 style="margin-top: 7px">{{ titol }}</h2>
+        <h2 style="margin-top: 7px">{{ translations["LANGUAGES"].TITLE }}</h2>
       </div>
 
       <div class="row ms-5 me-5">
@@ -48,7 +49,7 @@
                 class="btn btn-primary round-button ms-3"
                 (click)="navigateToAction('add')"
               >
-                <mat-icon>add</mat-icon>
+                <i class="fas fa-plus"></i>
               </button>
             </div>
           </div>
@@ -80,7 +81,7 @@
     </div>
     <div *ngIf="!loading && filteredRegistersData.length === 0">
       <p>
-        {{ "TXT.noshantrobat" | translate }}
+        {{ translations["TXT"].noshantrobat }}
         {{ titol }}.
       </p>
     </div>

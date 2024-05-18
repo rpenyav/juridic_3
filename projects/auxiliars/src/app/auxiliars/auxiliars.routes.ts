@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuxiliarsComponent } from './auxiliars/auxiliars.component';
-import { HomeComponent } from '../home/home.component';
+import { HomeComponent } from './home/home.component';
 import { AdresstypesComponent } from './pages/adresstypes/adresstypes.component';
 import { AutonomousRegionsComponent } from './pages/autonomous-regions/autonomous-regions.component';
 import { BanksComponent } from './pages/banks/banks.component';
@@ -31,16 +31,14 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { VisitRoomsComponent } from './pages/visit-rooms/visit-rooms.component';
 import { DynamicDetailComponent } from './shared/dynamic-detail/dynamic-detail.component';
 import { SubscriptionTagsComponent } from './pages/subscriptions/subscription-tags/subscription-tags.component';
+import { LanguagesComponent } from './pages/languages/languages.component';
 
 export const AUXILIAR_ROUTES: Routes = [
   { path: '', redirectTo: '/auxiliars', pathMatch: 'full' },
   { path: 'auxiliars', component: AuxiliarsComponent },
 
-  {
-    path: 'home',
-    component: HomeComponent,
-    //canActivate: [canActivate],
-  },
+  { path: 'home', component: HomeComponent },
+
   {
     path: 'addresstype',
     component: AdresstypesComponent,
@@ -192,5 +190,12 @@ export const AUXILIAR_ROUTES: Routes = [
     component: ExpedientProvenanceComponent,
     //canActivate: [canActivate],
   },
+
+  {
+    path: 'languages',
+    component: LanguagesComponent,
+    //canActivate: [canActivate],
+  },
+
   { path: '**', redirectTo: '/not-found' },
 ];

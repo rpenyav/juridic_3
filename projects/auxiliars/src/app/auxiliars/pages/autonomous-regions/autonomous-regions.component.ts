@@ -18,7 +18,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./autonomous-regions.component.scss'],
 })
 export class AutonomousRegionsComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.AUTONOMIES_ENDPOINT}`;
   registerTypesData: Autonomies[] = [];

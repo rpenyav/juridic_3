@@ -13,7 +13,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./expedient_folder_types-detail.component.scss'],
 })
 export class ExpedientFolderTypesDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.EXPEDIENTS_FOLDER_TYPES_ENDPOINT}`;
   iconoS: string = 'expedient_folder_types';

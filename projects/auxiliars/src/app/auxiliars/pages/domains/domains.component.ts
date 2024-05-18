@@ -16,7 +16,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./domains.component.scss'],
 })
 export class DomainsComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.DOMAINS_ENDPOINT}`;
   domainsTypesData: Domains[] = [];

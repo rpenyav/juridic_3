@@ -21,7 +21,7 @@ import { VatPercentages } from '../../interfaces/vat-percentages';
   styleUrls: ['./vat-percentages-detail.component.scss'],
 })
 export class VatPercentagesDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   titol: string = '';
 

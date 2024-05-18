@@ -175,6 +175,10 @@
         "TITLE": "Gèneres",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
+    "LANGUAGES": {
+        "TITLE": "Llenguatges",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
     "MENU": {
         "DOCUMENTS": "Documents",
         "DOCUMENTS-TYPE": "Tipus de Documents",
@@ -268,7 +272,16 @@
         "greater": "Major",
         "lowerEquals": "Menor",
         "seguent": "Següent",
-        "anterior": "Anterior"
+        "anterior": "Anterior",
+        "Name": "Nom",
+        "name": "Nom",
+        "code": "Codi",
+        "Codi": "Codi",
+        "Actions": "Accions",
+        "Tipo": "Tipus",
+        "Cancelar": "Cancel·lar",
+        "Editar Campos": "Editar",
+        "Guardar_finalitzar": "Guardar i tornar"
     },
     "FORM": {
         "campo_obligatorio": "Es un camp obligatori",

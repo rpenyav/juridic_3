@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { I18nService } from 'shared-lib';
 
 @Component({
   selector: 'app-operator-switch',
@@ -10,6 +12,10 @@ export class OperatorSwitchComponent {
   @Output() operatorChanged = new EventEmitter<string>();
 
   currentOperatorIndex = 0;
+  translations: Record<string, any> = {};
+  private translationsSubscription: Subscription;
+
+  constructor(private i18nService: I18nService) {}
 
   ngOnInit() {
     if (this.operators && this.operators.length > 0) {
@@ -17,6 +23,12 @@ export class OperatorSwitchComponent {
         this.operators[this.currentOperatorIndex].value
       );
     }
+
+    this.translationsSubscription = this.i18nService.translations$.subscribe(
+      (translations) => {
+        this.translations = translations;
+      }
+    );
   }
 
   switchOperator() {
@@ -26,6 +38,17 @@ export class OperatorSwitchComponent {
       this.operatorChanged.emit(
         this.operators[this.currentOperatorIndex].value
       );
+    }
+  }
+
+  getFontAwesomeClass(): string {
+    const icon = this.operators[this.currentOperatorIndex].icon || '';
+    return `${icon}`;
+  }
+
+  ngOnDestroy() {
+    if (this.translationsSubscription) {
+      this.translationsSubscription.unsubscribe();
     }
   }
 }

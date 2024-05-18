@@ -22,7 +22,7 @@ import {
   styleUrls: ['./subscription-types.component.scss'],
 })
 export class SubscriptionTypeComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   titol: string = '';
 
@@ -270,17 +270,12 @@ export class SubscriptionTypeComponent implements OnInit {
    * no és necessari afegir-la al routing component
    * @param addressTypesId
    */
-  viewDetails(addressTypesId: string | number) {
-    const currentLang = this.getLangFromStorage();
-    this.router.navigate([
-      '/' + currentLang + `/_/${this.detailUrl}`,
-      addressTypesId,
-    ]);
+  viewDetails(addressTypesId: string | number): void {
+    this.router.navigate([`/auxiliars/_/${this.detailUrl}/${addressTypesId}`]);
   }
 
   navigateToAction(action: string) {
-    const currentLang = this.getLangFromStorage();
-    const routePath = `/${currentLang}/_/${this.detailUrl}/${action}`;
+    const routePath = `/auxiliars/_/${this.detailUrl}/${action}`;
     this.router.navigate([routePath]);
   }
 

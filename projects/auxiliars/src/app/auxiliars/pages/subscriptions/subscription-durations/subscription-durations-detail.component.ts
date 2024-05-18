@@ -22,7 +22,7 @@ import { EditInterface } from '../../../interfaces/editInterface';
   styleUrls: ['./subscription-durations.component.scss'],
 })
 export class SubscriptionDurationsDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   titol: string = '';
 

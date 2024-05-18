@@ -20,7 +20,7 @@ import { EditInterface } from '../../../interfaces/editInterface';
   styleUrls: ['./subscription-types.component.scss'],
 })
 export class SubscriptionTypeDetailComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   titol: string = '';
 

@@ -4,16 +4,16 @@ import { environment } from '../../environments/environment';
 
 function mapLanguageToNumber(languageCode: string): number {
   const languageMap: { [key: string]: number } = {
-    es: 1,
+    ca: 1,
     en: 2,
-    ca: 3,
+    es: 3,
   };
 
   return languageMap[languageCode] || 1;
 }
 
 export function getApiEndpoints() {
-  const languageCode = localStorage.getItem('userLang') ?? 'es';
+  const languageCode = localStorage.getItem('appLocale') ?? 'ca';
   const language = mapLanguageToNumber(languageCode);
 
   return {

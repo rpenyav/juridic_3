@@ -16,7 +16,7 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./countries.component.scss'],
 })
 export class CountriesComponent implements OnInit {
-  assetsBaseUrl = environment.assetsBaseUrl;
+  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
   ENDPOINT = `${this.endpoints.COUNTRIES_ENDPOINT}`;
   registerTypesData: Countries[] = [];
