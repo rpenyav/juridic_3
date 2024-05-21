@@ -1,14 +1,21 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { PaginatedResponse, Cnae } from '../../interfaces/cnae';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 import { I18nService } from 'shared-lib';
 import { showCustomAlert } from 'projects/auxiliars/src/utils/showCustomAlert';
-import { Router } from '@angular/router';
-import { MENU_ITEMS } from '../../../constants/menu.constants';
-import { GeneralService } from '../../services/general.service';
 import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
-import { environment } from 'projects/auxiliars/src/environments/environment';
+import { Cnae, PaginatedResponse } from '../../interfaces/cnae';
+import { GeneralService } from '../../services/general.service';
+import { MENU_ITEMS } from '../../../constants/menu.constants';
+
+import {
+  CNAE_COLUMNS_CONFIG,
+  CNAE_SEARCH_CRITERIA,
+  CNAE_FORM_CONFIG,
+} from './cnae.config';
 
 @Component({
   selector: 'app-cnae',
@@ -16,37 +23,45 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./cnae.component.scss'],
 })
 export class CnaeComponent implements OnInit {
-  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
-  ENDPOINT = `${this.endpoints.CNAE_ENDPOINT}`;
-  addressTypesData: Cnae[] = [];
-  filteredRegistersData: Cnae[] = [];
+  titol: string = '';
   currentSearchBody!: any[];
   pageNumber: number = 0;
   pageSize: number = 10;
-  sortField: string = 'literalDescriptionText'; // Camp per defecte per la ordenacio
-  sortType: string = 'ASC'; //sentit per defecte
+  sortType: string = 'ASC'; // Sentido por defecto
   totalPages: number = 0;
   totalElements: number = 0;
   loading: boolean = true;
-  @ViewChild('modalContent') modalContent!: TemplateRef<any>;
   currentAction!: string;
   selectedRegister: any;
-  modalTitle!: string;
   formForm!: FormGroup;
-  icono: string = 'cnaeTypes';
-  @ViewChild('uploadModal')
-  uploadModal!: TemplateRef<any>;
-  defaultLanguage: string = 'ca';
+
+  @ViewChild('uploadModal') defaultLanguage: string = 'ca';
+
   detailUrl: string = 'cnae';
+  sortField: string = 'id';
+  icono: string = 'cnaeTypes';
+  ENDPOINT = `${this.endpoints.CNAE_ENDPOINT}`;
+  addressTypesData: Cnae[] = [];
+  filteredRegistersData: Cnae[] = [];
+
+  columnsConfig = CNAE_COLUMNS_CONFIG(this);
+  searchCriteria = CNAE_SEARCH_CRITERIA;
+  formConfig = CNAE_FORM_CONFIG;
+
+  translations: Record<string, any> = {};
+  private translationsSubscription: Subscription;
 
   constructor(
     public generalService: GeneralService,
     private modalService: NgbModal,
     private i18nService: I18nService,
-    private router: Router
+    public router: Router
   ) {}
 
+  /**
+   * @inheritdoc
+   */
   ngOnInit(): void {
     this.icono = MENU_ITEMS[this.icono].icon;
     const savedPageNumber = sessionStorage.getItem(
@@ -56,60 +71,45 @@ export class CnaeComponent implements OnInit {
       this.pageNumber = +savedPageNumber;
     }
 
+    this.translationsSubscription = this.i18nService.translations$.subscribe(
+      (translations: Record<string, any>) => {
+        this.translations = translations;
+      },
+      (error) => console.error('Error loading translations', error)
+    );
+
     this.getRegisters();
   }
 
   /**
-   * get language
-   * @returns agafe el idioma de local storage
+   * Obtiene el idioma desde el almacenamiento local.
+   * @returns El idioma almacenado o el idioma por defecto.
    */
   getLangFromStorage(): string {
-    return localStorage.getItem('userLang') ?? this.defaultLanguage;
+    return localStorage.getItem('appLocale') ?? this.defaultLanguage;
   }
-
-  // ---------------------------------------------------------------------------
-  // métodos de la modal
-  // ---------------------------------------------------------------------------
-
-  openModal(action: 'add', register: any = null) {
-    this.currentAction = action;
-    this.selectedRegister = register;
-    if (action === 'add') {
-      this.modalService.open(this.modalContent, {
-        backdrop: 'static',
-        keyboard: false,
-        centered: true,
-      });
-    }
-  }
-
-  // ---------------------------------------------------------------------------
-  // SEARCH
-  // ---------------------------------------------------------------------------
-
-  //IMPORTANT: colocar el primer element [0] sempre amb el camps default tipus name o similar
-  searchCriteria = [
-    {
-      field: 'literalDescriptionText',
-      operator: 'begins',
-      value: '',
-      label: 'Texto Literal',
-      minLength: 1,
-      type: 'string' as 'string',
-    },
-    {
-      field: 'code',
-      operator: 'begins',
-      value: '',
-      label: 'Codi',
-      minLength: 1,
-      type: 'string' as 'string',
-    },
-  ];
 
   /**
-   * RESULTATS DE LA CERCA
-   * @param resultados
+   * Traduce una clave de traducción.
+   * @param key La clave de traducción.
+   * @returns La traducción correspondiente o la clave original si no se encuentra.
+   */
+  translate(key: string): string {
+    let parts = key.split('.');
+    let result = this.translations;
+    for (let part of parts) {
+      if (result[part]) {
+        result = result[part];
+      } else {
+        return key; // Devuelve la clave original si cualquier parte no existe
+      }
+    }
+    return typeof result === 'string' ? result : key;
+  }
+
+  /**
+   * Procesa los resultados de la búsqueda.
+   * @param resultados Los resultados de la búsqueda.
    */
   searchResults(resultados: any[]): void {
     this.currentSearchBody = resultados;
@@ -137,11 +137,11 @@ export class CnaeComponent implements OnInit {
       });
   }
 
-  // ---------------------------------------------------------------------------
-  // ordenacio
-  // ---------------------------------------------------------------------------
-
-  onSorted(sortData: { key: string; direction: 'ASC' | 'DESC' }) {
+  /**
+   * Ordena los datos de la tabla.
+   * @param sortData Los datos de ordenación.
+   */
+  onSorted(sortData: { key: string; direction: 'ASC' | 'DESC' }): void {
     this.sortField = sortData.key;
     this.sortType = sortData.direction;
     this.generalService
@@ -158,14 +158,17 @@ export class CnaeComponent implements OnInit {
       });
   }
 
+  /**
+   * Actualiza los datos de la tabla.
+   * @param data Los datos a actualizar.
+   */
   updateTableData(data: Cnae[]): void {
     this.filteredRegistersData = data;
   }
 
-  // ---------------------------------------------------------------------------
-  // carrega de dades
-  // ---------------------------------------------------------------------------
-
+  /**
+   * Carga los registros.
+   */
   getRegisters(): void {
     this.loading = true;
     this.currentSearchBody = [];
@@ -179,6 +182,7 @@ export class CnaeComponent implements OnInit {
       )
       .subscribe({
         next: (data: PaginatedResponse) => {
+          console.log('Datos recibidos:', data);
           this.addressTypesData = data.list;
           this.filteredRegistersData = [...this.addressTypesData];
           this.totalPages = data.totalPages;
@@ -192,6 +196,10 @@ export class CnaeComponent implements OnInit {
       });
   }
 
+  /**
+   * Cambia la página actual.
+   * @param pageNumber El número de la página a cambiar.
+   */
   onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
     sessionStorage.setItem(
@@ -201,132 +209,75 @@ export class CnaeComponent implements OnInit {
     this.getRegisters();
   }
 
+  /**
+   * Obtiene los números de página.
+   * @returns Un arreglo con los números de página.
+   */
   get pageNumbers(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
-  // ---------------------------------------------------------------------------
-  // FORMULARIO
-  // estos son los campos del formulario
-  // ---------------------------------------------------------------------------
-
   /**
-   * Inicialitza els camps del formulari amb els seus respectius validators.
-   * Defineix la estructura del formulari, incloent els camps `id`, `name`, `code`, `swift`, i un grup anidat per a `country`.
+   * Crea un nuevo registro.
+   * @param addressTypesData Los datos del registro a crear.
    */
-
-  columnsConfig: {
-    key: string;
-    label: string;
-    sortable?: boolean;
-    type?: string;
-    width?: string;
-    direction: 'ASC' | 'DESC' | undefined;
-    action?: (item: any) => void;
-  }[] = [
-    {
-      key: 'id',
-      label: 'ID',
-      sortable: true,
-      direction: 'ASC',
-      width: '10%',
-    },
-    {
-      key: 'literalDescriptionText',
-      label: 'Tipo',
-      sortable: true,
-      direction: 'ASC',
-      width: '60%',
-    },
-    {
-      key: 'code',
-      label: 'Codi',
-      sortable: true,
-      direction: 'ASC',
-      width: '20%',
-    },
-    {
-      key: 'actions',
-      label: 'Actions',
-      sortable: false,
-      type: 'actions',
-      direction: 'ASC',
-      width: '10%',
-      action: (row: any) => this.viewDetails(row.id),
-    },
-  ];
-
-  formConfig = [
-    { key: 'literalDescriptionText', label: 'Tipus', validators: [] },
-
-    {
-      key: 'code',
-      label: 'Codi',
-      type: 'text',
-      validators: [Validators.maxLength(4)],
-      maxlength: 4,
-    },
-  ];
-
-  // ---------------------------------------------------------------------------
-  // métodos de CRUD
-  // ---------------------------------------------------------------------------
-
-  create(addressTypesData: Cnae) {
-    console.log('Enviando datos al servidor:', addressTypesData);
+  create(addressTypesData: Cnae): void {
     this.generalService
       .createRegisterType<Cnae>(this.ENDPOINT, addressTypesData)
       .subscribe({
         next: (response) => {
-          console.log('Respuesta del servidor:', response);
           showCustomAlert(this.i18nService, {
-            titleKey: 'FORM.create_success_title',
-            textKey: 'FORM.create_success_message',
+            titleKey: this.translate('FORM.create_success_title'),
+            textKey: this.translate('FORM.create_success_message'),
             icon: 'success',
-            confirmButtonTextKey: 'FORM.ok',
+            confirmButtonTextKey: this.translate('FORM.ok'),
+            cancelButtonTextKey: this.translate('FORM.cancel'),
           });
           this.modalService.dismissAll();
           this.getRegisters();
         },
         error: (error) => {
-          console.error('Error al crear el registro:', error);
           showCustomAlert(this.i18nService, {
-            titleKey: 'FORM.create_error_title',
-            textKey: 'FORM.create_error_message',
+            titleKey: this.translate('FORM.create_error_title'),
+            textKey: this.translate('FORM.create_error_message'),
             icon: 'error',
-            confirmButtonTextKey: 'FORM.ok',
+            confirmButtonTextKey: this.translate('FORM.ok'),
           });
         },
       });
   }
 
   /**
-   * aquí definim la ruta de la pàgina de detall
-   * per això definirem aquí la ruta i afegirem al component compartit dynamic-detail
-   * no és necessari afegir-la al routing component
-   * @param addressTypesId
+   * Navega a la página de detalles de un registro.
+   * @param addressTypesId El ID del registro.
    */
-  viewDetails(addressTypesId: string | number) {
-    const currentLang = this.getLangFromStorage();
-    this.router.navigate([
-      '/' + currentLang + `/_/${this.detailUrl}`,
-      addressTypesId,
-    ]);
+  viewDetails(addressTypesId: string | number): void {
+    this.router.navigate([`/auxiliars/_/${this.detailUrl}/${addressTypesId}`]);
   }
 
   /**
-   * esborra el registre
-   * @param addressTypes
+   * Navega a una acción específica.
+   * @param action La acción a realizar.
    */
-  delete(addressTypes: Cnae) {
-    const titleWithName = `${this.i18nService.getTranslation(
-      'FORM.desea_eliminar'
-    )} "${addressTypes.literalDescriptionText}"?`;
+  navigateToAction(action: string): void {
+    const routePath = `/auxiliars/_/${this.detailUrl}/${action}`;
+    this.router.navigate([routePath]);
+  }
+
+  /**
+   * Elimina un registro.
+   * @param addressTypes Los datos del registro a eliminar.
+   */
+  delete(addressTypes: Cnae): void {
+    const titleWithName = `${this.translate('FORM.desea_eliminar')} "${
+      addressTypes.id
+    }"?`;
 
     showCustomAlert(this.i18nService, {
-      titleKey: 'FORM.title_swa',
-      textKey: 'FORM.text_swa',
-      confirmButtonTextKey: 'FORM.yes_delete',
+      titleKey: this.translate('FORM.title_swa'),
+      textKey: this.translate('FORM.text_swa'),
+      confirmButtonTextKey: this.translate('FORM.yes_delete'),
+      cancelButtonTextKey: this.translate('FORM.cancel'),
       showCancelButton: true,
       customTitle: titleWithName,
     }).then((result) => {

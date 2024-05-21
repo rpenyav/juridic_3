@@ -309,8 +309,7 @@
         "create_success_message": "El registro se ha creado",
         "create_error_title": "Error añadiendo el registro",
         "create_error_message": "Ha habido un error creando el registro",
-        "desea_eliminar": "Se dipone a borrar ",
-        "capacity": "Capacidad"
+        "desea_eliminar": "Se dipone a borrar "
     },
     "Name": "Nombre",
     "name": "Nombre",

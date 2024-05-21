@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center" *ngIf="totalPages>1">
+<div class="d-flex justify-content-center" *ngIf="totalPages > 1">
   <nav aria-label="Page navigation">
     <ul class="pagination">
       <li
@@ -6,12 +6,14 @@
         [class.disabled]="pageNumber <= 1"
         (click)="pageNumber > 1 && onPageChange(pageNumber - 1)"
       >
-        <a class="page-link" href="javascript:void(0)">{{'TXT.anterior' | translate}}</a>
+        <a class="page-link" href="javascript:void(0)">
+          {{ translations["TXT"].anterior }}
+        </a>
       </li>
       <li
         class="page-item"
         *ngFor="let page of pageRange"
-        [class.active]="pageNumber  === page"
+        [class.active]="pageNumber === page"
         [class.disabled]="page === '...'"
       >
         <a
@@ -19,7 +21,7 @@
           href="javascript:void(0)"
           (click)="page !== '...' && onPageChange(page)"
         >
-         {{ page  }} 
+          {{ page }}
         </a>
       </li>
       <li
@@ -27,7 +29,9 @@
         [class.disabled]="pageNumber >= totalPages"
         (click)="pageNumber < totalPages && onPageChange(pageNumber + 1)"
       >
-        <a class="page-link" href="javascript:void(0)">{{'TXT.seguent' | translate}}</a>
+        <a class="page-link" href="javascript:void(0)">
+          {{ translations["TXT"].seguent }}</a
+        >
       </li>
     </ul>
   </nav>

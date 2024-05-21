@@ -12,7 +12,7 @@ export function showCustomAlert(
     confirmButtonColor = '#3085d6',
     cancelButtonColor = '#d33',
     confirmButtonTextKey = '',
-    cancelButtonTextKey = 'FORM.cancel', // Establece un valor predeterminado para el botón de cancelar
+    cancelButtonTextKey = '', // Establece un valor predeterminado para el botón de cancelar
     customTitle = '',
   }
 ) {

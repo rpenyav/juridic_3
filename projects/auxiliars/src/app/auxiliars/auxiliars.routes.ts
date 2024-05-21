@@ -12,8 +12,7 @@ import { CommunicationPurposeComponent } from './pages/communication-purpose/com
 import { CommunicationTypesComponent } from './pages/communication-types/communication-types.component';
 import { CompanyRelationTypesComponent } from './pages/company_relation_types/company_relation_types.component';
 import { CountriesComponent } from './pages/countries/countries.component';
-import { DocumentstypesComponent } from './pages/document_types/document_types.component';
-import { DocumentsComponent } from './pages/documentos/documents.component';
+
 import { DomainsComponent } from './pages/domains/domains.component';
 import { EconomicProceduretypesComponent } from './pages/economic_procedure_types/economic_procedure_types.component';
 import { ExpedientFolderStatesComponent } from './pages/expedient_folder_states/expedient_folder_states.component';
@@ -32,6 +31,8 @@ import { VisitRoomsComponent } from './pages/visit-rooms/visit-rooms.component';
 import { DynamicDetailComponent } from './shared/dynamic-detail/dynamic-detail.component';
 import { SubscriptionTagsComponent } from './pages/subscriptions/subscription-tags/subscription-tags.component';
 import { LanguagesComponent } from './pages/languages/languages.component';
+import { DocumentstypesComponent } from './pages/document_types/document_types.component';
+import { DocumentsComponent } from './pages/documentos/documents.component';
 
 export const AUXILIAR_ROUTES: Routes = [
   { path: '', redirectTo: '/auxiliars', pathMatch: 'full' },

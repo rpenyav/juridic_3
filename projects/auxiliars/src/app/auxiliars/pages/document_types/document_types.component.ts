@@ -1,17 +1,24 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
-import { I18nService } from 'shared-lib';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
+import { I18nService } from 'shared-lib';
 import { showCustomAlert } from 'projects/auxiliars/src/utils/showCustomAlert';
 import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
-import { MENU_ITEMS } from '../../../constants/menu.constants';
 import {
   DocumentsType,
   PaginatedResponse,
 } from '../../interfaces/documents-type';
 import { GeneralService } from '../../services/general.service';
-import { environment } from 'projects/auxiliars/src/environments/environment';
+import { MENU_ITEMS } from '../../../constants/menu.constants';
+
+import {
+  DOCUMENTS_TYPES_COLUMNS_CONFIG,
+  DOCUMENTS_TYPES_SEARCH_CRITERIA,
+  DOCUMENTS_TYPES_FORM_CONFIG,
+} from './document_types.config';
 
 @Component({
   selector: 'app-document-types',
@@ -19,26 +26,34 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./document_types.component.scss'],
 })
 export class DocumentstypesComponent implements OnInit {
-  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
-  ENDPOINT = `${this.endpoints.DOCUMENTS_TYPES_ENDPOINT}`;
-  addressTypesData: DocumentsType[] = [];
-  filteredRegistersData: DocumentsType[] = [];
+  titol: string = '';
   currentSearchBody!: any[];
   pageNumber: number = 0;
   pageSize: number = 10;
-  sortField: string = 'literalDescriptionText'; // Camp per defecte per la ordenacio
-  sortType: string = 'ASC'; //sentit per defecte
+  sortType: string = 'ASC'; // Sentido por defecto
   totalPages: number = 0;
   totalElements: number = 0;
   loading: boolean = true;
   currentAction!: string;
   selectedRegister: any;
   formForm!: FormGroup;
-  icono: string = 'documentsType';
-  @ViewChild('uploadModal')
-  defaultLanguage: string = 'ca';
+
+  @ViewChild('uploadModal') defaultLanguage: string = 'ca';
+
   detailUrl: string = 'documents-type';
+  sortField: string = 'id';
+  icono: string = 'documentsType';
+  ENDPOINT = `${this.endpoints.DOCUMENTS_TYPES_ENDPOINT}`;
+  addressTypesData: DocumentsType[] = [];
+  filteredRegistersData: DocumentsType[] = [];
+
+  columnsConfig = DOCUMENTS_TYPES_COLUMNS_CONFIG(this);
+  searchCriteria = DOCUMENTS_TYPES_SEARCH_CRITERIA;
+  formConfig = DOCUMENTS_TYPES_FORM_CONFIG;
+
+  translations: Record<string, any> = {};
+  private translationsSubscription: Subscription;
 
   constructor(
     public generalService: GeneralService,
@@ -47,6 +62,9 @@ export class DocumentstypesComponent implements OnInit {
     public router: Router
   ) {}
 
+  /**
+   * @inheritdoc
+   */
   ngOnInit(): void {
     this.icono = MENU_ITEMS[this.icono].icon;
     const savedPageNumber = sessionStorage.getItem(
@@ -56,36 +74,45 @@ export class DocumentstypesComponent implements OnInit {
       this.pageNumber = +savedPageNumber;
     }
 
+    this.translationsSubscription = this.i18nService.translations$.subscribe(
+      (translations: Record<string, any>) => {
+        this.translations = translations;
+      },
+      (error) => console.error('Error loading translations', error)
+    );
+
     this.getRegisters();
   }
 
   /**
-   * get language
-   * @returns agafe el idioma de local storage
+   * Obtiene el idioma desde el almacenamiento local.
+   * @returns El idioma almacenado o el idioma por defecto.
    */
   getLangFromStorage(): string {
-    return localStorage.getItem('userLang') ?? this.defaultLanguage;
+    return localStorage.getItem('appLocale') ?? this.defaultLanguage;
   }
 
-  // ---------------------------------------------------------------------------
-  // SEARCH
-  // ---------------------------------------------------------------------------
-
-  //IMPORTANT: colocar el primer element [0] sempre amb el camps default tipus name o similar
-  searchCriteria = [
-    {
-      field: 'literalDescriptionText',
-      operator: 'contains',
-      value: '',
-      label: 'Texto Literal',
-      minLength: 1,
-      type: 'string' as 'string',
-    },
-  ];
+  /**
+   * Traduce una clave de traducción.
+   * @param key La clave de traducción.
+   * @returns La traducción correspondiente o la clave original si no se encuentra.
+   */
+  translate(key: string): string {
+    let parts = key.split('.');
+    let result = this.translations;
+    for (let part of parts) {
+      if (result[part]) {
+        result = result[part];
+      } else {
+        return key; // Devuelve la clave original si cualquier parte no existe
+      }
+    }
+    return typeof result === 'string' ? result : key;
+  }
 
   /**
-   * RESULTATS DE LA CERCA
-   * @param resultados
+   * Procesa los resultados de la búsqueda.
+   * @param resultados Los resultados de la búsqueda.
    */
   searchResults(resultados: any[]): void {
     this.currentSearchBody = resultados;
@@ -113,11 +140,11 @@ export class DocumentstypesComponent implements OnInit {
       });
   }
 
-  // ---------------------------------------------------------------------------
-  // ordenacio
-  // ---------------------------------------------------------------------------
-
-  onSorted(sortData: { key: string; direction: 'ASC' | 'DESC' }) {
+  /**
+   * Ordena los datos de la tabla.
+   * @param sortData Los datos de ordenación.
+   */
+  onSorted(sortData: { key: string; direction: 'ASC' | 'DESC' }): void {
     this.sortField = sortData.key;
     this.sortType = sortData.direction;
     this.generalService
@@ -134,14 +161,17 @@ export class DocumentstypesComponent implements OnInit {
       });
   }
 
+  /**
+   * Actualiza los datos de la tabla.
+   * @param data Los datos a actualizar.
+   */
   updateTableData(data: DocumentsType[]): void {
     this.filteredRegistersData = data;
   }
 
-  // ---------------------------------------------------------------------------
-  // carrega de dades
-  // ---------------------------------------------------------------------------
-
+  /**
+   * Carga los registros.
+   */
   getRegisters(): void {
     this.loading = true;
     this.currentSearchBody = [];
@@ -155,6 +185,7 @@ export class DocumentstypesComponent implements OnInit {
       )
       .subscribe({
         next: (data: PaginatedResponse) => {
+          console.log('Datos recibidos:', data);
           this.addressTypesData = data.list;
           this.filteredRegistersData = [...this.addressTypesData];
           this.totalPages = data.totalPages;
@@ -168,6 +199,10 @@ export class DocumentstypesComponent implements OnInit {
       });
   }
 
+  /**
+   * Cambia la página actual.
+   * @param pageNumber El número de la página a cambiar.
+   */
   onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
     sessionStorage.setItem(
@@ -177,110 +212,75 @@ export class DocumentstypesComponent implements OnInit {
     this.getRegisters();
   }
 
+  /**
+   * Obtiene los números de página.
+   * @returns Un arreglo con los números de página.
+   */
   get pageNumbers(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
-  // ---------------------------------------------------------------------------
-  // TAULA
-  // columnes de la taula
-  // ---------------------------------------------------------------------------
-
-  columnsConfig: {
-    key: string;
-    label: string;
-    sortable?: boolean;
-    type?: string;
-    width?: string;
-    direction: 'ASC' | 'DESC' | undefined;
-    action?: (item: any) => void;
-  }[] = [
-    {
-      key: 'id',
-      label: 'ID',
-      sortable: true,
-      direction: 'ASC',
-      width: '10%',
-    },
-    {
-      key: 'literalDescriptionText',
-      label: 'Name',
-      sortable: true,
-      direction: 'ASC',
-      width: '60%',
-    },
-
-    {
-      key: 'actions',
-      label: 'Actions',
-      sortable: false,
-      type: 'actions',
-      direction: 'ASC',
-      width: '10%',
-      action: (row: any) => this.viewDetails(row.id),
-    },
-  ];
-
-  // ---------------------------------------------------------------------------
-  // métodos de CRUD
-  // ---------------------------------------------------------------------------
-
-  create(addressTypesData: DocumentsType) {
-    console.log('Enviando datos al servidor:', addressTypesData);
+  /**
+   * Crea un nuevo registro.
+   * @param addressTypesData Los datos del registro a crear.
+   */
+  create(addressTypesData: DocumentsType): void {
     this.generalService
       .createRegisterType<DocumentsType>(this.ENDPOINT, addressTypesData)
       .subscribe({
         next: (response) => {
-          console.log('Respuesta del servidor:', response);
           showCustomAlert(this.i18nService, {
-            titleKey: 'FORM.create_success_title',
-            textKey: 'FORM.create_success_message',
+            titleKey: this.translate('FORM.create_success_title'),
+            textKey: this.translate('FORM.create_success_message'),
             icon: 'success',
-            confirmButtonTextKey: 'FORM.ok',
+            confirmButtonTextKey: this.translate('FORM.ok'),
+            cancelButtonTextKey: this.translate('FORM.cancel'),
           });
           this.modalService.dismissAll();
           this.getRegisters();
         },
         error: (error) => {
-          console.error('Error al crear el registro:', error);
           showCustomAlert(this.i18nService, {
-            titleKey: 'FORM.create_error_title',
-            textKey: 'FORM.create_error_message',
+            titleKey: this.translate('FORM.create_error_title'),
+            textKey: this.translate('FORM.create_error_message'),
             icon: 'error',
-            confirmButtonTextKey: 'FORM.ok',
+            confirmButtonTextKey: this.translate('FORM.ok'),
           });
         },
       });
   }
 
   /**
-   * aquí definim la ruta de la pàgina de detall
-   * per això definirem aquí la ruta i afegirem al component compartit dynamic-detail
-   * no és necessari afegir-la al routing component
-   * @param addressTypesId
+   * Navega a la página de detalles de un registro.
+   * @param addressTypesId El ID del registro.
    */
   viewDetails(addressTypesId: string | number): void {
     this.router.navigate([`/auxiliars/_/${this.detailUrl}/${addressTypesId}`]);
   }
 
-  navigateToAction(action: string) {
+  /**
+   * Navega a una acción específica.
+   * @param action La acción a realizar.
+   */
+  navigateToAction(action: string): void {
     const routePath = `/auxiliars/_/${this.detailUrl}/${action}`;
     this.router.navigate([routePath]);
   }
 
   /**
-   * esborra el registre
-   * @param addressTypes
+   * Elimina un registro.
+   * @param addressTypes Los datos del registro a eliminar.
    */
-  delete(addressTypes: DocumentsType) {
-    const titleWithName = `${this.i18nService.getTranslation(
-      'FORM.desea_eliminar'
-    )} "${addressTypes.literalDescriptionText}"?`;
+  delete(addressTypes: DocumentsType): void {
+    const titleWithName = `${this.translate('FORM.desea_eliminar')} "${
+      addressTypes.id
+    }"?`;
 
     showCustomAlert(this.i18nService, {
-      titleKey: 'FORM.title_swa',
-      textKey: 'FORM.text_swa',
-      confirmButtonTextKey: 'FORM.yes_delete',
+      titleKey: this.translate('FORM.title_swa'),
+      textKey: this.translate('FORM.text_swa'),
+      confirmButtonTextKey: this.translate('FORM.yes_delete'),
+      cancelButtonTextKey: this.translate('FORM.cancel'),
       showCancelButton: true,
       customTitle: titleWithName,
     }).then((result) => {

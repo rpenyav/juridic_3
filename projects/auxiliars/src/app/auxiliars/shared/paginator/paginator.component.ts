@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { I18nService } from 'shared-lib';
 
 type PageItem = number | '...';
 
@@ -13,13 +15,23 @@ export class PaginatorComponent implements OnInit {
   @Input() pageNumber: number = 0;
 
   @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
+  translations: Record<string, any> = {};
+  private translationsSubscription: Subscription;
+
+  constructor(private i18nService: I18nService) {}
 
   ngOnInit(): void {
-   // const savedPageNumber = sessionStorage.getItem(this.detailUrl + ".pageNumber");
-   const savedPageNumber = null;
+    // const savedPageNumber = sessionStorage.getItem(this.detailUrl + ".pageNumber");
+    const savedPageNumber = null;
     if (savedPageNumber) {
       this.pageNumber = parseInt(savedPageNumber, 10);
     }
+    this.translationsSubscription = this.i18nService.translations$.subscribe(
+      (translations: Record<string, any>) => {
+        this.translations = translations;
+      },
+      (error) => console.error('Error loading translations', error)
+    );
   }
 
   get totalPages(): number {
@@ -61,7 +73,7 @@ export class PaginatorComponent implements OnInit {
   onPageChange(page: PageItem): void {
     if (page === '...') return;
     this.pageNumber = page as number;
-  //  sessionStorage.setItem(this.detailUrl + ".pageNumber", this.pageNumber.toString());
-    this.pageChange.emit(this.pageNumber );
+    //  sessionStorage.setItem(this.detailUrl + ".pageNumber", this.pageNumber.toString());
+    this.pageChange.emit(this.pageNumber);
   }
 }

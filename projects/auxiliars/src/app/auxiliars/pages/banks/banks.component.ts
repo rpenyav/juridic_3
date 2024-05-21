@@ -1,15 +1,21 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, Validators } from '@angular/forms';
-import { I18nService } from 'shared-lib';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
+import { I18nService } from 'shared-lib';
 import { showCustomAlert } from 'projects/auxiliars/src/utils/showCustomAlert';
 import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
-import { MENU_ITEMS } from '../../../constants/menu.constants';
 import { Bank, PaginatedResponse } from '../../interfaces/banks';
 import { GeneralService } from '../../services/general.service';
-import { environment } from 'projects/auxiliars/src/environments/environment';
-import { Subscription } from 'rxjs';
+import { MENU_ITEMS } from '../../../constants/menu.constants';
+
+import {
+  BANKS_COLUMNS_CONFIG,
+  BANKS_SEARCH_CRITERIA,
+  BANKS_FORM_CONFIG,
+} from './banks.config';
 
 @Component({
   selector: 'app-banks',
@@ -17,29 +23,31 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./banks.component.scss'],
 })
 export class BanksComponent implements OnInit {
-  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
-  ENDPOINT = `${this.endpoints.BANKS_ENDPOINT}`;
-  addressTypesData: Bank[] = [];
-  filteredRegistersData: Bank[] = [];
+  titol: string = '';
   currentSearchBody!: any[];
   pageNumber: number = 0;
   pageSize: number = 10;
-  sortField: string = 'name'; // Camp per defecte per la ordenacio
-  sortType: string = 'ASC'; //sentit per defecte
+  sortType: string = 'ASC'; // Sentido por defecto
   totalPages: number = 0;
   totalElements: number = 0;
   loading: boolean = true;
-  @ViewChild('modalContent') modalContent!: TemplateRef<any>;
   currentAction!: string;
   selectedRegister: any;
-  modalTitle!: string;
   formForm!: FormGroup;
-  icono: string = 'banksType';
-  @ViewChild('uploadModal')
-  uploadModal!: TemplateRef<any>;
-  defaultLanguage: string = 'ca';
+
+  @ViewChild('uploadModal') defaultLanguage: string = 'ca';
+
   detailUrl: string = 'banks';
+  sortField: string = 'id';
+  icono: string = 'banksType';
+  ENDPOINT = `${this.endpoints.BANKS_ENDPOINT}`;
+  addressTypesData: Bank[] = [];
+  filteredRegistersData: Bank[] = [];
+
+  columnsConfig = BANKS_COLUMNS_CONFIG(this);
+  searchCriteria = BANKS_SEARCH_CRITERIA;
+  formConfig = BANKS_FORM_CONFIG;
 
   translations: Record<string, any> = {};
   private translationsSubscription: Subscription;
@@ -48,9 +56,12 @@ export class BanksComponent implements OnInit {
     public generalService: GeneralService,
     private modalService: NgbModal,
     private i18nService: I18nService,
-    private router: Router
+    public router: Router
   ) {}
 
+  /**
+   * @inheritdoc
+   */
   ngOnInit(): void {
     this.icono = MENU_ITEMS[this.icono].icon;
     const savedPageNumber = sessionStorage.getItem(
@@ -60,15 +71,29 @@ export class BanksComponent implements OnInit {
       this.pageNumber = +savedPageNumber;
     }
 
-    this.getRegisters();
     this.translationsSubscription = this.i18nService.translations$.subscribe(
       (translations: Record<string, any>) => {
         this.translations = translations;
       },
       (error) => console.error('Error loading translations', error)
     );
+
+    this.getRegisters();
   }
 
+  /**
+   * Obtiene el idioma desde el almacenamiento local.
+   * @returns El idioma almacenado o el idioma por defecto.
+   */
+  getLangFromStorage(): string {
+    return localStorage.getItem('appLocale') ?? this.defaultLanguage;
+  }
+
+  /**
+   * Traduce una clave de traducción.
+   * @param key La clave de traducción.
+   * @returns La traducción correspondiente o la clave original si no se encuentra.
+   */
   translate(key: string): string {
     let parts = key.split('.');
     let result = this.translations;
@@ -82,61 +107,9 @@ export class BanksComponent implements OnInit {
     return typeof result === 'string' ? result : key;
   }
 
-  ngOnDestroy() {
-    this.translationsSubscription.unsubscribe();
-  }
   /**
-   * get language
-   * @returns agafe el idioma de local storage
-   */
-  getLangFromStorage(): string {
-    return localStorage.getItem('userLang') ?? this.defaultLanguage;
-  }
-
-  // ---------------------------------------------------------------------------
-  // métodos de la modal
-  // ---------------------------------------------------------------------------
-
-  openModal(action: 'add', register: any = null) {
-    this.currentAction = action;
-    this.selectedRegister = register;
-    if (action === 'add') {
-      this.modalService.open(this.modalContent, {
-        backdrop: 'static',
-        keyboard: false,
-        centered: true,
-      });
-    }
-  }
-
-  // ---------------------------------------------------------------------------
-  // SEARCH
-  // ---------------------------------------------------------------------------
-
-  //IMPORTANT: colocar el primer element [0] sempre amb el camps default tipus name o similar
-  searchCriteria = [
-    {
-      field: 'name',
-      operator: 'contains',
-      value: '',
-      label: 'Texto Literal',
-      minLength: 1,
-      type: 'string' as 'string',
-    },
-
-    {
-      field: 'code',
-      operator: 'greater',
-      value: '',
-      label: 'Codi',
-      minLength: 1,
-      type: 'number' as 'number',
-    },
-  ];
-
-  /**
-   * RESULTATS DE LA CERCA
-   * @param resultados
+   * Procesa los resultados de la búsqueda.
+   * @param resultados Los resultados de la búsqueda.
    */
   searchResults(resultados: any[]): void {
     this.currentSearchBody = resultados;
@@ -164,11 +137,11 @@ export class BanksComponent implements OnInit {
       });
   }
 
-  // ---------------------------------------------------------------------------
-  // ordenacio
-  // ---------------------------------------------------------------------------
-
-  onSorted(sortData: { key: string; direction: 'ASC' | 'DESC' }) {
+  /**
+   * Ordena los datos de la tabla.
+   * @param sortData Los datos de ordenación.
+   */
+  onSorted(sortData: { key: string; direction: 'ASC' | 'DESC' }): void {
     this.sortField = sortData.key;
     this.sortType = sortData.direction;
     this.generalService
@@ -185,14 +158,17 @@ export class BanksComponent implements OnInit {
       });
   }
 
+  /**
+   * Actualiza los datos de la tabla.
+   * @param data Los datos a actualizar.
+   */
   updateTableData(data: Bank[]): void {
     this.filteredRegistersData = data;
   }
 
-  // ---------------------------------------------------------------------------
-  // carrega de dades
-  // ---------------------------------------------------------------------------
-
+  /**
+   * Carga los registros.
+   */
   getRegisters(): void {
     this.loading = true;
     this.currentSearchBody = [];
@@ -206,6 +182,7 @@ export class BanksComponent implements OnInit {
       )
       .subscribe({
         next: (data: PaginatedResponse) => {
+          console.log('Datos recibidos:', data);
           this.addressTypesData = data.list;
           this.filteredRegistersData = [...this.addressTypesData];
           this.totalPages = data.totalPages;
@@ -219,6 +196,10 @@ export class BanksComponent implements OnInit {
       });
   }
 
+  /**
+   * Cambia la página actual.
+   * @param pageNumber El número de la página a cambiar.
+   */
   onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
     sessionStorage.setItem(
@@ -228,133 +209,75 @@ export class BanksComponent implements OnInit {
     this.getRegisters();
   }
 
+  /**
+   * Obtiene los números de página.
+   * @returns Un arreglo con los números de página.
+   */
   get pageNumbers(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
-  // ---------------------------------------------------------------------------
-  // FORMULARIO
-  // estos son los campos del formulario
-  // ---------------------------------------------------------------------------
-
   /**
-   * Inicialitza els camps del formulari amb els seus respectius validators.
-   * Defineix la estructura del formulari, incloent els camps `id`, `name`, `code`, `swift`, i un grup anidat per a `country`.
+   * Crea un nuevo registro.
+   * @param addressTypesData Los datos del registro a crear.
    */
-
-  columnsConfig: {
-    key: string;
-    label: string;
-    sortable?: boolean;
-    type?: string;
-    width?: string;
-    direction: 'ASC' | 'DESC' | undefined;
-    action?: (item: any) => void;
-  }[] = [
-    {
-      key: 'id',
-      label: 'ID',
-      sortable: true,
-      direction: 'ASC',
-      width: '10%',
-    },
-    {
-      key: 'name',
-      label: 'Name',
-      sortable: true,
-      direction: 'ASC',
-      width: '60%',
-    },
-    {
-      key: 'code',
-      label: 'Codi',
-      sortable: true,
-      direction: 'ASC',
-      width: '20%',
-    },
-    {
-      key: 'actions',
-      label: 'Actions',
-      sortable: false,
-      type: 'actions',
-      direction: 'ASC',
-      width: '10%',
-      action: (row: any) => this.viewDetails(row.id),
-    },
-  ];
-
-  formConfig = [
-    { key: 'name', label: 'Name', validators: [] },
-
-    {
-      key: 'code',
-      label: 'Codi',
-      type: 'text',
-      validators: [Validators.maxLength(4)],
-      maxlength: 4,
-    },
-  ];
-
-  // ---------------------------------------------------------------------------
-  // métodos de CRUD
-  // ---------------------------------------------------------------------------
-
-  create(addressTypesData: Bank) {
-    console.log('Enviando datos al servidor:', addressTypesData);
+  create(addressTypesData: Bank): void {
     this.generalService
       .createRegisterType<Bank>(this.ENDPOINT, addressTypesData)
       .subscribe({
         next: (response) => {
-          console.log('Respuesta del servidor:', response);
           showCustomAlert(this.i18nService, {
-            titleKey: 'FORM.create_success_title',
-            textKey: 'FORM.create_success_message',
+            titleKey: this.translate('FORM.create_success_title'),
+            textKey: this.translate('FORM.create_success_message'),
             icon: 'success',
-            confirmButtonTextKey: 'FORM.ok',
+            confirmButtonTextKey: this.translate('FORM.ok'),
+            cancelButtonTextKey: this.translate('FORM.cancel'),
           });
           this.modalService.dismissAll();
           this.getRegisters();
         },
         error: (error) => {
-          console.error('Error al crear el registro:', error);
           showCustomAlert(this.i18nService, {
-            titleKey: 'FORM.create_error_title',
-            textKey: 'FORM.create_error_message',
+            titleKey: this.translate('FORM.create_error_title'),
+            textKey: this.translate('FORM.create_error_message'),
             icon: 'error',
-            confirmButtonTextKey: 'FORM.ok',
+            confirmButtonTextKey: this.translate('FORM.ok'),
           });
         },
       });
   }
 
   /**
-   * aquí definim la ruta de la pàgina de detall
-   * per això definirem aquí la ruta i afegirem al component compartit dynamic-detail
-   * no és necessari afegir-la al routing component
-   * @param addressTypesId
+   * Navega a la página de detalles de un registro.
+   * @param addressTypesId El ID del registro.
    */
   viewDetails(addressTypesId: string | number): void {
     this.router.navigate([`/auxiliars/_/${this.detailUrl}/${addressTypesId}`]);
   }
 
-  navigateToAction(action: string) {
+  /**
+   * Navega a una acción específica.
+   * @param action La acción a realizar.
+   */
+  navigateToAction(action: string): void {
     const routePath = `/auxiliars/_/${this.detailUrl}/${action}`;
     this.router.navigate([routePath]);
   }
 
   /**
-   * esborra el registre
-   * @param addressTypes
+   * Elimina un registro.
+   * @param addressTypes Los datos del registro a eliminar.
    */
-  delete(addressTypes: Bank) {
-    const titleWithName = `${this.i18nService.getTranslation(
-      'FORM.desea_eliminar'
-    )} "${addressTypes.name}"?`;
+  delete(addressTypes: Bank): void {
+    const titleWithName = `${this.translate('FORM.desea_eliminar')} "${
+      addressTypes.id
+    }"?`;
 
     showCustomAlert(this.i18nService, {
-      titleKey: 'FORM.title_swa',
-      textKey: 'FORM.text_swa',
-      confirmButtonTextKey: 'FORM.yes_delete',
+      titleKey: this.translate('FORM.title_swa'),
+      textKey: this.translate('FORM.text_swa'),
+      confirmButtonTextKey: this.translate('FORM.yes_delete'),
+      cancelButtonTextKey: this.translate('FORM.cancel'),
       showCancelButton: true,
       customTitle: titleWithName,
     }).then((result) => {

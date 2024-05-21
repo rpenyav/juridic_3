@@ -31,7 +31,7 @@ export class GeneralService {
     sortType: string = 'ASC' // Asume 'ASC' como valor por defecto
   ): Observable<T> {
     console.log(page);
-    let paginatedEndpoint = `${endpoint}/search?page=0&pagesize=${pagesize}`;
+    let paginatedEndpoint = `${endpoint}/search?pageNumber=0&pageSize=${pagesize}`;
     if (sortField) {
       paginatedEndpoint += `&sortField=${sortField}&sortType=${sortType}`;
     }
@@ -73,8 +73,8 @@ export class GeneralService {
   ): Observable<T> {
     pageNumber = Math.max(pageNumber - 1, 0);
     let params = new HttpParams()
-      .set('page', pageNumber.toString())
-      .set('pagesize', pageSize.toString());
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
 
     if (sortField) {
       params = params.set('sortField', sortField).set('sortType', sortType);

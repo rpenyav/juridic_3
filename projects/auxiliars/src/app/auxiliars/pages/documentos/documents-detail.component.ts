@@ -12,20 +12,20 @@ import { I18nService } from 'shared-lib';
 import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
 import { MENU_ITEMS } from '../../../constants/menu.constants';
 import { EditInterface } from '../../interfaces/editInterface';
-import { Cnae } from '../../interfaces/cnae';
+import { Bank } from '../../interfaces/banks';
 import { GeneralService } from '../../services/general.service';
 
 @Component({
-  selector: 'app-cnae-detail',
-  templateUrl: './cnae-detail.component.html',
-  styleUrls: ['./cnae-detail.component.scss'],
+  selector: 'app-documents-detail',
+  templateUrl: './documents-detail.component.html',
+  styleUrls: ['./documents-detail.component.scss'],
 })
-export class CnaeDetailComponent implements OnInit {
+export class BanksDetailComponent implements OnInit {
   endpoints = getApiEndpoints();
   titol: string = '';
 
   id: string | null = null;
-  registerDetail: Cnae | null = null;
+  registerDetail: Bank | null = null;
   loading: boolean = true;
   isEditing: boolean = false;
 
@@ -36,9 +36,9 @@ export class CnaeDetailComponent implements OnInit {
   private _differ: any;
 
   showLangEdit: boolean = true; // el modulo es editable por idiomas?
-  ENDPOINT = `${this.endpoints.CNAE_ENDPOINT}`;
-  icono: string = 'cnaeTypes';
-  redirectRoute: string = 'cnae'; //ruta retorn al llistat
+  ENDPOINT = `${this.endpoints.BANKS_ENDPOINT}`;
+  icono: string = 'banksType';
+  redirectRoute: string = 'banks'; //ruta retorn al llistat
 
   translations: Record<string, any> = {};
   private translationsSubscription: Subscription;
@@ -50,9 +50,9 @@ export class CnaeDetailComponent implements OnInit {
       captionKey: 'code',
     },
     {
-      field: 'literalDescriptionText',
+      field: 'name',
       type: 'string',
-      captionKey: 'literalDescriptionText',
+      captionKey: 'name',
     },
     {
       field: 'active',
@@ -161,7 +161,7 @@ export class CnaeDetailComponent implements OnInit {
   toggleSave(): void {
     const updatedDataString = localStorage.getItem('editData');
     if (updatedDataString) {
-      const updatedData: Cnae = JSON.parse(updatedDataString);
+      const updatedData: Bank = JSON.parse(updatedDataString);
 
       Object.getOwnPropertyNames(this.registerDetail).forEach((k) => {
         if (!updatedData.hasOwnProperty(k) && this.registerDetail) {
@@ -182,7 +182,7 @@ export class CnaeDetailComponent implements OnInit {
   toggleInsert(): void {
     const insertDataString = localStorage.getItem('insertData');
     if (insertDataString) {
-      const insertData: Cnae = JSON.parse(insertDataString);
+      const insertData: Bank = JSON.parse(insertDataString);
       this.submitNewRecord(insertData, this.postLanguage);
     }
   }
@@ -199,9 +199,9 @@ export class CnaeDetailComponent implements OnInit {
       );
 
       this.generalService
-        .getRegisterTypeById<Cnae>(dynamicEndpoint, idNum)
+        .getRegisterTypeById<Bank>(dynamicEndpoint, idNum)
         .subscribe({
-          next: (register: Cnae | null) => {
+          next: (register: Bank | null) => {
             this.registerDetail = register;
             this.loading = false;
           },
@@ -255,7 +255,7 @@ export class CnaeDetailComponent implements OnInit {
     );
 
     this.generalService
-      .createRegisterType<Cnae>(customEndpoint, dataToSend as Cnae)
+      .createRegisterType<Bank>(customEndpoint, dataToSend as Bank)
       .subscribe({
         next: () => {
           Swal.fire({
@@ -285,7 +285,7 @@ export class CnaeDetailComponent implements OnInit {
    * guarda els canvis de la edicio
    * @param updatedData
    */
-  saveChanges(updatedData: Cnae): void {
+  saveChanges(updatedData: Bank): void {
     if (this.registerDetail && this.id) {
       const customEndpoint = this.ENDPOINT.replace(
         /\/api\/\d+\//,
@@ -293,7 +293,7 @@ export class CnaeDetailComponent implements OnInit {
       );
 
       this.generalService
-        .updateRegisterType<Cnae>(customEndpoint, Number(this.id), updatedData)
+        .updateRegisterType<Bank>(customEndpoint, Number(this.id), updatedData)
         .subscribe({
           next: () => {
             Swal.fire({

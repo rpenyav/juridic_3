@@ -1,11 +1,19 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  KeyValueChangeRecord,
+  KeyValueDiffers,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
+import { I18nService } from 'shared-lib';
 import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
 import { MENU_ITEMS } from '../../../constants/menu.constants';
+import { EditInterface } from '../../interfaces/editInterface';
 import { DocumentsType } from '../../interfaces/documents-type';
 import { GeneralService } from '../../services/general.service';
-import { environment } from 'projects/auxiliars/src/environments/environment';
 
 @Component({
   selector: 'app-document-types-detail',
@@ -13,28 +21,65 @@ import { environment } from 'projects/auxiliars/src/environments/environment';
   styleUrls: ['./document_types-detail.component.scss'],
 })
 export class DocumentstypesDetailComponent implements OnInit {
-  assetsBaseUrl = '/assets/';
   endpoints = getApiEndpoints();
-  ENDPOINT = `${this.endpoints.DOCUMENTS_TYPES_ENDPOINT}`;
-  icono: string = 'documentsType';
-  redirectRoute: string = 'documents-type'; //ruta retorn al llistat
+  titol: string = '';
+
   id: string | null = null;
   registerDetail: DocumentsType | null = null;
-  originalData: DocumentsType | null = null;
   loading: boolean = true;
   isEditing: boolean = false;
-  tempChanges: { [key: string]: any } = {}; // Almacena temporalmente los cambios
-  showLangEdit: boolean = true; // el modulo es editable por idiomas?
+
   postLanguage: number = 1; // Idioma por defecto, por ejemplo, 1 para ES
   activeLanguage: number = 1; // Rastrea el idioma activo
   insertMode: boolean = false;
   newRecord: any = {};
+  private _differ: any;
+
+  showLangEdit: boolean = true; // el modulo es editable por idiomas?
+  ENDPOINT = `${this.endpoints.DOCUMENTS_TYPES_ENDPOINT}`;
+  icono: string = 'documentsType';
+  redirectRoute: string = 'documents-type'; //ruta retorn al llistat
+
+  translations: Record<string, any> = {};
+  private translationsSubscription: Subscription;
+
+  editFields: Array<EditInterface> = [
+    {
+      field: 'literalDescriptionText',
+      type: 'string',
+      captionKey: 'name',
+    },
+    {
+      field: 'active',
+      type: 'boolean',
+      captionKey: 'active',
+    },
+  ];
 
   constructor(
     private activatedRoute: ActivatedRoute,
     public generalService: GeneralService,
-    public router: Router
-  ) {}
+    private i18nService: I18nService,
+    public router: Router,
+    private _differs: KeyValueDiffers
+  ) {
+    this._differ = this._differs.find({}).create();
+  }
+
+  ngDoCheck() {
+    const change = this._differ.diff(this.registerDetail);
+    if (change) {
+      let postStorage: any = {};
+      change.forEachAddedItem((record: KeyValueChangeRecord<any, any>) => {
+        this.editFields.forEach((f) => {
+          if (f.field == record.key) {
+            f.value = record.currentValue;
+            postStorage[record.key] = record.currentValue;
+          }
+        });
+      });
+    }
+  }
 
   @HostListener('window:beforeunload', ['$event'])
   limpiarLocalStorage(): void {
@@ -45,8 +90,8 @@ export class DocumentstypesDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.icono = MENU_ITEMS[this.icono].icon;
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.icono = MENU_ITEMS[this.icono].icon;
 
     if (this.id === 'add') {
       this.insertMode = true;
@@ -54,6 +99,26 @@ export class DocumentstypesDetailComponent implements OnInit {
     } else {
       this.loadRegisterDetail();
     }
+
+    this.translationsSubscription = this.i18nService.translations$.subscribe(
+      (translations: Record<string, any>) => {
+        this.translations = translations;
+      },
+      (error) => console.error('Error loading translations', error)
+    );
+  }
+
+  translate(key: string): string {
+    let parts = key.split('.');
+    let result = this.translations;
+    for (let part of parts) {
+      if (result[part]) {
+        result = result[part];
+      } else {
+        return key; // Devuelve la clave original si cualquier parte no existe
+      }
+    }
+    return typeof result === 'string' ? result : key;
   }
 
   changePostLanguage(newLanguage: number): void {
@@ -77,23 +142,12 @@ export class DocumentstypesDetailComponent implements OnInit {
    */
   toggleEdit(): void {
     if (this.isEditing) {
-      this.registerDetail = JSON.parse(JSON.stringify(this.originalData));
+      //this.registerDetail = JSON.parse(JSON.stringify(this.originalData));
       localStorage.removeItem('editData');
       this.loadRegisterDetail();
     }
 
     this.isEditing = !this.isEditing;
-  }
-
-  /**
-   * obte el endpoint i canvia el idioma
-   */
-  getDynamicEndpoint(): string {
-    const endpointWithLanguage = this.ENDPOINT.replace(
-      '{lang}',
-      this.postLanguage.toString()
-    );
-    return endpointWithLanguage;
   }
 
   /**
@@ -103,6 +157,13 @@ export class DocumentstypesDetailComponent implements OnInit {
     const updatedDataString = localStorage.getItem('editData');
     if (updatedDataString) {
       const updatedData: DocumentsType = JSON.parse(updatedDataString);
+
+      Object.getOwnPropertyNames(this.registerDetail).forEach((k) => {
+        if (!updatedData.hasOwnProperty(k) && this.registerDetail) {
+          updatedData[k] = this.registerDetail[k];
+        }
+      });
+
       this.saveChanges(updatedData);
       localStorage.removeItem('editData');
       this.isEditing = !this.isEditing;
@@ -117,20 +178,21 @@ export class DocumentstypesDetailComponent implements OnInit {
     const insertDataString = localStorage.getItem('insertData');
     if (insertDataString) {
       const insertData: DocumentsType = JSON.parse(insertDataString);
-      this.submitNewRecord(insertData);
+      this.submitNewRecord(insertData, this.postLanguage);
     }
   }
-
   /**
    *  CARREGA EL FORMULARI AMB DADES
    */
   loadRegisterDetail(): void {
     const idNum = Number(this.id);
+
     if (!isNaN(idNum)) {
       const dynamicEndpoint = this.ENDPOINT.replace(
         /\/api\/\d+\//,
         `/api/${this.postLanguage}/`
       );
+
       this.generalService
         .getRegisterTypeById<DocumentsType>(dynamicEndpoint, idNum)
         .subscribe({
@@ -149,27 +211,49 @@ export class DocumentstypesDetailComponent implements OnInit {
     }
   }
 
-  /**
-   * onsave
-   * @param fieldName
-   * @param value
-   */
-  onSave(fieldName: string, value: string | number | boolean): void {
-    this.newRecord[fieldName] = value;
-  }
+  // /**
+  //  * onsave
+  //  * @param fieldName
+  //  * @param value
+  //  */
+  // onSave(fieldName: string, value: string | number | boolean): void {
+  //   this.newRecord[fieldName] = value;
+  // }
 
   /**
    * INSERT
    * @param insertData
    */
-  submitNewRecord(insertData: DocumentsType): void {
+  submitNewRecord(insertData: any, language: number): void {
+    const dataToSend: any = {};
+
+    Object.keys(insertData).forEach((field) => {
+      const fieldData = insertData[field];
+      let convertedValue;
+      switch (fieldData.type) {
+        case 'number':
+          convertedValue = Number(fieldData.value);
+          break;
+        case 'boolean':
+          convertedValue =
+            fieldData.value === 'true' || fieldData.value === true;
+          break;
+        default:
+          convertedValue = fieldData.value;
+      }
+      dataToSend[field] = convertedValue;
+    });
+
     const customEndpoint = this.ENDPOINT.replace(
       /\/api\/\d+\//,
-      `/api/${this.postLanguage}/`
+      `/api/${language}/`
     );
 
     this.generalService
-      .createRegisterType<DocumentsType>(customEndpoint, insertData)
+      .createRegisterType<DocumentsType>(
+        customEndpoint,
+        dataToSend as DocumentsType
+      )
       .subscribe({
         next: () => {
           Swal.fire({
@@ -189,7 +273,7 @@ export class DocumentstypesDetailComponent implements OnInit {
           Swal.fire({
             icon: 'error',
             title: 'Error al crear',
-            text: `No se pudo crear el registro debido a: ${error}. Por favor, inténtelo de nuevo más tarde.`,
+            text: `No se pudo crear el registro debido a: ${error.message}. Por favor, inténtelo de nuevo más tarde.`,
           });
         },
       });

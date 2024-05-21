@@ -14,7 +14,6 @@ import { MatListModule } from '@angular/material/list';
 
 import { BanksComponent } from './pages/banks/banks.component';
 import { CarpetasComponent } from './pages/carpetas/carpetas.component';
-import { DocumentsComponent } from './pages/documentos/documents.component';
 import { ParametersComponent } from './pages/parameters/parameters.component';
 import { ProEcoComponent } from './pages/pro-eco/pro-eco.component';
 import { RelEmpresasComponent } from './pages/rel-empresas/rel-empresas.component';
@@ -140,6 +139,7 @@ import { GeneralHeaderComponent } from './layout/header/generalheader.component'
 import { AuxiliarsComponent } from './auxiliars/auxiliars.component';
 import { GeneralLayoutComponent } from './layout/generallayout.component';
 import { HomeComponent } from './home/home.component';
+import { DocumentsComponent } from './pages/documentos/documents.component';
 
 @NgModule({
   imports: [

@@ -1,16 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
-import { I18nService } from 'shared-lib';
-
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
+import { I18nService } from 'shared-lib';
 import { showCustomAlert } from 'projects/auxiliars/src/utils/showCustomAlert';
 import { getApiEndpoints } from '../../../constants/api-endpoints.constants';
 import { Languages, PaginatedResponse } from '../../interfaces/languages';
-
 import { GeneralService } from '../../services/general.service';
 import { MENU_ITEMS } from '../../../constants/menu.constants';
-import { Subscription } from 'rxjs';
+
+import {
+  LANGUAGES_COLUMNS_CONFIG,
+  LANGUAGES_SEARCH_CRITERIA,
+} from './languages.config';
 
 @Component({
   selector: 'app-languages',
@@ -20,11 +24,9 @@ import { Subscription } from 'rxjs';
 export class LanguagesComponent implements OnInit {
   endpoints = getApiEndpoints();
   titol: string = '';
-
   currentSearchBody!: any[];
   pageNumber: number = 0;
   pageSize: number = 10;
-
   sortType: string = 'ASC'; //sentit per defecte
   totalPages: number = 0;
   totalElements: number = 0;
@@ -43,74 +45,8 @@ export class LanguagesComponent implements OnInit {
   addressTypesData: Languages[] = [];
   filteredRegistersData: Languages[] = [];
 
-  // ---------------------------------------------------------------------------
-  // TAULA
-  // columnes de la taula
-  // ---------------------------------------------------------------------------
-
-  columnsConfig: {
-    key: string;
-    label: string;
-    sortable?: boolean;
-    type?: string;
-    width?: string;
-    direction: 'ASC' | 'DESC' | undefined;
-    action?: (item: any) => void;
-  }[] = [
-    {
-      key: 'id',
-      label: 'ID',
-      sortable: true,
-      direction: 'ASC',
-      width: '5%',
-    },
-    {
-      key: 'code',
-      label: 'code',
-      sortable: true,
-      direction: 'ASC',
-      width: '5%',
-    },
-    {
-      key: 'literalDescriptionText',
-      label: 'name',
-      sortable: true,
-      direction: 'ASC',
-      width: '65%',
-    },
-    {
-      key: 'active',
-      label: 'active',
-      sortable: false,
-      direction: 'ASC',
-      width: '10%',
-    },
-    {
-      key: 'actions',
-      label: 'Actions',
-      sortable: false,
-      type: 'actions',
-      direction: 'ASC',
-      width: '10%',
-      action: (row: any) => this.viewDetails(row.id),
-    },
-  ];
-
-  // ---------------------------------------------------------------------------
-  // SEARCH
-  // ---------------------------------------------------------------------------
-
-  //IMPORTANT: colocar el primer element [0] sempre amb el camps default tipus name o similar
-  searchCriteria = [
-    {
-      field: 'literalDescriptionText',
-      operator: 'contains',
-      value: '',
-      label: 'Texto Literal',
-      minLength: 1,
-      type: 'string' as 'string',
-    },
-  ];
+  columnsConfig = LANGUAGES_COLUMNS_CONFIG;
+  searchCriteria = LANGUAGES_SEARCH_CRITERIA;
 
   translations: Record<string, any> = {};
   private translationsSubscription: Subscription;
@@ -122,6 +58,9 @@ export class LanguagesComponent implements OnInit {
     public router: Router
   ) {}
 
+  /**
+   * @inheritdoc
+   */
   ngOnInit(): void {
     this.icono = MENU_ITEMS[this.icono].icon;
     const savedPageNumber = sessionStorage.getItem(
@@ -142,13 +81,18 @@ export class LanguagesComponent implements OnInit {
   }
 
   /**
-   * get language
-   * @returns agafe el idioma de local storage
+   * Obtiene el idioma desde el almacenamiento local.
+   * @returns El idioma almacenado o el idioma por defecto.
    */
   getLangFromStorage(): string {
     return localStorage.getItem('appLocale') ?? this.defaultLanguage;
   }
 
+  /**
+   * Traduce una clave de traducción.
+   * @param key La clave de traducción.
+   * @returns La traducción correspondiente o la clave original si no se encuentra.
+   */
   translate(key: string): string {
     let parts = key.split('.');
     let result = this.translations;
@@ -163,8 +107,8 @@ export class LanguagesComponent implements OnInit {
   }
 
   /**
-   * RESULTATS DE LA CERCA
-   * @param resultados
+   * Procesa los resultados de la búsqueda.
+   * @param resultados Los resultados de la búsqueda.
    */
   searchResults(resultados: any[]): void {
     this.currentSearchBody = resultados;
@@ -192,10 +136,10 @@ export class LanguagesComponent implements OnInit {
       });
   }
 
-  // ---------------------------------------------------------------------------
-  // ordenacio
-  // ---------------------------------------------------------------------------
-
+  /**
+   * Ordena los datos de la tabla.
+   * @param sortData Los datos de ordenación.
+   */
   onSorted(sortData: { key: string; direction: 'ASC' | 'DESC' }) {
     this.sortField = sortData.key;
     this.sortType = sortData.direction;
@@ -213,14 +157,17 @@ export class LanguagesComponent implements OnInit {
       });
   }
 
+  /**
+   * Actualiza los datos de la tabla.
+   * @param data Los datos a actualizar.
+   */
   updateTableData(data: Languages[]): void {
     this.filteredRegistersData = data;
   }
 
-  // ---------------------------------------------------------------------------
-  // carrega de dades
-  // ---------------------------------------------------------------------------
-
+  /**
+   * Carga los registros.
+   */
   getRegisters(): void {
     this.loading = true;
     this.currentSearchBody = [];
@@ -247,6 +194,10 @@ export class LanguagesComponent implements OnInit {
       });
   }
 
+  /**
+   * Cambia la página actual.
+   * @param pageNumber El número de la página a cambiar.
+   */
   onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
     sessionStorage.setItem(
@@ -256,71 +207,75 @@ export class LanguagesComponent implements OnInit {
     this.getRegisters();
   }
 
+  /**
+   * Obtiene los números de página.
+   * @returns Un arreglo con los números de página.
+   */
   get pageNumbers(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
-  // ---------------------------------------------------------------------------
-  // métodos de CRUD
-  // ---------------------------------------------------------------------------
-
+  /**
+   * Crea un nuevo registro.
+   * @param addressTypesData Los datos del registro a crear.
+   */
   create(addressTypesData: Languages) {
-    console.log('Enviando datos al servidor:', addressTypesData);
     this.generalService
       .createRegisterType<Languages>(this.ENDPOINT, addressTypesData)
       .subscribe({
         next: (response) => {
-          console.log('Respuesta del servidor:', response);
           showCustomAlert(this.i18nService, {
-            titleKey: 'FORM.create_success_title',
-            textKey: 'FORM.create_success_message',
+            titleKey: `${this.translate('FORM.create_success_title')}`,
+            textKey: `${this.translate('FORM.create_success_message')}`,
             icon: 'success',
-            confirmButtonTextKey: 'FORM.ok',
+            confirmButtonTextKey: `${this.translate('FORM.ok')}`,
+            cancelButtonTextKey: `${this.translate('FORM.cancel')}`,
           });
           this.modalService.dismissAll();
           this.getRegisters();
         },
         error: (error) => {
-          console.error('Error al crear el registro:', error);
           showCustomAlert(this.i18nService, {
-            titleKey: 'FORM.create_error_title',
-            textKey: 'FORM.create_error_message',
+            titleKey: `${this.translate('FORM.create_error_title')}`,
+            textKey: `${this.translate('FORM.create_error_message')}`,
             icon: 'error',
-            confirmButtonTextKey: 'FORM.ok',
+            confirmButtonTextKey: `${this.translate('FORM.ok')}`,
           });
         },
       });
   }
 
   /**
-   * aquí definim la ruta de la pàgina de detall
-   * per això definirem aquí la ruta i afegirem al component compartit dynamic-detail
-   * no és necessari afegir-la al routing component
-   * @param addressTypesId
+   * Navega a la página de detalles.
+   * @param addressTypesId El ID del registro.
    */
-
   viewDetails(addressTypesId: string | number): void {
     this.router.navigate([`/auxiliars/_/${this.detailUrl}/${addressTypesId}`]);
   }
 
+  /**
+   * Navega a la ruta de acción especificada.
+   * @param action La acción a realizar.
+   */
   navigateToAction(action: string) {
     const routePath = `/auxiliars/_/${this.detailUrl}/${action}`;
     this.router.navigate([routePath]);
   }
 
   /**
-   * esborra el registre
-   * @param addressTypes
+   * Elimina un registro.
+   * @param addressTypes Los datos del registro a eliminar.
    */
   delete(addressTypes: Languages) {
-    const titleWithName = `${this.i18nService.getTranslation(
-      'FORM.desea_eliminar'
-    )} "${addressTypes.id}"?`;
+    const titleWithName = `${this.translate('FORM.desea_eliminar')} "${
+      addressTypes.id
+    }"?`;
 
     showCustomAlert(this.i18nService, {
-      titleKey: 'FORM.title_swa',
-      textKey: 'FORM.text_swa',
-      confirmButtonTextKey: 'FORM.yes_delete',
+      titleKey: `${this.translate('FORM.title_swa')}`,
+      textKey: `${this.translate('FORM.text_swa')}`,
+      confirmButtonTextKey: `${this.translate('FORM.yes_delete')}`,
+      cancelButtonTextKey: `${this.translate('FORM.cancel')}`,
       showCancelButton: true,
       customTitle: titleWithName,
     }).then((result) => {

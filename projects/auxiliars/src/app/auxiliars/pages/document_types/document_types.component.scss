@@ -1,0 +1,9 @@
+.round-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; /* Puedes ajustar el tamaño según sea necesario */
+  height: 30px; /* Puedes ajustar el tamaño según sea necesario */
+  border-radius: 50%; /* Esto hace que el botón sea circular */
+  padding: 0;
+}
